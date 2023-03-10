@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="filters-2.0.235">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/filters-2.0.235.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/itextpdf-5.5.13.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/poi-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/poi-ooxml-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/postgresql-42.5.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/swing-worker-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/swingx-1.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

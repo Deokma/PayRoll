@@ -1,52 +1,37 @@
-//package by.popolamov.cursework.calculate;
-//
-///**
-// * @author Denis Popolamov
-// */
-//import org.jdesktop.swingx.JXDatePicker;
-//
-//import java.time.LocalDate;
-//import java.time.YearMonth;
-//import java.time.format.DateTimeFormatter;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class DateUtils {
-//
-//    /**
-//     * Метод для получения списка последних 6 месяцев относительно даты, выбранной в JXDatePicker.
-//     *
-//     * @param datePicker дата, выбранная в JXDatePicker.
-//     * @return список последних 6 месяцев относительно выбранной даты.
-//     */
-//    public static List<String> getPastMonths(JXDatePicker datePicker) {
-//        LocalDate selectedDate = datePicker.getDate().toInstant().atZone(datePicker.ZoneId()).toLocalDate();
-//        List<String> pastMonths = new ArrayList<>();
-//
-//        for (int i = 5; i >= 0; i--) {
-//            YearMonth yearMonth = YearMonth.from(selectedDate.minusMonths(i));
-//            String monthYearString = yearMonth.format(DateTimeFormatter.ofPattern("LLLL yyyy"));
-//            pastMonths.add(monthYearString);
-//        }
-//
-//        return pastMonths;
-//    }
-//
-//    /**
-//     * Метод для получения количества дней в каждом месяце из списка месяцев.
-//     *
-//     * @param months список месяцев, для которых нужно получить количество дней.
-//     * @return список количества дней в каждом месяце.
-//     */
-//    public static List<Integer> getDaysInMonths(List<String> months) {
-//        List<Integer> daysInMonths = new ArrayList<>();
-//
-//        for (String month : months) {
-//            YearMonth yearMonth = YearMonth.parse(month, DateTimeFormatter.ofPattern("LLLL yyyy"));
-//            int daysInMonth = yearMonth.lengthOfMonth();
-//            daysInMonths.add(daysInMonth);
-//        }
-//
-//        return daysInMonths;
-//    }
-//}
+package by.popolamov.cursework.calculate;
+
+/**
+ * @author Denis Popolamov
+ */
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+public class DateUtils {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    public static List<String> getPastSixMonths(LocalDate date) {
+        List<String> pastMonths = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            YearMonth yearMonth = YearMonth.from(date.minusMonths(i+1));
+            pastMonths.add(yearMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy")));
+        }
+        return pastMonths;
+    }
+
+    public static List<Integer> getDaysInPastSixMonths(LocalDate date) {
+        List<Integer> daysInMonths = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            YearMonth yearMonth = YearMonth.from(date.minusMonths(i+1));
+            daysInMonths.add(yearMonth.lengthOfMonth());
+        }
+        return daysInMonths;
+    }
+    public static String getCurrentMonth(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("LLLL");
+        return date.format(formatter);
+    }
+}

@@ -1,4 +1,4 @@
-package by.popolamov.savemethods;
+package by.popolamov.testsavemethods;
 
 /**
  * @author Denis Popolamov
