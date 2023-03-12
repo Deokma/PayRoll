@@ -4,8 +4,10 @@ package by.popolamov.cursework.gui;
  * @author Denis Popolamov
  */
 
+import by.popolamov.cursework.calculate.Calculations;
 import by.popolamov.cursework.calculate.DateUtils;
 import by.popolamov.cursework.exceptions.InvalidDateRangeException;
+import by.popolamov.cursework.exceptions.InvalidInputException;
 import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.*;
@@ -13,10 +15,25 @@ import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
+
+import static by.popolamov.cursework.calculate.Calculations.*;
+import static by.popolamov.cursework.calculate.DateUtils.getDaysBetweenDates;
+import static by.popolamov.cursework.exceptions.InvalidInputException.isSalaryValid;
 
 
 public class NewWorker extends JDialog {
+    private List<String> pastMonths; // список 6 предыдущих месяцев
+    private List<Integer> daysInMonths; // список дней в 6 предыдущих месяцах
+    private int totalDates; // общее количество дней в предыдущих месяцах
+    private int totalRemainingCalendarDays; // общее количество дней, с учётом прогулов
+    private int totalSickDays; // общее количество дней прогулов
+    private double totalSalary; // общая заработная плата
+    private double totalAverageSalary; // общая средняя заработная плата
+    private double totalSum; //общая сумма
+    List<JLabel> remainingCalendarDaysLabel = new ArrayList<>();
+    List<JLabel> avarageSalaryLabel = new ArrayList<>();
 
     public NewWorker(JFrame parent) {
         super(parent, "Добавить работника", true);
@@ -24,7 +41,6 @@ public class NewWorker extends JDialog {
         setPreferredSize(dimension);
         setResizable(false);
         setLocationRelativeTo(parent);
-
 
         // Текстовая панель с полями ФИО
         JPanel topPanel = new JPanel(new GridLayout(1, 2, 30, 10));
@@ -98,7 +114,7 @@ public class NewWorker extends JDialog {
 
         // создаем центральную панели с описание
         JPanel tittleOfCenterPanel = new JPanel(new GridLayout(1, 6, 10, 10));
-        tittleOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 70, 10));
+        tittleOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 80, 10));
 
         tittleOfCenterPanel.add(new JLabel("<html>Месяцы, взятые <br> для исчисления <br> помощи</html>"));
         tittleOfCenterPanel.add(new JLabel("<html>Количество <br> календарных <br> дней</html>"));
@@ -113,23 +129,34 @@ public class NewWorker extends JDialog {
         JPanel centerTableOfCenterPanel = new JPanel(new GridLayout(6, 6, 10, 10));
         centerTableOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
-        JTextField[] sickDaysTextField = new JTextField[6]; // больничные отпускные дни
-        JTextField[] sumOfActualSalaryTextField = new JTextField[6]; //Сумма фактического заработка
+        // Компоненты для расчёта в центральной таблице
+        List<JTextField> sickDaysTextField = new ArrayList<>(); // Больничные, отпускные дни
+        List<JTextField> sumOfActualSalaryTextField = new ArrayList<>(); //Сумма фактического заработка
+        //JTextField[] sumOfActualSalaryTextField = new JTextField[6]; //Сумма фактического заработка
+
 
         // Панель с итогами расчётов
         JPanel buttomTableOfCentalPanel = new JPanel(new GridLayout(1, 6, 10, 10));
-        buttomTableOfCentalPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 80, 20));
-        buttomTableOfCentalPanel.add(new JLabel("Итого:"));
-        buttomTableOfCentalPanel.add(new JLabel("..."));
-        buttomTableOfCentalPanel.add(new JLabel("..."));
-        buttomTableOfCentalPanel.add(new JLabel("..."));
-        buttomTableOfCentalPanel.add(new JLabel("..."));
-        buttomTableOfCentalPanel.add(new JLabel("..."));
+        buttomTableOfCentalPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 40, 20));
+
+        JLabel[] buttomTotalLabel = new JLabel[6];
+        Font buttomTotalFont = new Font("Arial", Font.BOLD, 14); // Создание жирного шрифта размером 16
+        for (int i = 0; i < buttomTotalLabel.length; i++) {
+            buttomTotalLabel[i] = new JLabel("");
+            buttomTotalLabel[i].setFont(buttomTotalFont);
+            buttomTableOfCentalPanel.add(buttomTotalLabel[i]);
+        }
         centerPanel.add(buttomTableOfCentalPanel, BorderLayout.SOUTH);
 
         // Панель с выводом общей информации
         JPanel totalPanel = new JPanel(new GridLayout(2, 3, 10, 10));
         totalPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 300));
+
+        JLabel[] totalPanelLabel = new JLabel[6];
+        for (int i = 0; i < totalPanelLabel.length; i++) {
+            totalPanelLabel[i] = new JLabel("");
+            totalPanel.add(totalPanelLabel[i]);
+        }
 
         // Нижняя панель с кнопками
         JPanel bottomPanel = new JPanel(new BorderLayout());
@@ -145,7 +172,7 @@ public class NewWorker extends JDialog {
         confirmButton.setText("Check");
         confirmButton.setBackground(new Color(27, 161, 226));
         confirmButton.setForeground(new Color(255, 255, 255));
-
+        JLabel totalMoneyLabel = new JLabel("");
         JButton saveButton = new JButton("Сохранить");
         saveButton.setBackground(new Color(27, 161, 226));
         saveButton.setForeground(new Color(255, 255, 255));
@@ -188,20 +215,30 @@ public class NewWorker extends JDialog {
                 setLocationRelativeTo(parent);
 
                 LocalDate localDate = startDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                List<String> pastMonths = DateUtils.getPastSixMonths(localDate);
-                List<Integer> daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
+
+
+                pastMonths = DateUtils.getPastSixMonths(localDate);
+                daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
 
                 for (int i = 0; i <= 5; i++) {
                     centerTableOfCenterPanel.add(new JLabel(pastMonths.get(i))); // месяц
                     centerTableOfCenterPanel.add(new JLabel("" + daysInMonths.get(i))); // количество дней
-                    sickDaysTextField[i] = new JTextField();
-                    sickDaysTextField[i].setName("sickDaysTextField" + (i));
-                    centerTableOfCenterPanel.add(sickDaysTextField[i]);
-                    sumOfActualSalaryTextField[i] = new JTextField();
-                    sumOfActualSalaryTextField[i].setName("sumOfActualSalaryTextField" + (i));
-                    centerTableOfCenterPanel.add(sumOfActualSalaryTextField[i]);
-                    centerTableOfCenterPanel.add(new JLabel("осткд" + i));
-                    centerTableOfCenterPanel.add(new JLabel("сфз" + i));
+                    JTextField sickDaysTextFieldTemp = new JTextField();
+                    sickDaysTextFieldTemp.setName("sickDaysTextField" + i);
+                    sickDaysTextField.add(sickDaysTextFieldTemp);
+                    centerTableOfCenterPanel.add(sickDaysTextFieldTemp);
+
+                    JTextField sumOfActualSalaryTextFieldTemp = new JTextField();
+                    sumOfActualSalaryTextFieldTemp.setName("sickDaysTextField" + i);
+                    sumOfActualSalaryTextField.add(sumOfActualSalaryTextFieldTemp);
+                    centerTableOfCenterPanel.add(sumOfActualSalaryTextFieldTemp);
+
+                    JLabel remainingDayLabel = new JLabel("");
+                    remainingCalendarDaysLabel.add(remainingDayLabel);
+                    centerTableOfCenterPanel.add(remainingDayLabel);
+                    JLabel avarageSalaryLabelTemp = new JLabel("");
+                    avarageSalaryLabel.add(avarageSalaryLabelTemp);
+                    centerTableOfCenterPanel.add(avarageSalaryLabelTemp);
                 }
                 centerPanel.add(centerTableOfCenterPanel, BorderLayout.CENTER);
             } catch (NullPointerException ex) {
@@ -213,20 +250,56 @@ public class NewWorker extends JDialog {
 
         // Слушатель для расчётов
         calculationButton.addActionListener(e -> {
-            LocalDate localDate = startDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            tittleOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-            String currentMonth = DateUtils.getCurrentMonth(localDate);
-            totalPanel.add(new JLabel("<html>Месяц<br> нетрудоспособности</html>"));
-            totalPanel.add(new JLabel("<html>За дни в размере<br> 80% заработка</html>"));
-            totalPanel.add(new JLabel("<html>За дни в размере<br> 100% заработка</html>"));
-            totalPanel.add(new JLabel(currentMonth));
+            try {
+                LocalDate localDate = startDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            totalPanel.add(new JLabel("11,11 р.б."));
-            totalPanel.add(new JLabel("100 р.б."));
+                String currentMonth = DateUtils.getCurrentMonth(localDate);
 
-            JLabel totalMoneyLabel = new JLabel("Всего: 111,11 р.б.");
-            bottomPanel.add(totalMoneyLabel);
-            saveButton.setVisible(true);
+                List<Integer> remainingCalendarDays = calculateRemainingDays(daysInMonths, sickDaysTextField);
+                List<Double> remainingAvarageSalary = calculateAverageSalary(sumOfActualSalaryTextField, remainingCalendarDays);
+
+                daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
+                totalDates = DateUtils.getTotalDaysInPastSixMonths(localDate);
+                totalRemainingCalendarDays = DateUtils.calculateTotalRemainingDays(remainingCalendarDays);
+                totalSickDays = Calculations.sumSickDays(sickDaysTextField);
+                totalSalary = Calculations.calculateTotalSalary(sumOfActualSalaryTextField);
+                totalAverageSalary = Calculations.calculateTotalAverageSalary(remainingAvarageSalary);
+                isSalaryValid(sickDaysTextField, daysInMonths);
+
+                buttomTableOfCentalPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
+                for (int i = 0; i < remainingCalendarDays.size(); i++) {
+                    remainingCalendarDaysLabel.get(i).setText("" + remainingCalendarDays.get(i));
+                    avarageSalaryLabel.get(i).setText("" + remainingAvarageSalary.get(i));
+                }
+
+                int numberOfDaysOfIllness = getDaysBetweenDates(startDatePicker, endDatePicker);
+                double calculated80PercentOfAverageSalary = calculate80PercentOfAverageSalary(totalAverageSalary, numberOfDaysOfIllness);
+                double calculatedFullSalary = calculateFullSalary(totalAverageSalary, numberOfDaysOfIllness);
+
+
+                buttomTotalLabel[0].setText("Итого:");
+                buttomTotalLabel[1].setText("" + totalDates);
+                buttomTotalLabel[2].setText("" + totalSickDays);
+                buttomTotalLabel[3].setText(totalSalary + " р.б.");
+                buttomTotalLabel[4].setText("" + totalRemainingCalendarDays);
+                buttomTotalLabel[5].setText(totalAverageSalary + " р.б.");
+
+                totalPanelLabel[0].setText("<html>Месяц<br> нетрудоспособности</html>");
+                totalPanelLabel[1].setText("<html>За дни в размере<br> 80% заработка</html>");
+                totalPanelLabel[2].setText("<html>За дни в размере<br> 100% заработка</html>");
+                totalPanelLabel[3].setText(currentMonth);
+                totalPanelLabel[4].setText(calculated80PercentOfAverageSalary + " р.б.");
+                totalPanelLabel[5].setText(calculatedFullSalary + " р.б.");
+
+                tittleOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                totalPanel.setVisible(true);
+                totalSum = Math.round(calculated80PercentOfAverageSalary + calculatedFullSalary * 100.0) / 100.0;
+                totalMoneyLabel.setText("Всего: " + totalSum + " р.б.");
+                bottomPanel.add(totalMoneyLabel);
+                saveButton.setVisible(true);
+            } catch (InvalidInputException ex) {
+                JOptionPane.showMessageDialog(null, "Введённое вами число дней, превышает количество дней в месяце.");
+            }
         });
 
         // Слушатель для сохранения расчётов

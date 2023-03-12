@@ -1,12 +1,18 @@
 package by.popolamov.cursework.model;
 
+import java.util.Date;
+
 /**
  * @author Denis Popolamov
  */
 public class Person {
-    private String surname;
-    private String name;
-    private String patronymic;
+    private Long userId;
+    private String surname; // Фамилия
+    private String name; // Имя
+    private String patronymic; // Отчество
+
+    private Date firtDateOfIllnes;
+    private Date secondDateOfIllness;
 
     public Person(String surname, String name, String patronymic) {
         this.surname = surname;

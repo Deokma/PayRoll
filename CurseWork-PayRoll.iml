@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="FacetManager">
-    <facet type="hibernate" name="Hibernate">
-      <configuration>
-        <datasource-map />
-        <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/by/popolamov/cursework/hibernate.cfg.xml" />
-      </configuration>
-    </facet>
-  </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_17">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
@@ -19,9 +10,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="filters-2.0.235" level="project" />
     <orderEntry type="library" name="curvesapi-1.07" level="project" />
-    <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.5.4" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.checkerframework:checker-qual:3.5.0" level="project" />
+    <orderEntry type="library" name="filters-2.0.235" level="project" />
+    <orderEntry type="library" name="itextpdf-5.5.13.3" level="project" />
+    <orderEntry type="library" name="poi-5.2.3" level="project" />
+    <orderEntry type="library" name="poi-ooxml-5.2.3" level="project" />
+    <orderEntry type="library" name="postgresql-42.5.4" level="project" />
+    <orderEntry type="library" name="swing-worker-1.1" level="project" />
+    <orderEntry type="library" name="swingx-1.6.1" level="project" />
   </component>
 </module>
