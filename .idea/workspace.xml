@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="Update to version 0.5">
+    <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="Update to version 0.6">
       <change afterPath="$PROJECT_DIR$/.idea/libraries/itextpdf_5_5_13_3.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/poi_5_2_3.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/poi_ooxml_5_2_3.xml" afterDir="false" />
@@ -213,7 +213,7 @@
       <workItem from="1678125134560" duration="13799000" />
       <workItem from="1678341545126" duration="2467000" />
       <workItem from="1678394704049" duration="4378000" />
-      <workItem from="1678533114130" duration="31461000" />
+      <workItem from="1678533114130" duration="31492000" />
     </task>
     <task id="LOCAL-00001" summary="Add project">
       <created>1678034129230</created>
@@ -238,6 +238,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add project" />
     <MESSAGE value="Update to version 0.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update to version 0.5" />
+    <MESSAGE value="Update to version 0.6" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to version 0.6" />
   </component>
 </project>
