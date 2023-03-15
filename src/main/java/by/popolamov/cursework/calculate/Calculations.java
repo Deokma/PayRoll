@@ -5,10 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Класс расчётов отпускных/больничных
+ *
  * @author Denis Popolamov
  */
 public class Calculations {
-    public static List<Integer> calculateRemainingDays(List<Integer> daysInMonths, List<JTextField> sickDaysTextFields) {
+    /**
+     * Расчёт рабочих дней за месяц.
+     *
+     * @param daysInMonths    Количество дней в месяце
+     * @param sickDaysInMonth Количество больничных дней в месяце
+     * @return Количество рабочих дней за месяц
+     */
+    public static List<Integer> calculateRemainingDays(List<Integer> daysInMonths, List<JTextField> sickDaysInMonth) {
         List<Integer> remainingDays = new ArrayList<>();
 
         for (int i = 0; i < daysInMonths.size(); i++) {
@@ -16,7 +25,7 @@ public class Calculations {
             int usedSickDays = 0;
 
             try {
-                usedSickDays = Integer.parseInt(sickDaysTextFields.get(i).getText());
+                usedSickDays = Integer.parseInt(sickDaysInMonth.get(i).getText());
             } catch (NumberFormatException e) {
                 usedSickDays = 0;
             }
@@ -30,11 +39,18 @@ public class Calculations {
         return remainingDays;
     }
 
-    public static List<Double> calculateAverageSalary(List<JTextField> sumOfActualSalaryTextField, List<Integer> remainingCalendarDays) {
+    /**
+     * Средняя заработная плата за месяц
+     *
+     * @param sumOfActualSalary     зарплата за месяц
+     * @param remainingCalendarDays количество рабочих календарных дней
+     * @return заработная плата за месяц
+     */
+    public static List<Double> calculateAverageSalary(List<JTextField> sumOfActualSalary, List<Integer> remainingCalendarDays) {
         List<Double> averages = new ArrayList<>();
 
-        for (int i = 0; i < sumOfActualSalaryTextField.size(); i++) {
-            JTextField textField = sumOfActualSalaryTextField.get(i);
+        for (int i = 0; i < sumOfActualSalary.size(); i++) {
+            JTextField textField = sumOfActualSalary.get(i);
             String textFieldValue = textField.getText();
 
             if (textFieldValue == null || textFieldValue.isEmpty()) {
@@ -51,9 +67,15 @@ public class Calculations {
         return averages;
     }
 
-    public static int sumSickDays(List<JTextField> sickDaysTextField) {
+    /**
+     * Расчёт общего количества больничных дней
+     *
+     * @param sickDays больничные дни за месяц
+     * @return общее количество больничных дней
+     */
+    public static int totalSickDays(List<JTextField> sickDays) {
         int sum = 0;
-        for (JTextField textField : sickDaysTextField) {
+        for (JTextField textField : sickDays) {
             if (textField != null && !textField.getText().isEmpty()) {
                 sum += Integer.parseInt(textField.getText());
             }
@@ -61,9 +83,15 @@ public class Calculations {
         return sum;
     }
 
-    public static double calculateTotalSalary(List<JTextField> salaryFields) {
+    /**
+     * Расчёт общей заработной платы
+     *
+     * @param monthSalary зарплата за месяц
+     * @return общая заработная плата
+     */
+    public static double calculateTotalSalary(List<JTextField> monthSalary) {
         double totalSalary = 0.0;
-        for (JTextField salaryField : salaryFields) {
+        for (JTextField salaryField : monthSalary) {
             String salaryString = salaryField.getText();
             if (salaryString == null || salaryString.trim().isEmpty()) {
                 salaryString = "0";
@@ -74,6 +102,11 @@ public class Calculations {
         return totalSalary;
     }
 
+    /**
+     * Расчёт средней заработной платы за 6 месяцев
+     * @param remainingAvarageSalary средняя заработная плата за месяц
+     * @return средняя заработная плата за 6 месяцев
+     */
     public static double calculateTotalAverageSalary(List<Double> remainingAvarageSalary) {
         double totalAverageSalary = 0;
         for (double averageSalary : remainingAvarageSalary) {
@@ -82,6 +115,12 @@ public class Calculations {
         return Math.round(totalAverageSalary * 100.0) / 100.0;
     }
 
+    /**
+     * Расчёт зарплата за дни в размере 80% заработка
+     * @param averageSalary средняя заработная плата
+     * @param numberOfWorkingDays количество рабочих дней за 6 месяцев
+     * @return зарплата за дни в размере 80% заработка
+     */
     public static double calculate80PercentOfAverageSalary(double averageSalary, int numberOfWorkingDays) {
         double salary;
         if (numberOfWorkingDays <= 12) {
@@ -92,6 +131,12 @@ public class Calculations {
         return Math.round(salary * 100.0) / 100.0;
     }
 
+    /**
+     * Расчёт зарплаты за дни в размере 100% заработка
+     * @param averageSalary средняя заработная плата
+     * @param numberOfWorkingDays количество рабочих дней за 6 месяцев
+     * @return зарплата за дни в размекре 100% заработка
+     */
     public static double calculateFullSalary(double averageSalary, int numberOfWorkingDays) {
         if (numberOfWorkingDays <= 12) {
             return 0;
@@ -101,20 +146,4 @@ public class Calculations {
             return Math.round(fullSalary * 100.0) / 100.0;
         }
     }
-
-
-//    public static List<Double> calculateAverageSalary(List<JTextField> sumOfActualSalaryTextField, List<Integer> remainingCalendarDays) {
-//        List<Double> averages = new ArrayList<>();
-//
-//        for (int i = 0; i < sumOfActualSalaryTextField.size(); i++) {
-//            double salary = Double.parseDouble(sumOfActualSalaryTextField.get(i).getText());
-//            double remainingDays = remainingCalendarDays.get(i);
-//            double averageDailySalary = salary / remainingDays;
-//            averages.add(Math.round(averageDailySalary * 100.0) / 100.0);
-//        }
-//
-//        return averages;
-//    }
-
-
 }

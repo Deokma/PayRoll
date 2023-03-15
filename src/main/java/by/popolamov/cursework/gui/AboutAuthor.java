@@ -20,7 +20,7 @@ public class AboutAuthor extends JDialog {
         setContentPane(contentPane);
 
         // создание элементов окна
-        ImageIcon authorImageIcon = new ImageIcon(getClass().getResource("/images/author.jpg"));
+        ImageIcon authorImageIcon = new ImageIcon("src/main/resources/images/author.jpg");
         JLabel jlauthorImage = new JLabel(new ImageIcon(authorImageIcon.getImage().getScaledInstance(170, 195, Image.SCALE_SMOOTH)));
         JLabel groupLabel = new JLabel("Студент группы 10702420");
         JLabel nameLabel = new JLabel("Пополамов Денис Вячеславович");

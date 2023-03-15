@@ -1,14 +1,16 @@
 package by.popolamov.testsavemethods;
 
-/**
- * @author Denis Popolamov
- */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
 
 import org.apache.poi.xssf.usermodel.*;
+
+/**
+ * @author Denis Popolamov
+ */
+
 
 public class ParameterTableExcel extends JFrame implements ActionListener {
 

@@ -1,14 +1,17 @@
 package by.popolamov.testsavemethods;
 
-/**
- * @author Denis Popolamov
- */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+
+/**
+ * @author Denis Popolamov
+ */
+
 
 public class ParameterTablePDF extends JFrame implements ActionListener {
 

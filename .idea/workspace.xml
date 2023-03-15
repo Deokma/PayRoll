@@ -5,31 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="Update to version 0.6">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/itextpdf_5_5_13_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/poi_5_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/poi_ooxml_5_2_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/postgresql_42_5_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/swing_worker_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/swingx_1_6_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/author.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/confirm-button-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/icon-dark.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/icon-white.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/calculate/Calculations.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidInputException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Certificate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_postgresql_postgresql_42_5_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/curvesapi_1_07.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/filters_2_0_235.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/AboutProgram.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CurseWork-PayRoll.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CurseWork-PayRoll.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/calculate/Calculations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/calculate/Calculations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/calculate/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/calculate/DateUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/AboutAuthor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/AboutAuthor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/MainWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/NewWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/NewWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/SplashScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableExcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableExcel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTablePDF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTablePDF.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableWord.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +67,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propGUI",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -107,12 +96,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.MainWindow">
-    <configuration name="DatePickerExample" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="by.popolamov.cursework.gui.DatePickerExample" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="by.popolamov.cursework.Main" />
       <module name="CurseWork-PayRoll" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="by.popolamov.cursework.gui.*" />
+          <option name="PATTERN" value="by.popolamov.cursework.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -120,12 +109,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="by.popolamov.cursework.Main" />
+    <configuration name="MainFrame.MainWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MainFrame.MainWindow" />
       <module name="CurseWork-PayRoll" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="by.popolamov.cursework.*" />
+          <option name="PATTERN" value="MainFrame.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -159,12 +148,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SaveWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="by.popolamov.cursework.gui.SaveWindow" />
+    <configuration name="ParameterTablePDF" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="by.popolamov.testsavemethods.ParameterTablePDF" />
       <module name="CurseWork-PayRoll" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="by.popolamov.cursework.gui.*" />
+          <option name="PATTERN" value="by.popolamov.testsavemethods.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -175,10 +164,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainWindow" />
+        <item itemvalue="Application.ParameterTablePDF" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MainFrame.MainWindow" />
         <item itemvalue="Application.NestedDialogsExample" />
-        <item itemvalue="Application.SaveWindow" />
-        <item itemvalue="Application.DatePickerExample" />
       </list>
     </recent_temporary>
   </component>
@@ -213,7 +202,8 @@
       <workItem from="1678125134560" duration="13799000" />
       <workItem from="1678341545126" duration="2467000" />
       <workItem from="1678394704049" duration="4378000" />
-      <workItem from="1678533114130" duration="31492000" />
+      <workItem from="1678533114130" duration="34446000" />
+      <workItem from="1678697721330" duration="28033000" />
     </task>
     <task id="LOCAL-00001" summary="Add project">
       <created>1678034129230</created>
@@ -229,7 +219,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678453861032</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Update to version 0.6">
+      <created>1678641573180</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1678641573180</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update to version 0.6">
+      <created>1678641591592</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1678641591592</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

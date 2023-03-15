@@ -15,7 +15,7 @@ public class MainWindow extends JFrame {
         setSize(1000, 620);
         setResizable(false);
         setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon(getClass().getResource("/images/icon.png"));
+        ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
         setIconImage(icon.getImage());
 
         // Создаем менюбар
@@ -53,7 +53,7 @@ public class MainWindow extends JFrame {
         leftBluePanel.add(label, BorderLayout.NORTH);
 
         // добавляем картинку в середину синего блока
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/images/icon-white.png"));
+        ImageIcon imageIcon = new ImageIcon("src/main/resources/images/icon-white.png");
         JLabel imageLabel = new JLabel(imageIcon);
         Image image = imageIcon.getImage(); // получаем объект Image из ImageIcon
         Image scaledImage = image.getScaledInstance(170, 170, Image.SCALE_SMOOTH); // масштабируем изображение до нужного размера
@@ -69,6 +69,8 @@ public class MainWindow extends JFrame {
         aboutAuthorButton.addActionListener(e -> new AboutAuthor(this));
 
         JButton aboutProgramButton = new JButton("О программе");
+        aboutProgramButton.addActionListener(e -> new AboutProgram(this));
+
         aboutAuthorButton.setFont(new Font("Helvetica", Font.BOLD, 20));
         aboutProgramButton.setFont(new Font("Helvetica", Font.BOLD, 20));
         //  button2.setPreferredSize();
@@ -113,10 +115,10 @@ public class MainWindow extends JFrame {
         addWorkerButton.setBackground(new Color(27, 161, 226));
         addWorkerButton.setForeground(new Color(255, 255, 255));
         addWorkerButton.addActionListener(e -> new NewWorker(this));
-
         JButton deleteButtom = new JButton("Удалить");
         deleteButtom.setBackground(new Color(27, 161, 226));
         deleteButtom.setForeground(new Color(255, 255, 255));
+
         JButton toFileButtom = new JButton("В файл");
         toFileButtom.setBackground(new Color(27, 161, 226));
         toFileButtom.setForeground(new Color(255, 255, 255));

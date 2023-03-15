@@ -1,8 +1,6 @@
 //package by.popolamov.testsavemethods;
 //
-///**
-// * @author Denis Popolamov
-// */
+
 //import javax.swing.*;
 //import java.awt.*;
 //import java.awt.event.*;
@@ -10,6 +8,11 @@
 //import java.math.BigInteger;
 //
 //import org.apache.poi.xwpf.usermodel.*;
+
+///**
+// * @author Denis Popolamov
+// */
+
 //
 //public class ParameterTableWord extends JFrame implements ActionListener {
 //    private JLabel label1, label2, label3;

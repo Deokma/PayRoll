@@ -1,11 +1,13 @@
 package by.popolamov.cursework.gui;
 
 /**
+ * Класс для создания н
+ *
  * @author Denis Popolamov
  */
 
-import by.popolamov.cursework.calculate.Calculations;
 import by.popolamov.cursework.calculate.DateUtils;
+import by.popolamov.cursework.connect.DBManager;
 import by.popolamov.cursework.exceptions.InvalidDateRangeException;
 import by.popolamov.cursework.exceptions.InvalidInputException;
 import org.jdesktop.swingx.JXDatePicker;
@@ -16,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static by.popolamov.cursework.calculate.Calculations.*;
@@ -56,17 +59,17 @@ public class NewWorker extends JDialog {
         JTextField patronymicTextField = new JTextField();
 
         // Создание компанентов выбора даты
-        JXDatePicker startDatePicker = new JXDatePicker();
-        JXDatePicker endDatePicker = new JXDatePicker();
+        JXDatePicker firstDatePicker = new JXDatePicker();
+        JXDatePicker secondDatePicker = new JXDatePicker();
 
         // Установка формата даты для компонента
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        startDatePicker.setFormats(dateFormat);
-        endDatePicker.setFormats(dateFormat);
+        firstDatePicker.setFormats(dateFormat);
+        secondDatePicker.setFormats(dateFormat);
 
         // Установка подсказок для компонентов
-        startDatePicker.setToolTipText("Выберите начальную дату");
-        endDatePicker.setToolTipText("Выберите конечную дату");
+        firstDatePicker.setToolTipText("Выберите начальную дату");
+        secondDatePicker.setToolTipText("Выберите конечную дату");
 
         // Левая панель для заполнения ФИО
         JPanel leftTopPanet = new JPanel(new GridLayout(4, 4, 10, 10));
@@ -95,14 +98,14 @@ public class NewWorker extends JDialog {
         startDateLabel.setForeground(new Color(255, 255, 255));
         rightTopPanetDates.add(startDateLabel);
         rightTopPanetDates.setForeground(new Color(255, 255, 255));
-        rightTopPanetDates.add(startDatePicker);
+        rightTopPanetDates.add(firstDatePicker);
         JLabel endDateLabel = new JLabel("Конечная дата:");
         endDateLabel.setForeground(new Color(255, 255, 255));
         rightTopPanetDates.add(endDateLabel);
         rightTopPanetDates.setForeground(new Color(255, 255, 255));
-        rightTopPanetDates.add(endDatePicker);
+        rightTopPanetDates.add(secondDatePicker);
         rightTopPanetDates.setBackground(new Color(27, 161, 226));
-        ImageIcon confirmButtonIcon = new ImageIcon(getClass().getResource("/images/confirm-button-icon.png"));
+        ImageIcon confirmButtonIcon = new ImageIcon("src/main/resources/images/confirm-button-icon.png");
         Image image = confirmButtonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
         ImageIcon scaledConfirmButtonIcon = new ImageIcon(image); // создание нового ImageIcon с измененным размером
 
@@ -184,7 +187,7 @@ public class NewWorker extends JDialog {
         bottomPanel.add(confirmButton, BorderLayout.WEST);
 
         // создаем панель для кнопок справа
-        JPanel rightButtonPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+        JPanel rightButtonPanel = new JPanel(new GridLayout(1, 2, 20, 10));
         rightButtonPanel.add(saveButton);
         rightButtonPanel.add(cancelButton);
         bottomPanel.add(rightButtonPanel, BorderLayout.EAST);
@@ -198,10 +201,10 @@ public class NewWorker extends JDialog {
         // Слушатель для подтверждения ФИО и даты
         confirmButton.addActionListener(e -> {
             try {
-                if (startDatePicker.getDate() == null || endDatePicker.getDate() == null) {
+                if (firstDatePicker.getDate() == null || secondDatePicker.getDate() == null) {
                     throw new InvalidDateRangeException("Выберите корректные даты!");
                 }
-                if (startDatePicker.getDate().after(endDatePicker.getDate())) {
+                if (firstDatePicker.getDate().after(secondDatePicker.getDate())) {
                     throw new InvalidDateRangeException("Начальная дата должна быть меньше конечной даты!");
                 }
                 if (surnameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || patronymicTextField.getText().isEmpty()) {
@@ -214,7 +217,7 @@ public class NewWorker extends JDialog {
                 setSize(750, 700);
                 setLocationRelativeTo(parent);
 
-                LocalDate localDate = startDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate localDate = firstDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
 
                 pastMonths = DateUtils.getPastSixMonths(localDate);
@@ -251,7 +254,7 @@ public class NewWorker extends JDialog {
         // Слушатель для расчётов
         calculationButton.addActionListener(e -> {
             try {
-                LocalDate localDate = startDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate localDate = firstDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
                 String currentMonth = DateUtils.getCurrentMonth(localDate);
 
@@ -261,9 +264,9 @@ public class NewWorker extends JDialog {
                 daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
                 totalDates = DateUtils.getTotalDaysInPastSixMonths(localDate);
                 totalRemainingCalendarDays = DateUtils.calculateTotalRemainingDays(remainingCalendarDays);
-                totalSickDays = Calculations.sumSickDays(sickDaysTextField);
-                totalSalary = Calculations.calculateTotalSalary(sumOfActualSalaryTextField);
-                totalAverageSalary = Calculations.calculateTotalAverageSalary(remainingAvarageSalary);
+                totalSickDays = totalSickDays(sickDaysTextField);
+                totalSalary = calculateTotalSalary(sumOfActualSalaryTextField);
+                totalAverageSalary = calculateTotalAverageSalary(remainingAvarageSalary);
                 isSalaryValid(sickDaysTextField, daysInMonths);
 
                 buttomTableOfCentalPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
@@ -272,7 +275,7 @@ public class NewWorker extends JDialog {
                     avarageSalaryLabel.get(i).setText("" + remainingAvarageSalary.get(i));
                 }
 
-                int numberOfDaysOfIllness = getDaysBetweenDates(startDatePicker, endDatePicker);
+                int numberOfDaysOfIllness = getDaysBetweenDates(firstDatePicker, secondDatePicker);
                 double calculated80PercentOfAverageSalary = calculate80PercentOfAverageSalary(totalAverageSalary, numberOfDaysOfIllness);
                 double calculatedFullSalary = calculateFullSalary(totalAverageSalary, numberOfDaysOfIllness);
 
@@ -293,7 +296,7 @@ public class NewWorker extends JDialog {
 
                 tittleOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 totalPanel.setVisible(true);
-                totalSum = Math.round(calculated80PercentOfAverageSalary + calculatedFullSalary * 100.0) / 100.0;
+                totalSum = ((calculated80PercentOfAverageSalary + calculatedFullSalary) * 100.0) / 100.0;
                 totalMoneyLabel.setText("Всего: " + totalSum + " р.б.");
                 bottomPanel.add(totalMoneyLabel);
                 saveButton.setVisible(true);
@@ -304,7 +307,29 @@ public class NewWorker extends JDialog {
 
         // Слушатель для сохранения расчётов
         saveButton.addActionListener(e -> {
-            //new SaveWindow(this);
+           // new SaveWindow(this);
+            try {
+                String userSurname = surnameTextField.getText();
+                String userName = nameTextField.getText();
+                String userPatrinimic = patronymicTextField.getText();
+
+                Date firstUtilDate = firstDatePicker.getDate();
+                String firstDateString = new SimpleDateFormat("yyyy-MM-dd").format(firstUtilDate);
+                java.sql.Date fistSqlDate = java.sql.Date.valueOf(firstDateString);
+
+                Date secondUtilDate = secondDatePicker.getDate();
+                String secondDateString = new SimpleDateFormat("yyyy-MM-dd").format(secondUtilDate);
+                java.sql.Date secondSqlDate = java.sql.Date.valueOf(secondDateString);
+                DBManager db = new DBManager();
+
+                int payrollId = db.addEmployee(userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate,totalSum);
+
+                db.addPayrollDetails(payrollId,totalSickDays,totalSalary,totalRemainingCalendarDays,totalAverageSalary,totalSum);
+
+                dispose();
+            } catch (Exception ex) {
+                System.out.println("Что то пошло не так!");
+            }
         });
 
         // Слушатель для закрытия окна
@@ -316,6 +341,5 @@ public class NewWorker extends JDialog {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
-
     }
 }
