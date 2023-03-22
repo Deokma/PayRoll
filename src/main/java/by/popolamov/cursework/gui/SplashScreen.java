@@ -174,9 +174,9 @@ public class SplashScreen extends JFrame {
         //button.requestFocusInWindow();
     }
 
-
-    public static void main(String[] args) {
-        SplashScreen form = new SplashScreen();
-        form.setVisible(true);
-    }
+//
+//    public static void main(String[] args) {
+//        SplashScreen form = new SplashScreen();
+//        form.setVisible(true);
+//    }
 }

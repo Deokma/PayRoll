@@ -1,6 +1,6 @@
 //package by.popolamov.testsavemethods;
 //
-
+//
 //import javax.swing.*;
 //import java.awt.*;
 //import java.awt.event.*;
@@ -8,11 +8,12 @@
 //import java.math.BigInteger;
 //
 //import org.apache.poi.xwpf.usermodel.*;
-
+//import org.apache.poi.*;
+//
 ///**
 // * @author Denis Popolamov
 // */
-
+//
 //
 //public class ParameterTableWord extends JFrame implements ActionListener {
 //    private JLabel label1, label2, label3;
@@ -88,11 +89,11 @@
 //                    dataRow3.getCell(1).setText(parameter3);
 //
 //                    // Autosize columns
-//                   // table.getCTTbl().addNewTblGrid().addNewGridCol().setW(BigInteger.valueOf(2000));
-//                    //table.getCTTbl().addNewTblGrid().addNewGridCol().setW(BigInteger.valueOf(6000));
+//                    table.getCTTbl().addNewTblGrid().addNewGridCol().setW(BigInteger.valueOf(2000));
+//                    table.getCTTbl().addNewTblGrid().addNewGridCol().setW(BigInteger.valueOf(6000));
 //                    for (XWPFTableRow row : table.getRows()) {
 //                        for (XWPFTableCell cell : row.getTableCells()) {
-//                      //      cell.getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(3000));
+//                            cell.getCTTc().addNewTcPr().addNewTcW().setW(BigInteger.valueOf(3000));
 //                        }
 //                    }
 //

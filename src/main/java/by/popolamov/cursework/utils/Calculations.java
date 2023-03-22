@@ -1,4 +1,4 @@
-package by.popolamov.cursework.calculate;
+package by.popolamov.cursework.utils;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -102,22 +102,27 @@ public class Calculations {
         return totalSalary;
     }
 
+
     /**
      * Расчёт средней заработной платы за 6 месяцев
-     * @param remainingAvarageSalary средняя заработная плата за месяц
-     * @return средняя заработная плата за 6 месяцев
+     *
+     * @param totalSalary зарплата за 6 месяцев
+     * @param totalRemainingCalendarDays количество рабочих календарных дней
+     * @return Общая средняя заработная плата
      */
-    public static double calculateTotalAverageSalary(List<Double> remainingAvarageSalary) {
-        double totalAverageSalary = 0;
-        for (double averageSalary : remainingAvarageSalary) {
-            totalAverageSalary += averageSalary;
-        }
+    public static double calculateTotalAverageSalary(double totalSalary, int totalRemainingCalendarDays) {
+        double totalAverageSalary = totalSalary / totalRemainingCalendarDays;
+//        for (double averageSalary : remainingAvarageSalary) {
+//            totalAverageSalary += averageSalary;
+//        }
+
         return Math.round(totalAverageSalary * 100.0) / 100.0;
     }
 
     /**
      * Расчёт зарплата за дни в размере 80% заработка
-     * @param averageSalary средняя заработная плата
+     *
+     * @param averageSalary       средняя заработная плата
      * @param numberOfWorkingDays количество рабочих дней за 6 месяцев
      * @return зарплата за дни в размере 80% заработка
      */
@@ -133,7 +138,8 @@ public class Calculations {
 
     /**
      * Расчёт зарплаты за дни в размере 100% заработка
-     * @param averageSalary средняя заработная плата
+     *
+     * @param averageSalary       средняя заработная плата
      * @param numberOfWorkingDays количество рабочих дней за 6 месяцев
      * @return зарплата за дни в размекре 100% заработка
      */

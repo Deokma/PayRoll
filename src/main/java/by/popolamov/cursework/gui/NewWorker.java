@@ -6,10 +6,10 @@ package by.popolamov.cursework.gui;
  * @author Denis Popolamov
  */
 
-import by.popolamov.cursework.calculate.DateUtils;
 import by.popolamov.cursework.connect.DBManager;
 import by.popolamov.cursework.exceptions.InvalidDateRangeException;
 import by.popolamov.cursework.exceptions.InvalidInputException;
+import by.popolamov.cursework.utils.DateUtils;
 import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.*;
@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static by.popolamov.cursework.calculate.Calculations.*;
-import static by.popolamov.cursework.calculate.DateUtils.getDaysBetweenDates;
 import static by.popolamov.cursework.exceptions.InvalidInputException.isSalaryValid;
+import static by.popolamov.cursework.utils.Calculations.*;
+import static by.popolamov.cursework.utils.DateUtils.getDaysBetweenDates;
 
 
 public class NewWorker extends JDialog {
@@ -38,6 +38,8 @@ public class NewWorker extends JDialog {
     List<JLabel> remainingCalendarDaysLabel = new ArrayList<>();
     List<JLabel> avarageSalaryLabel = new ArrayList<>();
 
+    private MainWindow mainWindow;
+
     public NewWorker(JFrame parent) {
         super(parent, "Добавить работника", true);
         Dimension dimension = new Dimension(580, 280);
@@ -47,7 +49,7 @@ public class NewWorker extends JDialog {
 
         // Текстовая панель с полями ФИО
         JPanel topPanel = new JPanel(new GridLayout(1, 2, 30, 10));
-        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 10));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, -10, 10));
         JLabel surnameLabel = new JLabel("Фамилия:");
         surnameLabel.setForeground(new Color(255, 255, 255));
         JTextField surnameTextField = new JTextField();
@@ -87,7 +89,7 @@ public class NewWorker extends JDialog {
         // Правая панель для выбора даты
         JPanel rightTopPanet = new JPanel(new GridLayout(2, 1, 0, 0));
         rightTopPanet.setBackground(new Color(27, 161, 226));
-        rightTopPanet.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 20));
+        rightTopPanet.setBorder(BorderFactory.createEmptyBorder(0, 20, 40, 20));
 
         // Отдельная панель для выбора даты
         JPanel rightTopPanetDates = new JPanel(new GridLayout(3, 2, 0, 0));
@@ -266,7 +268,7 @@ public class NewWorker extends JDialog {
                 totalRemainingCalendarDays = DateUtils.calculateTotalRemainingDays(remainingCalendarDays);
                 totalSickDays = totalSickDays(sickDaysTextField);
                 totalSalary = calculateTotalSalary(sumOfActualSalaryTextField);
-                totalAverageSalary = calculateTotalAverageSalary(remainingAvarageSalary);
+                totalAverageSalary = calculateTotalAverageSalary(totalSalary, totalRemainingCalendarDays);
                 isSalaryValid(sickDaysTextField, daysInMonths);
 
                 buttomTableOfCentalPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
@@ -307,7 +309,6 @@ public class NewWorker extends JDialog {
 
         // Слушатель для сохранения расчётов
         saveButton.addActionListener(e -> {
-           // new SaveWindow(this);
             try {
                 String userSurname = surnameTextField.getText();
                 String userName = nameTextField.getText();
@@ -322,15 +323,16 @@ public class NewWorker extends JDialog {
                 java.sql.Date secondSqlDate = java.sql.Date.valueOf(secondDateString);
                 DBManager db = new DBManager();
 
-                int payrollId = db.addEmployee(userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate,totalSum);
+                int payrollId = db.addEmployee(userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate, totalSum);
 
-                db.addPayrollDetails(payrollId,totalSickDays,totalSalary,totalRemainingCalendarDays,totalAverageSalary,totalSum);
-
+                db.addPayrollDetails(payrollId, totalSickDays, totalSalary, totalRemainingCalendarDays, totalAverageSalary, totalSum);
+                parent.repaint();
                 dispose();
             } catch (Exception ex) {
                 System.out.println("Что то пошло не так!");
             }
         });
+
 
         // Слушатель для закрытия окна
         cancelButton.addActionListener(e -> {

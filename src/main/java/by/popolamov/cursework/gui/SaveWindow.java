@@ -3,6 +3,7 @@ package by.popolamov.cursework.gui;
 /**
  * @author Denis Popolamov
  */
+
 import javax.swing.*;
 import java.awt.*;
 

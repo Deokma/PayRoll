@@ -4,11 +4,21 @@ package by.popolamov.cursework.gui;
  * @author Denis Popolamov
  */
 
+import by.popolamov.cursework.connect.DBManager;
+import by.popolamov.cursework.utils.ButtonColumn;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class MainWindow extends JFrame {
+    JTable table = new JTable();
+    DBManager db = new DBManager();
+
     public MainWindow() {
         setTitle("PayRoll Calculate");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,9 +76,18 @@ public class MainWindow extends JFrame {
         JPanel buttonsOnBluePanel = new JPanel();
         buttonsOnBluePanel.setBackground(new Color(27, 161, 226));
         JButton aboutAuthorButton = new JButton("Об авторе");
+        ImageIcon aboutAuthorButtonIcon = new ImageIcon("src/main/resources/images/about-author-icon.png");
+        Image aboutAuthorImage = aboutAuthorButtonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
+        ImageIcon scaledAboutAuthorButtonIcon = new ImageIcon(aboutAuthorImage); // создание нового ImageIcon с измененным размером
+        aboutAuthorButton.setIcon(scaledAboutAuthorButtonIcon);
+
         aboutAuthorButton.addActionListener(e -> new AboutAuthor(this));
 
         JButton aboutProgramButton = new JButton("О программе");
+        ImageIcon aboutProgramButtonIcon = new ImageIcon("src/main/resources/images/about-program-icon.png");
+        Image aboutProgramImage = aboutProgramButtonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
+        ImageIcon scaledAboutProgramButtonIcon = new ImageIcon(aboutProgramImage); // создание нового ImageIcon с измененным размером
+        aboutProgramButton.setIcon(scaledAboutProgramButtonIcon);
         aboutProgramButton.addActionListener(e -> new AboutProgram(this));
 
         aboutAuthorButton.setFont(new Font("Helvetica", Font.BOLD, 20));
@@ -99,8 +118,26 @@ public class MainWindow extends JFrame {
         buttonsOnBluePanel.setPreferredSize(new Dimension(250, 80));
         leftBluePanel.add(buttonsOnBluePanel, BorderLayout.SOUTH);
 
-        JTable table = new JTable(new Object[][]{{"Фамилия", "Имя", "Отчество", "Период болезни", "Сумма"}},
-                new String[]{"Фамилия", "Имя", "Отчество", "Период болезни", "Сумма"});
+        DefaultTableModel model = db.getAllEmployees();
+        table.setModel(model);
+        table.setRowHeight(30);
+
+        TableColumnModel columnModel = table.getColumnModel();
+        TableColumn editableColumn = columnModel.getColumn(7);
+        editableColumn.setCellEditor(new DefaultCellEditor(new JTextField()));
+        columnModel.getColumn(0).setPreferredWidth(10);
+        columnModel.getColumn(7).setPreferredWidth(10); // устанавливаем ширину 10 пикселей
+
+// разрешаем только выбранный столбец для редактирования
+        Action viewAction = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                Object[] rowData = (Object[]) e.getSource();
+                // Открыть окно с данными из строки
+                db.getPayrollDetails((int) rowData[0]);
+            }
+        };
+        ButtonColumn buttonColumn = new ButtonColumn(table, viewAction, 7);
+
         //Запрет на изменение таблицы
         //table.setEnabled(false);
         table.getTableHeader().setReorderingAllowed(false);
@@ -129,7 +166,7 @@ public class MainWindow extends JFrame {
         tableButtonPanel.add(deleteButtom);
 
         topPanel.add(tableButtonPanel, BorderLayout.WEST);
-        topPanel.add(toFileButtom, BorderLayout.EAST);
+        // topPanel.add(toFileButtom, BorderLayout.EAST);
 
         centerPanel.add(topPanel, BorderLayout.NORTH);
 
@@ -140,6 +177,7 @@ public class MainWindow extends JFrame {
         //centerPanel.add(tablePanel);
         // добавляем таблицу на центральную панель
         centerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+
         // устанавливаем размеры таблицы
         table.setFillsViewportHeight(true);
         // Создаем отступы и устанавливаем их для центральной панели
@@ -147,13 +185,12 @@ public class MainWindow extends JFrame {
         //topPanel.add(leftPanel, BorderLayout.WEST);
         //topPanel.add(toFileButtom, BorderLayout.EAST);
 
-
         // добавляем панели на окно
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(leftBluePanel, BorderLayout.WEST);
         getContentPane().add(centerPanel, BorderLayout.CENTER);
-        //getContentPane().add(mainPanel, BorderLayout.CENTER);
     }
+
 
     public static void main(String[] args) {
         MainWindow window = new MainWindow();

@@ -4,14 +4,8 @@ package by.popolamov.cursework.gui;
  * @author Denis Popolamov
  */
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class AboutProgram extends JDialog {
 
@@ -39,7 +33,7 @@ public class AboutProgram extends JDialog {
         //imageLabel.setPreferredSize(new Dimension(panel.getWidth() / 3, panel.getHeight()));
         panel.add(imageLabel, BorderLayout.WEST);
 
-        JPanel rightPanel = new JPanel(new GridLayout(2, 1, 2, 2));
+        JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         // Создание текстового поля и добавление на панель
         JTextArea textArea = new JTextArea("Много текста о программе");
@@ -47,20 +41,24 @@ public class AboutProgram extends JDialog {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
+        scrollPane.setPreferredSize(new Dimension(0, 200));
+        //scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         rightPanel.add(scrollPane, BorderLayout.CENTER);
 
 
-        JPanel buttomPanel = new JPanel(new GridLayout(1, 2));
-        buttomPanel.setBorder(BorderFactory.createEmptyBorder(60, 30, 0, 0));
+        JPanel buttomPanel = new JPanel(new BorderLayout());
+
+        //buttomPanel.setBorder(BorderFactory.createEmptyBorder(60, 0, 0, 0));
         // Создаем лейбл с версией программы и добавляем его в панель
         JLabel versionLabel = new JLabel("Версия программы 1.0");
+        versionLabel.setHorizontalAlignment(SwingConstants.CENTER);
         versionLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         buttomPanel.add(versionLabel, BorderLayout.WEST);
-        JPanel backButtonPanel = new JPanel();
-        backButtonPanel.setBorder(BorderFactory.createEmptyBorder(0,100,0,0));
+        JPanel backButtonPanel = new JPanel(new GridLayout(1, 1, 20, 10));
+        //backButtonPanel.setBorder(BorderFactory.createEmptyBorder(0,100,0,0));
         // Создание кнопки "Назад" и добавление на панель
         JButton backButton = new JButton("Назад");
+        //backButton.setBorder(BorderFactory.createEmptyBorder(0,0,0,0));
         backButton.setBackground(new Color(226, 27, 34));
         backButton.setForeground(new Color(255, 255, 255));
         //buttomPanel.setBorder(BorderFactory.createEmptyBorder(70, 140, 0, 0));
