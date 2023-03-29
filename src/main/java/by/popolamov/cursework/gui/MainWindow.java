@@ -14,9 +14,10 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public class MainWindow extends JFrame {
-    JTable table = new JTable();
+    JTable tbl = new JTable();
     DBManager db = new DBManager();
 
     public MainWindow() {
@@ -29,100 +30,106 @@ public class MainWindow extends JFrame {
         setIconImage(icon.getImage());
 
         // Создаем менюбар
-        JMenuBar menuBar = new JMenuBar();
+        JMenuBar mnu = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-        JMenuItem fileOpenItem = new JMenuItem("Open");
-        JMenuItem fileExitItem = new JMenuItem("Exit");
-        fileExitItem.addActionListener(e -> System.exit(0));
+        JMenuItem mniFileOpen = new JMenuItem("Open");
+        JMenuItem mniFileExit = new JMenuItem("Exit");
+        mniFileExit.addActionListener(e -> System.exit(0));
 
-        fileMenu.add(fileOpenItem);
-        fileMenu.add(fileExitItem);
+        fileMenu.add(mniFileOpen);
+        fileMenu.add(mniFileExit);
 
-        menuBar.add(fileMenu);
+        mnu.add(fileMenu);
 
         JMenu helpMenu = new JMenu("Help");
-        JMenuItem helpAboutItem = new JMenuItem("About");
+        JMenuItem mniHelpAbout = new JMenuItem("About");
 
-        helpMenu.add(helpAboutItem);
-        menuBar.add(helpMenu);
-        setJMenuBar(menuBar);
+        helpMenu.add(mniHelpAbout);
+        mnu.add(helpMenu);
+        setJMenuBar(mnu);
 
         // создаем панель синего цвета
-        JPanel leftBluePanel = new JPanel();
-        leftBluePanel.setBackground(new Color(27, 161, 226));
-        leftBluePanel.setPreferredSize(new Dimension(250, getHeight()));
+        JPanel pnlLeftBlue = new JPanel();
+        pnlLeftBlue.setBackground(new Color(27, 161, 226));
+        pnlLeftBlue.setPreferredSize(new Dimension(250, getHeight()));
 
         // добавляем надпись вверху синего блока
-        JLabel label = new JLabel("БОЛЬНИЧНЫЕ");
-        label.setFont(new Font("Helvetica", Font.BOLD, 20));
-        label.setForeground(Color.WHITE);
-        label.setHorizontalAlignment(JLabel.CENTER);
-        label.setVerticalAlignment(JLabel.NORTH);
-        label.setPreferredSize(new Dimension(200, 30));
-        label.setFont(new Font("Helvetica", Font.BOLD, 20));
-        leftBluePanel.add(label, BorderLayout.NORTH);
+        JLabel lblTitle = new JLabel("БОЛЬНИЧНЫЕ");
+        lblTitle.setFont(new Font("Helvetica", Font.BOLD, 20));
+        lblTitle.setForeground(Color.WHITE);
+        lblTitle.setHorizontalAlignment(JLabel.CENTER);
+        lblTitle.setVerticalAlignment(JLabel.NORTH);
+        lblTitle.setPreferredSize(new Dimension(200, 30));
+        lblTitle.setFont(new Font("Helvetica", Font.BOLD, 20));
+        pnlLeftBlue.add(lblTitle, BorderLayout.NORTH);
 
         // добавляем картинку в середину синего блока
         ImageIcon imageIcon = new ImageIcon("src/main/resources/images/icon-white.png");
-        JLabel imageLabel = new JLabel(imageIcon);
+        JLabel lblImage = new JLabel(imageIcon);
         Image image = imageIcon.getImage(); // получаем объект Image из ImageIcon
         Image scaledImage = image.getScaledInstance(170, 170, Image.SCALE_SMOOTH); // масштабируем изображение до нужного размера
         imageIcon.setImage(scaledImage); // устанавливаем масштабированное изображение в качестве иконки для JLabel
-        imageLabel.setPreferredSize(new Dimension(200, 440));
-        imageLabel.setVerticalAlignment(JLabel.TOP);
-        leftBluePanel.add(imageLabel, BorderLayout.CENTER);
+        lblImage.setPreferredSize(new Dimension(200, 440));
+        lblImage.setVerticalAlignment(JLabel.TOP);
+        pnlLeftBlue.add(lblImage, BorderLayout.CENTER);
 
         // добавляем две кнопки внизу синего блока
-        JPanel buttonsOnBluePanel = new JPanel();
-        buttonsOnBluePanel.setBackground(new Color(27, 161, 226));
-        JButton aboutAuthorButton = new JButton("Об авторе");
-        ImageIcon aboutAuthorButtonIcon = new ImageIcon("src/main/resources/images/about-author-icon.png");
-        Image aboutAuthorImage = aboutAuthorButtonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
-        ImageIcon scaledAboutAuthorButtonIcon = new ImageIcon(aboutAuthorImage); // создание нового ImageIcon с измененным размером
-        aboutAuthorButton.setIcon(scaledAboutAuthorButtonIcon);
+        JPanel pnlButtonsOnBlue = new JPanel();
+        pnlButtonsOnBlue.setBackground(new Color(27, 161, 226));
+        JButton btnAboutAuthor = new JButton("Об авторе");
+        ImageIcon iconAboutAuthorButton = new ImageIcon("src/main/resources/images/about-author-icon.png");
+        Image aboutAuthorImage = iconAboutAuthorButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
+        ImageIcon iconScaledAboutAuthorButton = new ImageIcon(aboutAuthorImage); // создание нового ImageIcon с измененным размером
+        btnAboutAuthor.setIcon(iconScaledAboutAuthorButton);
 
-        aboutAuthorButton.addActionListener(e -> new AboutAuthor(this));
+        btnAboutAuthor.addActionListener(e -> {
+            try {
+                new AboutAuthor(this);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
-        JButton aboutProgramButton = new JButton("О программе");
-        ImageIcon aboutProgramButtonIcon = new ImageIcon("src/main/resources/images/about-program-icon.png");
-        Image aboutProgramImage = aboutProgramButtonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
+        JButton btnAboutProgram = new JButton("О программе");
+        ImageIcon iconAboutProgramButton = new ImageIcon("src/main/resources/images/about-program-icon.png");
+        Image aboutProgramImage = iconAboutProgramButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
         ImageIcon scaledAboutProgramButtonIcon = new ImageIcon(aboutProgramImage); // создание нового ImageIcon с измененным размером
-        aboutProgramButton.setIcon(scaledAboutProgramButtonIcon);
-        aboutProgramButton.addActionListener(e -> new AboutProgram(this));
+        btnAboutProgram.setIcon(scaledAboutProgramButtonIcon);
+        btnAboutProgram.addActionListener(e -> new AboutProgram(this));
 
-        aboutAuthorButton.setFont(new Font("Helvetica", Font.BOLD, 20));
-        aboutProgramButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        btnAboutAuthor.setFont(new Font("Helvetica", Font.BOLD, 20));
+        btnAboutProgram.setFont(new Font("Helvetica", Font.BOLD, 20));
         //  button2.setPreferredSize();
-        aboutAuthorButton.setBackground(new Color(27, 161, 226));
-        aboutProgramButton.setBackground(new Color(27, 161, 226));
-        aboutAuthorButton.setForeground(new Color(255, 255, 255));
-        aboutProgramButton.setForeground(new Color(255, 255, 255));
+        btnAboutAuthor.setBackground(new Color(27, 161, 226));
+        btnAboutProgram.setBackground(new Color(27, 161, 226));
+        btnAboutAuthor.setForeground(new Color(255, 255, 255));
+        btnAboutProgram.setForeground(new Color(255, 255, 255));
 
-        aboutAuthorButton.setBorderPainted(false);
-        aboutProgramButton.setBorderPainted(false);
+        btnAboutAuthor.setBorderPainted(false);
+        btnAboutProgram.setBorderPainted(false);
 
-        aboutAuthorButton.setHorizontalAlignment(SwingConstants.LEFT);
-        aboutProgramButton.setHorizontalAlignment(SwingConstants.LEFT);
+        btnAboutAuthor.setHorizontalAlignment(SwingConstants.LEFT);
+        btnAboutProgram.setHorizontalAlignment(SwingConstants.LEFT);
 
         //button1.setPreferredSize(new Dimension(200, 10));
         //button1.setSize(2000, 200);
-        aboutAuthorButton.setPreferredSize(new Dimension(260, 30));
-        aboutProgramButton.setPreferredSize(new Dimension(260, 30));
+        btnAboutAuthor.setPreferredSize(new Dimension(260, 30));
+        btnAboutProgram.setPreferredSize(new Dimension(260, 30));
         //buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonsOnBluePanel.add(Box.createVerticalGlue());
-        buttonsOnBluePanel.add(aboutAuthorButton);
-        buttonsOnBluePanel.add(Box.createVerticalStrut(10)); // отступ между кнопками
+        pnlButtonsOnBlue.add(Box.createVerticalGlue());
+        pnlButtonsOnBlue.add(btnAboutAuthor);
+        pnlButtonsOnBlue.add(Box.createVerticalStrut(10)); // отступ между кнопками
 
-        buttonsOnBluePanel.add(aboutProgramButton);
-        buttonsOnBluePanel.add(Box.createVerticalGlue());
-        buttonsOnBluePanel.setPreferredSize(new Dimension(250, 80));
-        leftBluePanel.add(buttonsOnBluePanel, BorderLayout.SOUTH);
+        pnlButtonsOnBlue.add(btnAboutProgram);
+        pnlButtonsOnBlue.add(Box.createVerticalGlue());
+        pnlButtonsOnBlue.setPreferredSize(new Dimension(250, 80));
+        pnlLeftBlue.add(pnlButtonsOnBlue, BorderLayout.SOUTH);
 
-        DefaultTableModel model = db.getAllEmployees();
-        table.setModel(model);
-        table.setRowHeight(30);
+        DefaultTableModel dtModel = db.getAllPayrolls();
+        tbl.setModel(dtModel);
+        tbl.setRowHeight(30);
 
-        TableColumnModel columnModel = table.getColumnModel();
+        TableColumnModel columnModel = tbl.getColumnModel();
         TableColumn editableColumn = columnModel.getColumn(7);
         editableColumn.setCellEditor(new DefaultCellEditor(new JTextField()));
         columnModel.getColumn(0).setPreferredWidth(10);
@@ -136,59 +143,55 @@ public class MainWindow extends JFrame {
                 db.getPayrollDetails((int) rowData[0]);
             }
         };
-        ButtonColumn buttonColumn = new ButtonColumn(table, viewAction, 7);
+        ButtonColumn buttonColumn = new ButtonColumn(tbl, viewAction, 7);
 
         //Запрет на изменение таблицы
         //table.setEnabled(false);
-        table.getTableHeader().setReorderingAllowed(false);
-        table.getTableHeader().setResizingAllowed(false);
-        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tbl.getTableHeader().setReorderingAllowed(false);
+        tbl.getTableHeader().setResizingAllowed(false);
+        tbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         // table.setModel(new DefaultTableModel();
 
-        JPanel centerPanel = new JPanel(new BorderLayout());
+        JPanel pnlCenter = new JPanel(new BorderLayout());
 
-        JButton addWorkerButton = new JButton("Добавить");
-        addWorkerButton.setBackground(new Color(27, 161, 226));
-        addWorkerButton.setForeground(new Color(255, 255, 255));
-        addWorkerButton.addActionListener(e -> new NewWorker(this));
-        JButton deleteButtom = new JButton("Удалить");
-        deleteButtom.setBackground(new Color(27, 161, 226));
-        deleteButtom.setForeground(new Color(255, 255, 255));
+        JButton btnAddWorker = new JButton("Добавить");
+        btnAddWorker.setBackground(new Color(27, 161, 226));
+        btnAddWorker.setForeground(new Color(255, 255, 255));
+        btnAddWorker.addActionListener(e -> new NewWorker(this));
+        JButton btnDelete = new JButton("Удалить");
+        btnDelete.setBackground(new Color(27, 161, 226));
+        btnDelete.setForeground(new Color(255, 255, 255));
 
-        JButton toFileButtom = new JButton("В файл");
-        toFileButtom.setBackground(new Color(27, 161, 226));
-        toFileButtom.setForeground(new Color(255, 255, 255));
+        JPanel pnlTop = new JPanel(new BorderLayout());
+        JPanel pnlTableButton = new JPanel(new GridLayout(1, 2));
+        pnlTableButton.add(btnAddWorker);
+        pnlTableButton.add(btnDelete);
 
-        JPanel topPanel = new JPanel(new BorderLayout());
-        JPanel tableButtonPanel = new JPanel(new GridLayout(1, 2));
-        tableButtonPanel.add(addWorkerButton);
-        tableButtonPanel.add(deleteButtom);
+        pnlTop.add(pnlTableButton, BorderLayout.WEST);
+        // pnlTop.add(toFileButtom, BorderLayout.EAST);
 
-        topPanel.add(tableButtonPanel, BorderLayout.WEST);
-        // topPanel.add(toFileButtom, BorderLayout.EAST);
+        pnlCenter.add(pnlTop, BorderLayout.NORTH);
 
-        centerPanel.add(topPanel, BorderLayout.NORTH);
+        JPanel pnlTable = new JPanel();
+        pnlTable.add(tbl.getTableHeader(), BorderLayout.NORTH);
+        pnlTable.add(tbl, BorderLayout.CENTER);
 
-        JPanel tablePanel = new JPanel();
-        tablePanel.add(table.getTableHeader(), BorderLayout.NORTH);
-        tablePanel.add(table, BorderLayout.CENTER);
-
-        //centerPanel.add(tablePanel);
+        //pnlCenter.add(pnlTable);
         // добавляем таблицу на центральную панель
-        centerPanel.add(new JScrollPane(table), BorderLayout.CENTER);
+        pnlCenter.add(new JScrollPane(tbl), BorderLayout.CENTER);
 
         // устанавливаем размеры таблицы
-        table.setFillsViewportHeight(true);
+        tbl.setFillsViewportHeight(true);
         // Создаем отступы и устанавливаем их для центральной панели
-        centerPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
-        //topPanel.add(leftPanel, BorderLayout.WEST);
-        //topPanel.add(toFileButtom, BorderLayout.EAST);
+        pnlCenter.setBorder(new EmptyBorder(20, 20, 20, 20));
+        //pnlTop.add(leftPanel, BorderLayout.WEST);
+        //pnlTop.add(toFileButtom, BorderLayout.EAST);
 
         // добавляем панели на окно
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(leftBluePanel, BorderLayout.WEST);
-        getContentPane().add(centerPanel, BorderLayout.CENTER);
+        getContentPane().add(pnlLeftBlue, BorderLayout.WEST);
+        getContentPane().add(pnlCenter, BorderLayout.CENTER);
     }
 
 

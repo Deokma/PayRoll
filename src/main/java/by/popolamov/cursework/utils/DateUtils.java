@@ -89,13 +89,13 @@ public class DateUtils {
     /**
      * Получение количество дней между двумя датами
      *
-     * @param firstDate первоя дата
-     * @param endDatePicker вторая дата
+     * @param dtpFirst первоя дата
+     * @param dtpEnd вторая дата
      * @return количество дней между датами
      */
-    public static int getDaysBetweenDates(JXDatePicker firstDate, JXDatePicker endDatePicker) {
-        LocalDate startDate = firstDate.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate endDate = endDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    public static int getDaysBetweenDates(JXDatePicker dtpFirst, JXDatePicker dtpEnd) {
+        LocalDate startDate = dtpFirst.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate endDate = dtpEnd.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         return Period.between(startDate, endDate).getDays() + 1;
     }
 }

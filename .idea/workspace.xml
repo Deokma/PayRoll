@@ -5,24 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="Update to version 0.8">
-      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/PayrollDetailsDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/ButtonColumn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/about-author-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/about-program-icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/images/details-icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_barcodes_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_commons_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_font_asian_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_forms_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_html2pdf_4_0_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_hyph_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_io_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_kernel_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_layout_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_pdfa_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_sign_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_styled_xml_parser_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_itextpdf_svg_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcpkix_jdk15on_1_70.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcprov_jdk15on_1_70.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bouncycastle_bcutil_jdk15on_1_70.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_5_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_postgresql_postgresql_42_5_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_2_0_7.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/barcodes_7_2_5.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/HtmlToPdfConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/PdfCopyWithComponentTextReplacement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/PdfEditor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/draw.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/itextpdf_5_5_13_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/poi_5_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/slf4j.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/poi_ooxml_5_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/postgresql_42_5_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/swing_worker_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/swingx_1_6_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/calculate/Calculations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/Calculations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/calculate/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CurseWork-PayRoll.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CurseWork-PayRoll.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/postgresql-42.5.4.jar" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/AboutAuthor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/AboutAuthor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/AboutProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/AboutProgram.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/MainWindow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/NewWorker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/NewWorker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/SaveWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/SaveWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/SplashScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/TestWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Certificate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Person.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/PayrollDetailsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/PayrollDetailsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/SaveWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/ButtonColumn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/ButtonColumn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/DateUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/DateUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableExcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/TestTableExcel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTablePDF.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/TestTablePDF.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/ParameterTableWord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/testsavemethods/TestTableWord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/icon.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +71,19 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="82118085-2648-4cda-8392-6a7ebe9aa6c6" />
+        <option name="url" value="https://github.com/Deokma/PayRoll.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -55,38 +99,42 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "116",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/3curse2semester/Java/CurseWork-PayRoll/src/main/resources/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;116&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/3curse2semester/Java/CurseWork-PayRoll/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\main\resources" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\main\resources\images" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\lib" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\test" />
-      <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\by\popolamov\cursework\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\main\java\by\popolamov\cursework" />
@@ -100,25 +148,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.MainWindow">
-    <configuration name="EmployeeTable" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="by.popolamov.cursework.gui.EmployeeTable" />
+    <configuration name="HtmlToPdfConverter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="by.popolamov.testsavemethods.HtmlToPdfConverter" />
       <module name="CurseWork-PayRoll" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="by.popolamov.cursework.utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="by.popolamov.cursework.Main" />
-      <module name="CurseWork-PayRoll" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="by.popolamov.cursework.*" />
+          <option name="PATTERN" value="by.popolamov.testsavemethods.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -131,7 +166,7 @@
       <module name="CurseWork-PayRoll" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="by.popolamov.cursework.utils.*" />
+          <option name="PATTERN" value="by.popolamov.cursework.gui.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -139,8 +174,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ParameterTablePDF" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="by.popolamov.testsavemethods.ParameterTablePDF" />
+    <configuration name="PdfCopyWithLineNumbering" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="by.popolamov.testsavemethods.PdfCopyWithLineNumbering" />
       <module name="CurseWork-PayRoll" />
       <extension name="coverage">
         <pattern>
@@ -152,12 +187,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Pong" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="by.popolamov.cursework.gui.Pong" />
+    <configuration name="PdfEditor" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="by.popolamov.testsavemethods.PdfEditor" />
       <module name="CurseWork-PayRoll" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="by.popolamov.cursework.utils.*" />
+          <option name="PATTERN" value="by.popolamov.testsavemethods.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PdfSymbolReplacement" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="by.popolamov.testsavemethods.PdfSymbolReplacement" />
+      <module name="CurseWork-PayRoll" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="by.popolamov.testsavemethods.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -168,10 +216,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainWindow" />
-        <item itemvalue="Application.Pong" />
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.EmployeeTable" />
-        <item itemvalue="Application.ParameterTablePDF" />
+        <item itemvalue="Application.PdfEditor" />
+        <item itemvalue="Application.HtmlToPdfConverter" />
+        <item itemvalue="Application.PdfCopyWithLineNumbering" />
+        <item itemvalue="Application.PdfSymbolReplacement" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +257,10 @@
       <workItem from="1678533114130" duration="34446000" />
       <workItem from="1678697721330" duration="28033000" />
       <workItem from="1678885626620" duration="19800000" />
-      <workItem from="1679169791183" duration="48609000" />
+      <workItem from="1679169791183" duration="69488000" />
+      <workItem from="1679746781837" duration="4871000" />
+      <workItem from="1679919476398" duration="2968000" />
+      <workItem from="1679938803743" duration="49030000" />
     </task>
     <task id="LOCAL-00001" summary="Add project">
       <created>1678034129230</created>
@@ -246,7 +297,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678891148991</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update to version 0.8">
+      <created>1679486642248</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1679486642248</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -259,5 +317,36 @@
     <MESSAGE value="Update to version 0.7" />
     <MESSAGE value="Update to version 0.8" />
     <option name="LAST_COMMIT_MESSAGE" value="Update to version 0.8" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java</url>
+          <line>349</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java</url>
+          <line>53</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java</url>
+          <line>56</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

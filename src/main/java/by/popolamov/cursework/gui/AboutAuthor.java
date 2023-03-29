@@ -3,11 +3,19 @@ package by.popolamov.cursework.gui;
 /**
  * @author Denis Popolamov
  */
+//import org.jdesktop.swingx.JXImagePanel;
+import org.jdesktop.swingx.JXImageView;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class AboutAuthor extends JDialog {
-    public AboutAuthor(JFrame parent) {
+   // private JXImagePanel authorImageIcon;
+    public AboutAuthor(JFrame parent) throws IOException {
         super(parent, "Об авторе", true);
         // установка размеров и запрет изменения размеров окна
         setPreferredSize(new Dimension(260, 370));
@@ -15,50 +23,56 @@ public class AboutAuthor extends JDialog {
         setLocationRelativeTo(parent);
 
         // создание панели содержимого окна
-        JPanel contentPane = new JPanel();
-        contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.PAGE_AXIS));
-        setContentPane(contentPane);
+        JPanel pnlContent = new JPanel();
+        pnlContent.setLayout(new BoxLayout(pnlContent, BoxLayout.PAGE_AXIS));
+        setContentPane(pnlContent);
 
         // создание элементов окна
         ImageIcon authorImageIcon = new ImageIcon("src/main/resources/images/author.jpg");
-        JLabel jlauthorImage = new JLabel(new ImageIcon(authorImageIcon.getImage().getScaledInstance(170, 195, Image.SCALE_SMOOTH)));
-        JLabel groupLabel = new JLabel("Студент группы 10702420");
-        JLabel nameLabel = new JLabel("Пополамов Денис Вячеславович");
-        JLabel emailLabel = new JLabel("dpopolamovmail@gmail.com");
-        JButton backButton = new JButton("Назад");
+        BufferedImage image = ImageIO.read(new File("src/main/resources/images/author.jpg"));
+        //JXImagePanel authorImageIcon = new JXImagePanel(image);
+        JXImageView authorImageView = new JXImageView();
+        authorImageView.setImage(authorImageView.getImage());
+
+        //JLabel lblAuthorImage = new JLabel(new ImageIcon(authorImageIcon.getImage().getScaledInstance(170, 195, Image.SCALE_SMOOTH)));
+        JLabel lblAuthorImage = new JLabel();
+        JLabel lblGroup = new JLabel("Студент группы 10702420");
+        JLabel lblName = new JLabel("Пополамов Денис Вячеславович");
+        JLabel lblEmail = new JLabel("dpopolamovmail@gmail.com");
+        JButton btnBack = new JButton("Назад");
 
         Font textFont = new Font("Helvetica", Font.PLAIN, 14);
-        groupLabel.setFont(textFont);
-        nameLabel.setFont(textFont);
-        emailLabel.setFont(textFont);
+        lblGroup.setFont(textFont);
+        lblName.setFont(textFont);
+        lblEmail.setFont(textFont);
 
 
-        backButton.setFont(new Font("Helvetica", Font.BOLD, 20));
+        btnBack.setFont(new Font("Helvetica", Font.BOLD, 20));
 
-        backButton.setBackground(new Color(27, 161, 226));
+        btnBack.setBackground(new Color(27, 161, 226));
 
-        backButton.setForeground(new Color(255, 255, 255));
+        btnBack.setForeground(new Color(255, 255, 255));
 
         // установка выравнивания элементов по центру
-        jlauthorImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-        groupLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        emailLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblAuthorImage.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblGroup.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblName.setAlignmentX(Component.CENTER_ALIGNMENT);
+        lblEmail.setAlignmentX(Component.CENTER_ALIGNMENT);
+        btnBack.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // добавление элементов на панель содержимого окна
-        contentPane.add(Box.createVerticalGlue()); // пространство сверху
-        contentPane.add(jlauthorImage);
-        contentPane.add(Box.createRigidArea(new Dimension(0, 20))); // отступ между изображением и текстом
-        contentPane.add(groupLabel);
-        contentPane.add(nameLabel);
-        contentPane.add(emailLabel);
-        contentPane.add(Box.createVerticalGlue()); // пространство между текстом и кнопкой
-        contentPane.add(backButton);
-        contentPane.add(Box.createVerticalGlue()); // пространство снизу
+        pnlContent.add(Box.createVerticalGlue()); // пространство сверху
+        pnlContent.add(lblAuthorImage);
+        pnlContent.add(Box.createRigidArea(new Dimension(0, 20))); // отступ между изображением и текстом
+        pnlContent.add(lblGroup);
+        pnlContent.add(lblName);
+        pnlContent.add(lblEmail);
+        pnlContent.add(Box.createVerticalGlue()); // пространство между текстом и кнопкой
+        pnlContent.add(btnBack);
+        pnlContent.add(Box.createVerticalGlue()); // пространство снизу
 
         // установка обработчика событий для кнопки "Назад"
-        backButton.addActionListener(e -> {
+        btnBack.addActionListener(e -> {
             dispose(); // закрытие окна при нажатии кнопки
         });
 

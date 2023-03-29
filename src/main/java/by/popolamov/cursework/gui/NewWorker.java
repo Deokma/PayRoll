@@ -35,9 +35,13 @@ public class NewWorker extends JDialog {
     private double totalSalary; // общая заработная плата
     private double totalAverageSalary; // общая средняя заработная плата
     private double totalSum; //общая сумма
-    List<JLabel> remainingCalendarDaysLabel = new ArrayList<>();
-    List<JLabel> avarageSalaryLabel = new ArrayList<>();
+    List<JLabel> lblListRemainingCalendarDays = new ArrayList<>(); // Остаток календарных дней
+    List<JLabel> lblListAverageSalary = new ArrayList<>(); // Средняя заработная плата
 
+    String currentMonthSql;
+    Double eightyPecentSalarySql;
+    Double hundredPecentSalarySql;
+    List<Double> sqlAvarageSalary;
     private MainWindow mainWindow;
 
     public NewWorker(JFrame parent) {
@@ -48,204 +52,203 @@ public class NewWorker extends JDialog {
         setLocationRelativeTo(parent);
 
         // Текстовая панель с полями ФИО
-        JPanel topPanel = new JPanel(new GridLayout(1, 2, 30, 10));
-        topPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, -10, 10));
-        JLabel surnameLabel = new JLabel("Фамилия:");
-        surnameLabel.setForeground(new Color(255, 255, 255));
-        JTextField surnameTextField = new JTextField();
-        JLabel nameLabel = new JLabel("Имя:");
-        nameLabel.setForeground(new Color(255, 255, 255));
-        JTextField nameTextField = new JTextField();
-        JLabel patronymicLabel = new JLabel("Отчество:");
-        patronymicLabel.setForeground(new Color(255, 255, 255));
-        JTextField patronymicTextField = new JTextField();
+        JPanel pnlTop = new JPanel(new GridLayout(1, 2, 30, 10));
+        pnlTop.setBorder(BorderFactory.createEmptyBorder(20, 20, -10, 10));
+        JLabel lblSurname = new JLabel("Фамилия:");
+        lblSurname.setForeground(new Color(255, 255, 255));
+        JTextField txtSurname = new JTextField();
+        JLabel lblName = new JLabel("Имя:");
+        lblName.setForeground(new Color(255, 255, 255));
+        JTextField txtName = new JTextField();
+        JLabel lblPatronymic = new JLabel("Отчество:");
+        lblPatronymic.setForeground(new Color(255, 255, 255));
+        JTextField txtPatronymic = new JTextField();
 
         // Создание компанентов выбора даты
-        JXDatePicker firstDatePicker = new JXDatePicker();
-        JXDatePicker secondDatePicker = new JXDatePicker();
+        JXDatePicker dtpFirst = new JXDatePicker();
+        JXDatePicker dtpSecond = new JXDatePicker();
 
         // Установка формата даты для компонента
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-        firstDatePicker.setFormats(dateFormat);
-        secondDatePicker.setFormats(dateFormat);
+        dtpFirst.setFormats(dateFormat);
+        dtpSecond.setFormats(dateFormat);
 
         // Установка подсказок для компонентов
-        firstDatePicker.setToolTipText("Выберите начальную дату");
-        secondDatePicker.setToolTipText("Выберите конечную дату");
+        dtpFirst.setToolTipText("Выберите начальную дату");
+        dtpSecond.setToolTipText("Выберите конечную дату");
 
         // Левая панель для заполнения ФИО
-        JPanel leftTopPanet = new JPanel(new GridLayout(4, 4, 10, 10));
-        leftTopPanet.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
-        leftTopPanet.setBackground(new Color(27, 161, 226));
-        leftTopPanet.add(surnameLabel);
-        leftTopPanet.add(surnameTextField);
-        leftTopPanet.add(nameLabel);
-        leftTopPanet.add(nameTextField);
-        leftTopPanet.add(patronymicLabel);
-        leftTopPanet.add(patronymicTextField);
-        topPanel.setBackground(new Color(27, 161, 226));
-        topPanel.add(leftTopPanet, BorderLayout.WEST);
+        JPanel pnlLeftTop = new JPanel(new GridLayout(4, 4, 10, 10));
+        pnlLeftTop.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
+        pnlLeftTop.setBackground(new Color(27, 161, 226));
+        pnlLeftTop.add(lblSurname);
+        pnlLeftTop.add(txtSurname);
+        pnlLeftTop.add(lblName);
+        pnlLeftTop.add(txtName);
+        pnlLeftTop.add(lblPatronymic);
+        pnlLeftTop.add(txtPatronymic);
+        pnlTop.setBackground(new Color(27, 161, 226));
+        pnlTop.add(pnlLeftTop, BorderLayout.WEST);
 
         // Правая панель для выбора даты
-        JPanel rightTopPanet = new JPanel(new GridLayout(2, 1, 0, 0));
-        rightTopPanet.setBackground(new Color(27, 161, 226));
-        rightTopPanet.setBorder(BorderFactory.createEmptyBorder(0, 20, 40, 20));
+        JPanel pnlRightTop = new JPanel(new GridLayout(2, 1, 0, 0));
+        pnlRightTop.setBackground(new Color(27, 161, 226));
+        pnlRightTop.setBorder(BorderFactory.createEmptyBorder(0, 20, 40, 20));
 
         // Отдельная панель для выбора даты
-        JPanel rightTopPanetDates = new JPanel(new GridLayout(3, 2, 0, 0));
-        JLabel periodOfillnessLabel = new JLabel("Период болезни");
-        periodOfillnessLabel.setForeground(new Color(255, 255, 255));
-        rightTopPanet.add(periodOfillnessLabel, BorderLayout.CENTER);
-        JLabel startDateLabel = new JLabel("Начальная дата:");
-        startDateLabel.setForeground(new Color(255, 255, 255));
-        rightTopPanetDates.add(startDateLabel);
-        rightTopPanetDates.setForeground(new Color(255, 255, 255));
-        rightTopPanetDates.add(firstDatePicker);
-        JLabel endDateLabel = new JLabel("Конечная дата:");
-        endDateLabel.setForeground(new Color(255, 255, 255));
-        rightTopPanetDates.add(endDateLabel);
-        rightTopPanetDates.setForeground(new Color(255, 255, 255));
-        rightTopPanetDates.add(secondDatePicker);
-        rightTopPanetDates.setBackground(new Color(27, 161, 226));
+        JPanel pnlRightTopDates = new JPanel(new GridLayout(3, 2, 0, 0));
+        JLabel lblPeriodOfIllness = new JLabel("Период болезни");
+        lblPeriodOfIllness.setForeground(new Color(255, 255, 255));
+        pnlRightTop.add(lblPeriodOfIllness, BorderLayout.CENTER);
+        JLabel lblFirstDate = new JLabel("Начальная дата:");
+        lblFirstDate.setForeground(new Color(255, 255, 255));
+        pnlRightTopDates.add(lblFirstDate);
+        pnlRightTopDates.setForeground(new Color(255, 255, 255));
+        pnlRightTopDates.add(dtpFirst);
+        JLabel lblSecondDate = new JLabel("Конечная дата:");
+        lblSecondDate.setForeground(new Color(255, 255, 255));
+        pnlRightTopDates.add(lblSecondDate);
+        pnlRightTopDates.setForeground(new Color(255, 255, 255));
+        pnlRightTopDates.add(dtpSecond);
+        pnlRightTopDates.setBackground(new Color(27, 161, 226));
         ImageIcon confirmButtonIcon = new ImageIcon("src/main/resources/images/confirm-button-icon.png");
         Image image = confirmButtonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
         ImageIcon scaledConfirmButtonIcon = new ImageIcon(image); // создание нового ImageIcon с измененным размером
 
-        rightTopPanet.add(rightTopPanetDates);
+        pnlRightTop.add(pnlRightTopDates);
 
-        topPanel.add(rightTopPanet, BorderLayout.EAST);
+        pnlTop.add(pnlRightTop, BorderLayout.EAST);
 
-        JPanel centerPanel = new JPanel(new BorderLayout());
+        JPanel pnlCenter = new JPanel(new BorderLayout());
 
         // создаем центральную панели с описание
-        JPanel tittleOfCenterPanel = new JPanel(new GridLayout(1, 6, 10, 10));
-        tittleOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 80, 10));
+        JPanel pnlTittleOfCenter = new JPanel(new GridLayout(1, 6, 10, 10));
+        pnlTittleOfCenter.setBorder(BorderFactory.createEmptyBorder(10, 10, 80, 10));
 
-        tittleOfCenterPanel.add(new JLabel("<html>Месяцы, взятые <br> для исчисления <br> помощи</html>"));
-        tittleOfCenterPanel.add(new JLabel("<html>Количество <br> календарных <br> дней</html>"));
-        tittleOfCenterPanel.add(new JLabel("<html>Командировочные <br> больничные,<br> отпускные (дней)</html>"));
-        tittleOfCenterPanel.add(new JLabel("<html>Сумма <br> фактического <br> заработка (руб.)</html>"));
-        tittleOfCenterPanel.add(new JLabel("<html>Остаток <br> календарных <br> дней</html>"));
-        tittleOfCenterPanel.add(new JLabel("<html>Средний дневной <br> фактический <br> заработок (руб.)</html>"));
-        centerPanel.add(tittleOfCenterPanel, BorderLayout.NORTH);
-        //centerPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        pnlTittleOfCenter.add(new JLabel("<html>Месяцы, взятые <br> для исчисления <br> помощи</html>"));
+        pnlTittleOfCenter.add(new JLabel("<html>Количество <br> календарных <br> дней</html>"));
+        pnlTittleOfCenter.add(new JLabel("<html>Командировочные <br> больничные,<br> отпускные (дней)</html>"));
+        pnlTittleOfCenter.add(new JLabel("<html>Сумма <br> фактического <br> заработка (руб.)</html>"));
+        pnlTittleOfCenter.add(new JLabel("<html>Остаток <br> календарных <br> дней</html>"));
+        pnlTittleOfCenter.add(new JLabel("<html>Средний дневной <br> фактический <br> заработок (руб.)</html>"));
+        pnlCenter.add(pnlTittleOfCenter, BorderLayout.NORTH);
+        //pnlCenter.add(new JSeparator(SwingConstants.HORIZONTAL));
 
         // Ценральная панель с таблицей для заполнения информации о отпускных
-        JPanel centerTableOfCenterPanel = new JPanel(new GridLayout(6, 6, 10, 10));
-        centerTableOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
+        JPanel pnlCenterTableOfCenter = new JPanel(new GridLayout(6, 6, 10, 10));
+        pnlCenterTableOfCenter.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
         // Компоненты для расчёта в центральной таблице
-        List<JTextField> sickDaysTextField = new ArrayList<>(); // Больничные, отпускные дни
-        List<JTextField> sumOfActualSalaryTextField = new ArrayList<>(); //Сумма фактического заработка
-        //JTextField[] sumOfActualSalaryTextField = new JTextField[6]; //Сумма фактического заработка
+        List<JTextField> txtSickDays = new ArrayList<>(); // Больничные, отпускные дни
+        List<JTextField> txtSumOfActualSalary = new ArrayList<>(); //Сумма фактического заработка
+        //JTextField[] txtSumOfActualSalary = new JTextField[6]; //Сумма фактического заработка
 
 
         // Панель с итогами расчётов
-        JPanel buttomTableOfCentalPanel = new JPanel(new GridLayout(1, 6, 10, 10));
-        buttomTableOfCentalPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 40, 20));
+        JPanel pnlButtomTableOfCental = new JPanel(new GridLayout(1, 6, 10, 10));
+        pnlButtomTableOfCental.setBorder(BorderFactory.createEmptyBorder(10, 30, 40, 20));
 
-        JLabel[] buttomTotalLabel = new JLabel[6];
+        JLabel[] lblButtomTotal = new JLabel[6];
         Font buttomTotalFont = new Font("Arial", Font.BOLD, 14); // Создание жирного шрифта размером 16
-        for (int i = 0; i < buttomTotalLabel.length; i++) {
-            buttomTotalLabel[i] = new JLabel("");
-            buttomTotalLabel[i].setFont(buttomTotalFont);
-            buttomTableOfCentalPanel.add(buttomTotalLabel[i]);
+        for (int i = 0; i < lblButtomTotal.length; i++) {
+            lblButtomTotal[i] = new JLabel("");
+            lblButtomTotal[i].setFont(buttomTotalFont);
+            pnlButtomTableOfCental.add(lblButtomTotal[i]);
         }
-        centerPanel.add(buttomTableOfCentalPanel, BorderLayout.SOUTH);
+        pnlCenter.add(pnlButtomTableOfCental, BorderLayout.SOUTH);
 
         // Панель с выводом общей информации
-        JPanel totalPanel = new JPanel(new GridLayout(2, 3, 10, 10));
-        totalPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 300));
+        JPanel pnlTotal = new JPanel(new GridLayout(2, 3, 10, 10));
+        pnlTotal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 300));
 
-        JLabel[] totalPanelLabel = new JLabel[6];
-        for (int i = 0; i < totalPanelLabel.length; i++) {
-            totalPanelLabel[i] = new JLabel("");
-            totalPanel.add(totalPanelLabel[i]);
+        JLabel[] lblTotalPanel = new JLabel[6];
+        for (int i = 0; i < lblTotalPanel.length; i++) {
+            lblTotalPanel[i] = new JLabel("");
+            pnlTotal.add(lblTotalPanel[i]);
         }
 
         // Нижняя панель с кнопками
-        JPanel bottomPanel = new JPanel(new BorderLayout());
-        bottomPanel.add(totalPanel, BorderLayout.NORTH);
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        JPanel pnlBottom = new JPanel(new BorderLayout());
+        pnlBottom.add(pnlTotal, BorderLayout.NORTH);
+        pnlBottom.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // добавляем кнопки
-        JButton calculationButton = new JButton("Расчёт");
-        calculationButton.setBackground(new Color(27, 161, 226));
-        calculationButton.setForeground(new Color(255, 255, 255));
+        JButton btnCalculation = new JButton("Расчёт");
+        btnCalculation.setBackground(new Color(27, 161, 226));
+        btnCalculation.setForeground(new Color(255, 255, 255));
 
-        JButton confirmButton = new JButton(scaledConfirmButtonIcon);
-        confirmButton.setText("Check");
-        confirmButton.setBackground(new Color(27, 161, 226));
-        confirmButton.setForeground(new Color(255, 255, 255));
-        JLabel totalMoneyLabel = new JLabel("");
-        JButton saveButton = new JButton("Сохранить");
-        saveButton.setBackground(new Color(27, 161, 226));
-        saveButton.setForeground(new Color(255, 255, 255));
-        JButton cancelButton = new JButton("Отмена");
-        cancelButton.setBackground(new Color(226, 27, 34));
-        cancelButton.setForeground(new Color(255, 255, 255));
-        calculationButton.setVisible(false);
-        saveButton.setVisible(false);
-        bottomPanel.add(confirmButton, BorderLayout.WEST);
+        JButton btnConfirm = new JButton(scaledConfirmButtonIcon);
+        btnConfirm.setText("Check");
+        btnConfirm.setBackground(new Color(27, 161, 226));
+        btnConfirm.setForeground(new Color(255, 255, 255));
+        JLabel lblTotalMoney = new JLabel("");
+        JButton btnSave = new JButton("Сохранить");
+        btnSave.setBackground(new Color(27, 161, 226));
+        btnSave.setForeground(new Color(255, 255, 255));
+        JButton btnCancel = new JButton("Отмена");
+        btnCancel.setBackground(new Color(226, 27, 34));
+        btnCancel.setForeground(new Color(255, 255, 255));
+        btnCalculation.setVisible(false);
+        btnSave.setVisible(false);
+        pnlBottom.add(btnConfirm, BorderLayout.WEST);
 
         // создаем панель для кнопок справа
-        JPanel rightButtonPanel = new JPanel(new GridLayout(1, 2, 20, 10));
-        rightButtonPanel.add(saveButton);
-        rightButtonPanel.add(cancelButton);
-        bottomPanel.add(rightButtonPanel, BorderLayout.EAST);
+        JPanel pnlRightButton = new JPanel(new GridLayout(1, 2, 20, 10));
+        pnlRightButton.add(btnSave);
+        pnlRightButton.add(btnCancel);
+        pnlBottom.add(pnlRightButton, BorderLayout.EAST);
 
         // добавляем все панели на основную панель окна
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(topPanel, BorderLayout.NORTH);
-        mainPanel.add(centerPanel, BorderLayout.CENTER);
-        mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+        JPanel pnlMain = new JPanel(new BorderLayout());
+        pnlMain.add(pnlTop, BorderLayout.NORTH);
+        pnlMain.add(pnlCenter, BorderLayout.CENTER);
+        pnlMain.add(pnlBottom, BorderLayout.SOUTH);
 
         // Слушатель для подтверждения ФИО и даты
-        confirmButton.addActionListener(e -> {
+        btnConfirm.addActionListener(e -> {
             try {
-                if (firstDatePicker.getDate() == null || secondDatePicker.getDate() == null) {
+                if (dtpFirst.getDate() == null || dtpSecond.getDate() == null) {
                     throw new InvalidDateRangeException("Выберите корректные даты!");
                 }
-                if (firstDatePicker.getDate().after(secondDatePicker.getDate())) {
+                if (dtpFirst.getDate().after(dtpSecond.getDate())) {
                     throw new InvalidDateRangeException("Начальная дата должна быть меньше конечной даты!");
                 }
-                if (surnameTextField.getText().isEmpty() || nameTextField.getText().isEmpty() || patronymicTextField.getText().isEmpty()) {
+                if (txtSurname.getText().isEmpty() || txtName.getText().isEmpty() || txtPatronymic.getText().isEmpty()) {
                     throw new NullPointerException("Не все поля заполнены!");
                 }
-                topPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 200));
-                confirmButton.setVisible(false);
-                bottomPanel.add(calculationButton, BorderLayout.WEST);
-                calculationButton.setVisible(true);
+                pnlTop.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 200));
+                btnConfirm.setVisible(false);
+                pnlBottom.add(btnCalculation, BorderLayout.WEST);
+                btnCalculation.setVisible(true);
                 setSize(750, 700);
                 setLocationRelativeTo(parent);
 
-                LocalDate localDate = firstDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
+                LocalDate localDate = dtpFirst.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
                 pastMonths = DateUtils.getPastSixMonths(localDate);
                 daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
 
                 for (int i = 0; i <= 5; i++) {
-                    centerTableOfCenterPanel.add(new JLabel(pastMonths.get(i))); // месяц
-                    centerTableOfCenterPanel.add(new JLabel("" + daysInMonths.get(i))); // количество дней
-                    JTextField sickDaysTextFieldTemp = new JTextField();
-                    sickDaysTextFieldTemp.setName("sickDaysTextField" + i);
-                    sickDaysTextField.add(sickDaysTextFieldTemp);
-                    centerTableOfCenterPanel.add(sickDaysTextFieldTemp);
+                    pnlCenterTableOfCenter.add(new JLabel(pastMonths.get(i))); // месяц
+                    pnlCenterTableOfCenter.add(new JLabel("" + daysInMonths.get(i))); // количество дней
+                    JTextField txtSickDaysTemp = new JTextField();
+                    txtSickDaysTemp.setName("txtSickDays" + i);
+                    txtSickDays.add(txtSickDaysTemp);
+                    pnlCenterTableOfCenter.add(txtSickDaysTemp);
 
-                    JTextField sumOfActualSalaryTextFieldTemp = new JTextField();
-                    sumOfActualSalaryTextFieldTemp.setName("sickDaysTextField" + i);
-                    sumOfActualSalaryTextField.add(sumOfActualSalaryTextFieldTemp);
-                    centerTableOfCenterPanel.add(sumOfActualSalaryTextFieldTemp);
+                    JTextField txtSumOfActualSalaryTemp = new JTextField();
+                    txtSumOfActualSalaryTemp.setName("txtSickDays" + i);
+                    txtSumOfActualSalary.add(txtSumOfActualSalaryTemp);
+                    pnlCenterTableOfCenter.add(txtSumOfActualSalaryTemp);
 
-                    JLabel remainingDayLabel = new JLabel("");
-                    remainingCalendarDaysLabel.add(remainingDayLabel);
-                    centerTableOfCenterPanel.add(remainingDayLabel);
-                    JLabel avarageSalaryLabelTemp = new JLabel("");
-                    avarageSalaryLabel.add(avarageSalaryLabelTemp);
-                    centerTableOfCenterPanel.add(avarageSalaryLabelTemp);
+                    JLabel lblRemainingDay = new JLabel("");
+                    lblListRemainingCalendarDays.add(lblRemainingDay);
+                    pnlCenterTableOfCenter.add(lblRemainingDay);
+                    JLabel lblAverageSalaryTemp = new JLabel("");
+                    lblListAverageSalary.add(lblAverageSalaryTemp);
+                    pnlCenterTableOfCenter.add(lblAverageSalaryTemp);
                 }
-                centerPanel.add(centerTableOfCenterPanel, BorderLayout.CENTER);
+                pnlCenter.add(pnlCenterTableOfCenter, BorderLayout.CENTER);
             } catch (NullPointerException ex) {
                 JOptionPane.showMessageDialog(parent, ex.getMessage());
             } catch (InvalidDateRangeException ex) {
@@ -254,78 +257,91 @@ public class NewWorker extends JDialog {
         });
 
         // Слушатель для расчётов
-        calculationButton.addActionListener(e -> {
+        btnCalculation.addActionListener(e -> {
             try {
-                LocalDate localDate = firstDatePicker.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate localDate = dtpFirst.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
                 String currentMonth = DateUtils.getCurrentMonth(localDate);
+                currentMonthSql = currentMonth;
 
-                List<Integer> remainingCalendarDays = calculateRemainingDays(daysInMonths, sickDaysTextField);
-                List<Double> remainingAvarageSalary = calculateAverageSalary(sumOfActualSalaryTextField, remainingCalendarDays);
+                List<Integer> remainingCalendarDays = calculateRemainingDays(daysInMonths, txtSickDays);
+                List<Double> remainingAverageSalary = calculateAverageSalary(txtSumOfActualSalary, remainingCalendarDays);
+
+                sqlAvarageSalary = remainingAverageSalary;
 
                 daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
                 totalDates = DateUtils.getTotalDaysInPastSixMonths(localDate);
                 totalRemainingCalendarDays = DateUtils.calculateTotalRemainingDays(remainingCalendarDays);
-                totalSickDays = totalSickDays(sickDaysTextField);
-                totalSalary = calculateTotalSalary(sumOfActualSalaryTextField);
+                totalSickDays = totalSickDays(txtSickDays);
+                totalSalary = calculateTotalSalary(txtSumOfActualSalary);
                 totalAverageSalary = calculateTotalAverageSalary(totalSalary, totalRemainingCalendarDays);
-                isSalaryValid(sickDaysTextField, daysInMonths);
+                isSalaryValid(txtSickDays, daysInMonths);
 
-                buttomTableOfCentalPanel.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
+                pnlButtomTableOfCental.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
                 for (int i = 0; i < remainingCalendarDays.size(); i++) {
-                    remainingCalendarDaysLabel.get(i).setText("" + remainingCalendarDays.get(i));
-                    avarageSalaryLabel.get(i).setText("" + remainingAvarageSalary.get(i));
+                    lblListRemainingCalendarDays.get(i).setText("" + remainingCalendarDays.get(i));
+                    lblListAverageSalary.get(i).setText("" + remainingAverageSalary.get(i));
                 }
 
-                int numberOfDaysOfIllness = getDaysBetweenDates(firstDatePicker, secondDatePicker);
+                int numberOfDaysOfIllness = getDaysBetweenDates(dtpFirst, dtpSecond);
                 double calculated80PercentOfAverageSalary = calculate80PercentOfAverageSalary(totalAverageSalary, numberOfDaysOfIllness);
                 double calculatedFullSalary = calculateFullSalary(totalAverageSalary, numberOfDaysOfIllness);
+                eightyPecentSalarySql = calculated80PercentOfAverageSalary;
+                hundredPecentSalarySql = calculatedFullSalary;
 
+                lblButtomTotal[0].setText("Итого:");
+                lblButtomTotal[1].setText("" + totalDates);
+                lblButtomTotal[2].setText("" + totalSickDays);
+                lblButtomTotal[3].setText(totalSalary + " р.б.");
+                lblButtomTotal[4].setText("" + totalRemainingCalendarDays);
+                lblButtomTotal[5].setText(totalAverageSalary + " р.б.");
 
-                buttomTotalLabel[0].setText("Итого:");
-                buttomTotalLabel[1].setText("" + totalDates);
-                buttomTotalLabel[2].setText("" + totalSickDays);
-                buttomTotalLabel[3].setText(totalSalary + " р.б.");
-                buttomTotalLabel[4].setText("" + totalRemainingCalendarDays);
-                buttomTotalLabel[5].setText(totalAverageSalary + " р.б.");
+                lblTotalPanel[0].setText("<html>Месяц<br> нетрудоспособности</html>");
+                lblTotalPanel[1].setText("<html>За дни в размере<br> 80% заработка</html>");
+                lblTotalPanel[2].setText("<html>За дни в размере<br> 100% заработка</html>");
+                lblTotalPanel[3].setText(currentMonth);
+                lblTotalPanel[4].setText(calculated80PercentOfAverageSalary + " р.б.");
+                lblTotalPanel[5].setText(calculatedFullSalary + " р.б.");
 
-                totalPanelLabel[0].setText("<html>Месяц<br> нетрудоспособности</html>");
-                totalPanelLabel[1].setText("<html>За дни в размере<br> 80% заработка</html>");
-                totalPanelLabel[2].setText("<html>За дни в размере<br> 100% заработка</html>");
-                totalPanelLabel[3].setText(currentMonth);
-                totalPanelLabel[4].setText(calculated80PercentOfAverageSalary + " р.б.");
-                totalPanelLabel[5].setText(calculatedFullSalary + " р.б.");
-
-                tittleOfCenterPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-                totalPanel.setVisible(true);
+                pnlTittleOfCenter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+                pnlTotal.setVisible(true);
                 totalSum = ((calculated80PercentOfAverageSalary + calculatedFullSalary) * 100.0) / 100.0;
-                totalMoneyLabel.setText("Всего: " + totalSum + " р.б.");
-                bottomPanel.add(totalMoneyLabel);
-                saveButton.setVisible(true);
+                lblTotalMoney.setText("Всего: " + totalSum + " р.б.");
+                pnlBottom.add(lblTotalMoney);
+                btnSave.setVisible(true);
             } catch (InvalidInputException ex) {
                 JOptionPane.showMessageDialog(null, "Введённое вами число дней, превышает количество дней в месяце.");
             }
         });
 
         // Слушатель для сохранения расчётов
-        saveButton.addActionListener(e -> {
+        btnSave.addActionListener(e -> {
             try {
-                String userSurname = surnameTextField.getText();
-                String userName = nameTextField.getText();
-                String userPatrinimic = patronymicTextField.getText();
+                String userSurname = txtSurname.getText();
+                String userName = txtName.getText();
+                String userPatrinimic = txtPatronymic.getText();
 
-                Date firstUtilDate = firstDatePicker.getDate();
+                Date firstUtilDate = dtpFirst.getDate();
                 String firstDateString = new SimpleDateFormat("yyyy-MM-dd").format(firstUtilDate);
                 java.sql.Date fistSqlDate = java.sql.Date.valueOf(firstDateString);
 
-                Date secondUtilDate = secondDatePicker.getDate();
+                Date secondUtilDate = dtpSecond.getDate();
                 String secondDateString = new SimpleDateFormat("yyyy-MM-dd").format(secondUtilDate);
                 java.sql.Date secondSqlDate = java.sql.Date.valueOf(secondDateString);
                 DBManager db = new DBManager();
 
-                int payrollId = db.addEmployee(userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate, totalSum);
+                //int payrollId = db.addEmployee(userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate, totalSum);
 
-                db.addPayrollDetails(payrollId, totalSickDays, totalSalary, totalRemainingCalendarDays, totalAverageSalary, totalSum);
+                db.addPayrollDetails(totalSickDays, totalSalary,
+                        totalRemainingCalendarDays, totalAverageSalary, totalSum,
+                        userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate,
+                        currentMonthSql, eightyPecentSalarySql, hundredPecentSalarySql);
+                db.saveAverageSalary(sqlAvarageSalary);
+                db.savePayrollMonths(pastMonths);
+                db.savePayrollSalary(txtSumOfActualSalary);
+                db.savePayrollWorkDays(daysInMonths, lblListRemainingCalendarDays);
+                //lblListAverageSalary среднее зп
+                //lblListRemainingCalendarDays остаток календарных дней
                 parent.repaint();
                 dispose();
             } catch (Exception ex) {
@@ -335,11 +351,11 @@ public class NewWorker extends JDialog {
 
 
         // Слушатель для закрытия окна
-        cancelButton.addActionListener(e -> {
+        btnCancel.addActionListener(e -> {
             dispose();
         });
 
-        add(mainPanel);
+        add(pnlMain);
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
