@@ -8,6 +8,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Класс представляет собой реализацию столбца таблицы, который содержит кнопки.
+ * Он используется для добавления кнопок в столбец таблицы и
+ * выполнения заданные действий при нажатии на эти кнопки.
+ *
+ * @author Denis Popolamov
+ */
 public class ButtonColumn extends AbstractCellEditor implements TableCellRenderer, TableCellEditor, ActionListener {
     private JTable tbl; // Таблица, к которой привязан столбец
     private Action action; // Действие, которое выполняется при нажатии на кнопку

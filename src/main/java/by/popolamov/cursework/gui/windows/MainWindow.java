@@ -1,10 +1,9 @@
-package by.popolamov.cursework.gui;
-
-/**
- * @author Denis Popolamov
- */
+package by.popolamov.cursework.gui.windows;
 
 import by.popolamov.cursework.connect.DBManager;
+import by.popolamov.cursework.gui.dialogs.AboutAuthorDialog;
+import by.popolamov.cursework.gui.dialogs.AboutProgramDialog;
+import by.popolamov.cursework.gui.dialogs.HelpDialog;
 import by.popolamov.cursework.utils.ButtonColumn;
 
 import javax.swing.*;
@@ -14,11 +13,18 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * Главное окно
+ *
+ * @author Denis Popolamov
+ */
 public class MainWindow extends JFrame {
     JTable tbl = new JTable();
     DBManager db = new DBManager();
+    ActionListener refreshListener;
 
     public MainWindow() {
         setTitle("PayRoll Calculate");
@@ -42,8 +48,11 @@ public class MainWindow extends JFrame {
         mnu.add(fileMenu);
 
         JMenu helpMenu = new JMenu("Help");
+        JMenuItem mniHelpHelp = new JMenuItem("Help");
         JMenuItem mniHelpAbout = new JMenuItem("About");
-
+        mniHelpHelp.addActionListener(e -> new HelpDialog(this));
+        mniHelpAbout.addActionListener(e -> new AboutProgramDialog(this));
+        helpMenu.add(mniHelpHelp);
         helpMenu.add(mniHelpAbout);
         mnu.add(helpMenu);
         setJMenuBar(mnu);
@@ -82,20 +91,13 @@ public class MainWindow extends JFrame {
         ImageIcon iconScaledAboutAuthorButton = new ImageIcon(aboutAuthorImage); // создание нового ImageIcon с измененным размером
         btnAboutAuthor.setIcon(iconScaledAboutAuthorButton);
 
-        btnAboutAuthor.addActionListener(e -> {
-            try {
-                new AboutAuthor(this);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-        });
 
         JButton btnAboutProgram = new JButton("О программе");
         ImageIcon iconAboutProgramButton = new ImageIcon("src/main/resources/images/about-program-icon.png");
         Image aboutProgramImage = iconAboutProgramButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
         ImageIcon scaledAboutProgramButtonIcon = new ImageIcon(aboutProgramImage); // создание нового ImageIcon с измененным размером
         btnAboutProgram.setIcon(scaledAboutProgramButtonIcon);
-        btnAboutProgram.addActionListener(e -> new AboutProgram(this));
+        btnAboutProgram.addActionListener(e -> new AboutProgramDialog(this));
 
         btnAboutAuthor.setFont(new Font("Helvetica", Font.BOLD, 20));
         btnAboutProgram.setFont(new Font("Helvetica", Font.BOLD, 20));
@@ -158,15 +160,21 @@ public class MainWindow extends JFrame {
         JButton btnAddWorker = new JButton("Добавить");
         btnAddWorker.setBackground(new Color(27, 161, 226));
         btnAddWorker.setForeground(new Color(255, 255, 255));
-        btnAddWorker.addActionListener(e -> new NewWorker(this));
-        JButton btnDelete = new JButton("Удалить");
-        btnDelete.setBackground(new Color(27, 161, 226));
-        btnDelete.setForeground(new Color(255, 255, 255));
+        btnAddWorker.addActionListener(e -> new NewWorkerWindow(this));
+        JButton btnUpdate = new JButton("Обновить");
+        btnUpdate.setBackground(new Color(27, 161, 226));
+        btnUpdate.setForeground(new Color(255, 255, 255));
 
         JPanel pnlTop = new JPanel(new BorderLayout());
         JPanel pnlTableButton = new JPanel(new GridLayout(1, 2));
         pnlTableButton.add(btnAddWorker);
-        pnlTableButton.add(btnDelete);
+        pnlTableButton.add(btnUpdate);
+
+        // Создание объекта слушателя
+
+
+        // Добавление слушателя на кнопку
+
 
         pnlTop.add(pnlTableButton, BorderLayout.WEST);
         // pnlTop.add(toFileButtom, BorderLayout.EAST);
@@ -192,6 +200,47 @@ public class MainWindow extends JFrame {
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(pnlLeftBlue, BorderLayout.WEST);
         getContentPane().add(pnlCenter, BorderLayout.CENTER);
+
+        btnAboutAuthor.addActionListener(e -> {
+            try {
+                new AboutAuthorDialog(this);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        btnUpdate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Получение модели данных для таблицы
+                DefaultTableModel dtModel = db.getAllPayrolls();
+                // Установка модели данных в таблицу
+                tbl.setModel(dtModel);
+                // Установка высоты строки
+                tbl.setRowHeight(30);
+                // Получение модели столбцов таблицы
+                TableColumnModel columnModel = tbl.getColumnModel();
+                // Настройка предпочтительной ширины столбцов
+                columnModel.getColumn(0).setPreferredWidth(10);
+                columnModel.getColumn(7).setPreferredWidth(10);
+                // Настройка редактирования ячеек
+                TableColumn editableColumn = columnModel.getColumn(7);
+                editableColumn.setCellEditor(new DefaultCellEditor(new JTextField()));
+                // Добавление кнопок в столбец
+                Action viewAction = new AbstractAction() {
+                    public void actionPerformed(ActionEvent e) {
+                        Object[] rowData = (Object[]) e.getSource();
+                        // Открыть окно с данными из строки
+                        db.getPayrollDetails((int) rowData[0]);
+                    }
+                };
+                ButtonColumn buttonColumn = new ButtonColumn(tbl, viewAction, 7);
+                // Запрет на изменение таблицы
+                // table.setEnabled(false);
+                tbl.getTableHeader().setReorderingAllowed(false);
+                tbl.getTableHeader().setResizingAllowed(false);
+                tbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            }
+        });
     }
 
 

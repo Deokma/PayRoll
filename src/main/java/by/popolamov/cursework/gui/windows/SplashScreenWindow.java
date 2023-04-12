@@ -1,18 +1,20 @@
-package by.popolamov.cursework.gui;
+package by.popolamov.cursework.gui.windows;
 
-/**
- * @author Denis Popolamov
- */
+import by.popolamov.cursework.gui.windows.MainWindow;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Timer;
-
-public class SplashScreen extends JFrame {
+/**
+ *
+ *
+ * @author Denis Popolamov
+ */
+public class SplashScreenWindow extends JFrame {
     private Timer timer;
     private static final int CLOSE_DELAY = 60000; // 60 seconds
 
-    public SplashScreen() {
+    public SplashScreenWindow() {
         // Установка параметров окна
         setTitle("Приложение \"Расчёт начисления заработной платы за дни временной нетрудоспособности\"");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

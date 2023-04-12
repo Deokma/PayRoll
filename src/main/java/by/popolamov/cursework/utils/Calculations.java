@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс расчётов отпускных/больничных
+ * Класс расчёта отпускных/больничных
  *
  * @author Denis Popolamov
  */
@@ -112,10 +112,6 @@ public class Calculations {
      */
     public static double calculateTotalAverageSalary(double totalSalary, int totalRemainingCalendarDays) {
         double totalAverageSalary = totalSalary / totalRemainingCalendarDays;
-//        for (double averageSalary : remainingAvarageSalary) {
-//            totalAverageSalary += averageSalary;
-//        }
-
         return Math.round(totalAverageSalary * 100.0) / 100.0;
     }
 

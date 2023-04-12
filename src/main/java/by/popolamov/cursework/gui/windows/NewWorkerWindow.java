@@ -1,14 +1,9 @@
-package by.popolamov.cursework.gui;
-
-/**
- * Класс для создания н
- *
- * @author Denis Popolamov
- */
+package by.popolamov.cursework.gui.windows;
 
 import by.popolamov.cursework.connect.DBManager;
 import by.popolamov.cursework.exceptions.InvalidDateRangeException;
 import by.popolamov.cursework.exceptions.InvalidInputException;
+import by.popolamov.cursework.gui.windows.MainWindow;
 import by.popolamov.cursework.utils.DateUtils;
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -25,11 +20,15 @@ import static by.popolamov.cursework.exceptions.InvalidInputException.isSalaryVa
 import static by.popolamov.cursework.utils.Calculations.*;
 import static by.popolamov.cursework.utils.DateUtils.getDaysBetweenDates;
 
-
-public class NewWorker extends JDialog {
+/**
+ * Класс для создания новой выплаты
+ *
+ * @author Denis Popolamov
+ */
+public class NewWorkerWindow extends JDialog {
     private List<String> pastMonths; // список 6 предыдущих месяцев
     private List<Integer> daysInMonths; // список дней в 6 предыдущих месяцах
-    private int totalDates; // общее количество дней в предыдущих месяцах
+    private int totalMonthDays; // общее количество дней в предыдущих месяцах
     private int totalRemainingCalendarDays; // общее количество дней, с учётом прогулов
     private int totalSickDays; // общее количество дней прогулов
     private double totalSalary; // общая заработная плата
@@ -37,14 +36,16 @@ public class NewWorker extends JDialog {
     private double totalSum; //общая сумма
     List<JLabel> lblListRemainingCalendarDays = new ArrayList<>(); // Остаток календарных дней
     List<JLabel> lblListAverageSalary = new ArrayList<>(); // Средняя заработная плата
+    List<JLabel> sickMonthDays = new ArrayList<>();
 
+    int numberOfDaysOfIllness;
     String currentMonthSql;
     Double eightyPecentSalarySql;
     Double hundredPecentSalarySql;
     List<Double> sqlAvarageSalary;
     private MainWindow mainWindow;
 
-    public NewWorker(JFrame parent) {
+    public NewWorkerWindow(JFrame parent) {
         super(parent, "Добавить работника", true);
         Dimension dimension = new Dimension(580, 280);
         setPreferredSize(dimension);
@@ -270,7 +271,7 @@ public class NewWorker extends JDialog {
                 sqlAvarageSalary = remainingAverageSalary;
 
                 daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
-                totalDates = DateUtils.getTotalDaysInPastSixMonths(localDate);
+                totalMonthDays = DateUtils.getTotalDaysInPastSixMonths(localDate);
                 totalRemainingCalendarDays = DateUtils.calculateTotalRemainingDays(remainingCalendarDays);
                 totalSickDays = totalSickDays(txtSickDays);
                 totalSalary = calculateTotalSalary(txtSumOfActualSalary);
@@ -283,14 +284,14 @@ public class NewWorker extends JDialog {
                     lblListAverageSalary.get(i).setText("" + remainingAverageSalary.get(i));
                 }
 
-                int numberOfDaysOfIllness = getDaysBetweenDates(dtpFirst, dtpSecond);
+                numberOfDaysOfIllness = getDaysBetweenDates(dtpFirst, dtpSecond);
                 double calculated80PercentOfAverageSalary = calculate80PercentOfAverageSalary(totalAverageSalary, numberOfDaysOfIllness);
                 double calculatedFullSalary = calculateFullSalary(totalAverageSalary, numberOfDaysOfIllness);
                 eightyPecentSalarySql = calculated80PercentOfAverageSalary;
                 hundredPecentSalarySql = calculatedFullSalary;
 
                 lblButtomTotal[0].setText("Итого:");
-                lblButtomTotal[1].setText("" + totalDates);
+                lblButtomTotal[1].setText("" + totalMonthDays);
                 lblButtomTotal[2].setText("" + totalSickDays);
                 lblButtomTotal[3].setText(totalSalary + " р.б.");
                 lblButtomTotal[4].setText("" + totalRemainingCalendarDays);
@@ -332,23 +333,20 @@ public class NewWorker extends JDialog {
 
                 //int payrollId = db.addEmployee(userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate, totalSum);
 
-                db.addPayrollDetails(totalSickDays, totalSalary,
+                db.addPayrollDetails(totalMonthDays, totalSickDays, totalSalary,
                         totalRemainingCalendarDays, totalAverageSalary, totalSum,
                         userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate,
-                        currentMonthSql, eightyPecentSalarySql, hundredPecentSalarySql);
+                        currentMonthSql, eightyPecentSalarySql, hundredPecentSalarySql, numberOfDaysOfIllness);
                 db.saveAverageSalary(sqlAvarageSalary);
                 db.savePayrollMonths(pastMonths);
                 db.savePayrollSalary(txtSumOfActualSalary);
-                db.savePayrollWorkDays(daysInMonths, lblListRemainingCalendarDays);
-                //lblListAverageSalary среднее зп
-                //lblListRemainingCalendarDays остаток календарных дней
+                db.savePayrollWorkDays(txtSickDays, lblListRemainingCalendarDays, daysInMonths);
                 parent.repaint();
                 dispose();
             } catch (Exception ex) {
                 System.out.println("Что то пошло не так!");
             }
         });
-
 
         // Слушатель для закрытия окна
         btnCancel.addActionListener(e -> {

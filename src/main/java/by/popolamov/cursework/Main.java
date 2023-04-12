@@ -1,6 +1,6 @@
 package by.popolamov.cursework;
 
-import by.popolamov.cursework.gui.SplashScreen;
+import by.popolamov.cursework.gui.windows.SplashScreenWindow;
 
 /**
  * @author Denis Popolamov
@@ -8,7 +8,7 @@ import by.popolamov.cursework.gui.SplashScreen;
 public class Main {
 
     public static void main(String[] args) {
-        SplashScreen form = new SplashScreen();
+        SplashScreenWindow form = new SplashScreenWindow();
         form.setVisible(true);
         //mounthCalculate();
     }
