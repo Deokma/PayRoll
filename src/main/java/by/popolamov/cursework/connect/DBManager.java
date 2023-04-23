@@ -9,9 +9,13 @@ import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
 import by.popolamov.cursework.model.*;
 
 import javax.swing.table.DefaultTableModel;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * @author Denis Popolamov
@@ -26,14 +30,18 @@ public class DBManager {
     public DBManager() {
         try {
             Class.forName("org.postgresql.Driver");
-            String url = "jdbc:postgresql://localhost:5432/payroll";
-            String user = "postgres";
-            String password = "qwerty";
+            Properties props = new Properties();
+            InputStream input = new FileInputStream("src/main/resources/database.properties");
+            props.load(input);
+            String url = props.getProperty("url");
+            String user = props.getProperty("user");
+            String password = props.getProperty("password");
             conn = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (ClassNotFoundException | SQLException | IOException e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Метод для получения списка всех выплат
