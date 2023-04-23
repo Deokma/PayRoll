@@ -1,6 +1,7 @@
 package by.popolamov.cursework.listeners;
 
 import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
+import by.popolamov.cursework.model.*;
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -17,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Класс Listener для формирования больничной выписки в формате PDF
@@ -26,47 +26,21 @@ import java.util.List;
  */
 public class PDFSaveListener implements ActionListener {
     private PayrollDetailsDialog dialog;
-    private JLabel lblUserSurname;
-    private JLabel lblUserName;
-    private JLabel lblUserPatronimic;
-    private JLabel lblStartIllnessDate;
-    private JLabel lblEndIllnessDate;
-    private JLabel lblTotalSickDates;
-    private JLabel lblTotalPayrollSum;
-    List<Double> averageSalaryList;
-    List<String> monthList;
+    AverageSalary averageSalary;
+    PayrollDetails payrollDetails;
+    PayrollMonths payrollMonths;
+    Salary salary;
+    SickMonthDays sickMonthDays;
 
-    List<Double> salaryList;
-    List<Integer> remainingCalendarDaysList;
-    String currentMonth;
-    Double eightyPecentSalary;
-    Double hundredPercentSalary;
-    int numberOfIllnessDays;
-
-    public PDFSaveListener(PayrollDetailsDialog dialog, JLabel lblUserSurname,
-                           JLabel lblUserName, JLabel lblUserPatronimic,
-                           JLabel lblStartIllnessDate, JLabel lblEndIllnessDate,
-                           JLabel lblTotalSickDates, JLabel lblTotalPayrollSum,
-                           List<Double> averageSalaryList, List<String> monthList,
-                           List<Double> salaryList, List<Integer> remainingCalendarDaysList,
-                           String currentMonth, Double eightyPecentSalary,
-                           Double hundredPercentSalary, int numberOfIllnessDays) {
+    public PDFSaveListener(PayrollDetailsDialog dialog, AverageSalary averageSalary,
+                           PayrollDetails payrollDetails, PayrollMonths payrollMonths,
+                           Salary salary, SickMonthDays sickMonthDays) {
         this.dialog = dialog;
-        this.lblUserSurname = lblUserSurname;
-        this.lblUserName = lblUserName;
-        this.lblUserPatronimic = lblUserPatronimic;
-        this.lblStartIllnessDate = lblStartIllnessDate;
-        this.lblEndIllnessDate = lblEndIllnessDate;
-        this.lblTotalSickDates = lblTotalSickDates;
-        this.lblTotalPayrollSum = lblTotalPayrollSum;
-        this.averageSalaryList = averageSalaryList;
-        this.monthList = monthList;
-        this.salaryList = salaryList;
-        this.remainingCalendarDaysList = remainingCalendarDaysList;
-        this.currentMonth = currentMonth;
-        this.eightyPecentSalary = eightyPecentSalary;
-        this.hundredPercentSalary = hundredPercentSalary;
-        this.numberOfIllnessDays = numberOfIllnessDays;
+        this.averageSalary = averageSalary;
+        this.payrollDetails = payrollDetails;
+        this.payrollMonths = payrollMonths;
+        this.salary = salary;
+        this.sickMonthDays = sickMonthDays;
     }
 
     @Override
@@ -83,7 +57,6 @@ public class PDFSaveListener implements ActionListener {
                 PdfDocument pdfDoc = new PdfDocument(writer);
                 Document document = new Document(pdfDoc);
                 PdfFont timesNewRomanFontPdf = PdfFontFactory.createFont("src/main/resources/fonts/TimesNewRoman.ttf");
-                PdfFont arialFontPdf = PdfFontFactory.createFont("src/main/resources/fonts/Arial.ttf");
                 // Создаем заголовок документа
                 Paragraph para = new Paragraph("ЛИСТОК НЕТРУДОСПОСОБНОСТИ")
                         .setFont(timesNewRomanFontPdf)
@@ -98,9 +71,9 @@ public class PDFSaveListener implements ActionListener {
                         .add(line).setMarginBottom(10);
                 document.add(header);
 
-                Cell cSurname = new Cell().add(new Paragraph("Фамилия: " + lblUserSurname.getText()).setFont(timesNewRomanFontPdf));
-                Cell cName = new Cell().add(new Paragraph("Имя: " + lblUserName.getText()).setFont(timesNewRomanFontPdf));
-                Cell cPatronimic = new Cell().add(new Paragraph("Отчество: " + lblUserPatronimic.getText()).setFont(timesNewRomanFontPdf));
+                Cell cSurname = new Cell().add(new Paragraph("Фамилия: " + payrollDetails.getUserSurName()).setFont(timesNewRomanFontPdf));
+                Cell cName = new Cell().add(new Paragraph("Имя: " + payrollDetails.getUserName()).setFont(timesNewRomanFontPdf));
+                Cell cPatronimic = new Cell().add(new Paragraph("Отчество: " + payrollDetails.getUserPatronymic()).setFont(timesNewRomanFontPdf));
 
                 Div dFio = new Div()
                         .add(cSurname)
@@ -108,51 +81,6 @@ public class PDFSaveListener implements ActionListener {
                         .add(cPatronimic)
                         .setMarginBottom(10).setMarginLeft(1);
                 document.add(dFio);
-
-//                Paragraph vkkText = new Paragraph("ВКК:")
-//                        .setFont(timesNewRomanFontPdf)
-//                        .setFontSize(12)
-//                        .setTextAlignment(TextAlignment.CENTER);
-//                document.add(vkkText);
-//
-//                // Таблица ВКК
-//                Table vkkTable = new Table(new float[]{1, 2, 2, 1}).setMarginBottom(10);
-//                vkkTable.setWidth(UnitValue.createPercentValue(100));
-//
-//                Cell vkkCell = new Cell(2, 1).add(new Paragraph("Дата")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//
-//                vkkCell = new Cell(1, 2).add(new Paragraph("Длительность ВН")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//
-//                vkkCell = new Cell(2, 1).add(new Paragraph("Должность, фамилия, подпись, \n" +
-//                        "личная печать председателя ВКК")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//
-//                vkkCell = new Cell().add(new Paragraph("непрерывная")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//
-//                vkkCell = new Cell().add(new Paragraph("суммарная")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//                vkkCell = new Cell().add(new Paragraph("текст1")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//                vkkCell = new Cell().add(new Paragraph("текст2")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//                vkkCell = new Cell().add(new Paragraph("текст3")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//                vkkCell = new Cell().add(new Paragraph("текст4")
-//                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
-//                vkkTable.addCell(vkkCell);
-//
-//                document.add(vkkTable);
 
                 Paragraph txtWorkLiberation = new Paragraph("ОСВОБОЖДЕНИЕ ОТ РАБОТЫ (СЛУЖБЫ, УЧЕБЫ)")
                         .setFont(timesNewRomanFontPdf)
@@ -182,10 +110,10 @@ public class PDFSaveListener implements ActionListener {
                         "личная печать руководителя")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblWorkLiberation.addCell(cWorkLiberation);
-                cWorkLiberation = new Cell().add(new Paragraph(lblStartIllnessDate.getText())
+                cWorkLiberation = new Cell().add(new Paragraph(payrollDetails.getStartIllnessDate().toString())
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblWorkLiberation.addCell(cWorkLiberation);
-                cWorkLiberation = new Cell().add(new Paragraph(lblEndIllnessDate.getText())
+                cWorkLiberation = new Cell().add(new Paragraph(payrollDetails.getEndIllnessDate().toString())
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblWorkLiberation.addCell(cWorkLiberation);
                 cWorkLiberation = new Cell().add(new Paragraph("Попов")
@@ -196,7 +124,6 @@ public class PDFSaveListener implements ActionListener {
                 tblWorkLiberation.addCell(cWorkLiberation);
 
                 document.add(tblWorkLiberation);
-
 
                 document.add(new Paragraph("СПРАВКА О ЗАРАБОТНОЙ ПЛАТЕ")
                         .setFont(timesNewRomanFontPdf)
@@ -223,17 +150,17 @@ public class PDFSaveListener implements ActionListener {
                         "(руб., коп.)\n")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblSalaryCertificate.addCell(cSalaryCertificate);
-                for (int i = 0; i < averageSalaryList.size(); i++) {
-                    cSalaryCertificate = new Cell().add(new Paragraph(monthList.get(i).toString())
+                for (int i = 0; i < averageSalary.getAverageSalary().size(); i++) {
+                    cSalaryCertificate = new Cell().add(new Paragraph(payrollMonths.getMonth().get(i).toString())
                             .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
-                    cSalaryCertificate = new Cell().add(new Paragraph(remainingCalendarDaysList.get(i).toString())
+                    cSalaryCertificate = new Cell().add(new Paragraph(sickMonthDays.getRemainingCalendarDays().get(i).toString())
                             .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
-                    cSalaryCertificate = new Cell().add(new Paragraph(salaryList.get(i).toString())
+                    cSalaryCertificate = new Cell().add(new Paragraph(salary.getSalary().get(i).toString())
                             .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
-                    cSalaryCertificate = new Cell().add(new Paragraph(averageSalaryList.get(i).toString())
+                    cSalaryCertificate = new Cell().add(new Paragraph(averageSalary.getAverageSalary().get(i).toString())
                             .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
                 }
@@ -287,25 +214,25 @@ public class PDFSaveListener implements ActionListener {
                 cPayroll = new Cell().add(new Paragraph("всего")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(currentMonth + ", " + numberOfIllnessDays)
+                cPayroll = new Cell().add(new Paragraph(payrollDetails.getCurrentMonth() + ", " + payrollDetails.getIllnessDays())
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(String.valueOf(eightyPecentSalary))
+                cPayroll = new Cell().add(new Paragraph(String.valueOf(payrollDetails.getEightyPercentSalary()))
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(String.valueOf(hundredPercentSalary))
+                cPayroll = new Cell().add(new Paragraph(String.valueOf(payrollDetails.getHundredPercentSalary()))
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(lblTotalPayrollSum.getText())
+                cPayroll = new Cell().add(new Paragraph(String.valueOf(payrollDetails.getTotalPayrollSum()))
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(lblTotalPayrollSum.getText())
+                cPayroll = new Cell().add(new Paragraph(String.valueOf(payrollDetails.getTotalPayrollSum()))
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(lblTotalPayrollSum.getText())
+                cPayroll = new Cell().add(new Paragraph(String.valueOf(payrollDetails.getTotalPayrollSum()))
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(lblTotalPayrollSum.getText())
+                cPayroll = new Cell().add(new Paragraph(String.valueOf(payrollDetails.getTotalPayrollSum()))
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
                 document.add(tblPayroll);

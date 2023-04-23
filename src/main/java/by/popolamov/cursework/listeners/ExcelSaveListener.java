@@ -1,6 +1,7 @@
 package by.popolamov.cursework.listeners;
 
 import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
+import by.popolamov.cursework.model.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
@@ -21,60 +22,21 @@ import java.util.List;
  */
 public class ExcelSaveListener implements ActionListener {
     private PayrollDetailsDialog dialog;
-    private JLabel lblUserSurname;
-    private JLabel lblUserName;
-    private JLabel lblUserPatronimic;
-    private JLabel lblStartIllnessDate;
-    private JLabel lblEndIllnessDate;
-    private JLabel lblTotalSickDates;
-    private JLabel lblTotalSalary;
-    private JLabel lblTotalRemainingDays;
-    private JLabel lblTotalAverageSalary;
-    private JLabel lblTotalPayrollSum;
-    List<Double> averageSalaryList;
-    List<String> monthList;
-    List<Integer> monthDaysList;
-    List<Double> salaryList;
-    List<Integer> remainingCalendarDaysList;
-    List<Integer> sickMonthDaysList;
-    String currentMonth;
-    Double eightyPecentSalary;
-    Double hundredPercentSalary;
-    int numberOfIllnessDays;
-    int totalMonthDays;
+    AverageSalary averageSalary;
+    PayrollDetails payrollDetails;
+    PayrollMonths payrollMonths;
+    Salary salary;
+    SickMonthDays sickMonthDays;
 
-    public ExcelSaveListener(PayrollDetailsDialog dialog, JLabel lblUserSurname,
-                             JLabel lblUserName, JLabel lblUserPatronimic,
-                             JLabel lblStartIllnessDate, JLabel lblEndIllnessDate,
-                             JLabel lblTotalSickDates, JLabel lblTotalSalary, JLabel lblTotalRemainingDays,
-                             JLabel lblTotalAverageSalary, JLabel lblTotalPayrollSum,
-                             List<Double> averageSalaryList, List<String> monthList,
-                             List<Double> salaryList, List<Integer> remainingCalendarDaysList,
-                             String currentMonth, Double eightyPecentSalary,
-                             Double hundredPercentSalary, int numberOfIllnessDays,
-                             List<Integer> sickMonthDaysList, List<Integer> monthDaysList, int totalMonthDays) {
+    public ExcelSaveListener(PayrollDetailsDialog dialog, AverageSalary averageSalary,
+                             PayrollDetails payrollDetails, PayrollMonths payrollMonths,
+                             Salary salary, SickMonthDays sickMonthDays) {
         this.dialog = dialog;
-        this.lblUserSurname = lblUserSurname;
-        this.lblUserName = lblUserName;
-        this.lblUserPatronimic = lblUserPatronimic;
-        this.lblStartIllnessDate = lblStartIllnessDate;
-        this.lblEndIllnessDate = lblEndIllnessDate;
-        this.lblTotalSickDates = lblTotalSickDates;
-        this.lblTotalSalary = lblTotalSalary;
-        this.lblTotalRemainingDays = lblTotalRemainingDays;
-        this.lblTotalAverageSalary = lblTotalAverageSalary;
-        this.lblTotalPayrollSum = lblTotalPayrollSum;
-        this.averageSalaryList = averageSalaryList;
-        this.monthList = monthList;
-        this.salaryList = salaryList;
-        this.remainingCalendarDaysList = remainingCalendarDaysList;
-        this.currentMonth = currentMonth;
-        this.eightyPecentSalary = eightyPecentSalary;
-        this.hundredPercentSalary = hundredPercentSalary;
-        this.numberOfIllnessDays = numberOfIllnessDays;
-        this.sickMonthDaysList = sickMonthDaysList;
-        this.monthDaysList = monthDaysList;
-        this.totalMonthDays = totalMonthDays;
+        this.averageSalary = averageSalary;
+        this.payrollDetails = payrollDetails;
+        this.payrollMonths = payrollMonths;
+        this.salary = salary;
+        this.sickMonthDays = sickMonthDays;
     }
 
     String[] headers = {"Месяцы, взятые для\n исчисления помощи\n",
@@ -96,28 +58,28 @@ public class ExcelSaveListener implements ActionListener {
             // Создаем экземпляр класса XSSFWorkbook
             XSSFWorkbook workbook = new XSSFWorkbook();
 
-            for (int i = 0; i < monthList.size(); i++) {
-                String month = monthList.get(i);
-                Integer monthDays = monthDaysList.get(i);
-                Integer sickDays = sickMonthDaysList.get(i);
-                Integer remainingDays = remainingCalendarDaysList.get(i);
-                Double salary = salaryList.get(i);
-                Double avgSalary = averageSalaryList.get(i);
+            for (int i = 0; i < payrollMonths.getMonth().size(); i++) {
+                String strMonth = payrollMonths.getMonth().get(i);
+                Integer iMonthDays = sickMonthDays.getMonthDays().get(i);
+                Integer iSickDays = sickMonthDays.getSickMonthDays().get(i);
+                Integer iRemainingDays = sickMonthDays.getRemainingCalendarDays().get(i);
+                Double dSalary = salary.getSalary().get(i);
+                Double dAverageSalary = averageSalary.getAverageSalary().get(i);
 
                 List<String> rowData = new ArrayList<>();
-                rowData.add(month);
-                rowData.add(monthDays.toString());
-                rowData.add(sickDays.toString());
-                rowData.add(remainingDays.toString());
-                rowData.add(salary.toString());
-                rowData.add(avgSalary.toString());
+                rowData.add(strMonth);
+                rowData.add(iMonthDays.toString());
+                rowData.add(iSickDays.toString());
+                rowData.add(iRemainingDays.toString());
+                rowData.add(dSalary.toString());
+                rowData.add(dAverageSalary.toString());
 
                 data.add(rowData.toString());
             }
 
-            totalRow = new String[]{"ИТОГО:", String.valueOf(totalMonthDays),
-                    String.valueOf(lblTotalSickDates.getText()), String.valueOf(lblTotalRemainingDays.getText()),
-                    String.valueOf(lblTotalSalary.getText()), String.valueOf(lblTotalAverageSalary.getText())};
+            totalRow = new String[]{"ИТОГО:", String.valueOf(payrollDetails.getTotalMonthDays()),
+                    String.valueOf(payrollDetails.getTotalSickDates()), String.valueOf(payrollDetails.getTotalRemainingDays()),
+                    String.valueOf(payrollDetails.getTotalSalary()), String.valueOf(payrollDetails.getTotalAverageSalary())};
 
             // Создаем экземпляр класса XSSFSheet
             XSSFSheet sheet = workbook.createSheet("Расчет больничного");
@@ -145,7 +107,7 @@ public class ExcelSaveListener implements ActionListener {
 
             // Создаем ячейку для второй строки
             XSSFCell cell2 = row2.createCell(0);
-            cell2.setCellValue(lblUserSurname.getText() + " " + lblUserName.getText() + " " + lblUserPatronimic.getText());
+            cell2.setCellValue(payrollDetails.getUserSurName() + " " + payrollDetails.getUserName() + " " + payrollDetails.getUserPatronymic());
             cell2.setCellStyle(getHeaderStyle(workbook));
 
             // Создаем третью строку
@@ -171,8 +133,8 @@ public class ExcelSaveListener implements ActionListener {
 
             // Создаем ячейку для третьей строки
             XSSFCell cell4 = row4.createCell(0);
-            cell4.setCellValue("Период болезни с " + lblStartIllnessDate.getText() + " по " + lblEndIllnessDate.getText()
-                    + " = " + numberOfIllnessDays + " дней");
+            cell4.setCellValue("Период болезни с " + payrollDetails.getStartIllnessDate() + " по " + payrollDetails.getEndIllnessDate()
+                    + " = " + payrollDetails.getIllnessDays() + " дней");
             cell4.setCellStyle(getSubHeaderStyle(workbook));
 
             // Создаем третью строку
@@ -272,8 +234,8 @@ public class ExcelSaveListener implements ActionListener {
 
             // Заполнение итогов таблицы "начисления пособия"
             XSSFRow row17 = sheet.createRow(17);
-            String[] dates = {currentMonth, eightyPecentSalary.toString(), hundredPercentSalary.toString(),
-                    lblTotalSalary.getText(), lblTotalSalary.getText(), lblTotalSalary.getText()};
+            String[] dates = {payrollDetails.getCurrentMonth(), String.valueOf(payrollDetails.getEightyPercentSalary()), String.valueOf(payrollDetails.getHundredPercentSalary()),
+                    String.valueOf(payrollDetails.getTotalSalary()), String.valueOf(payrollDetails.getTotalSalary()), String.valueOf(payrollDetails.getTotalSalary())};
             for (int i = 0; i <= 5; i++) {
                 row17.createCell(i).setCellValue(dates[i]);
             }

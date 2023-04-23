@@ -25,16 +25,8 @@ public class AboutAuthorDialog extends JDialog {
 
         // создание элементов окна
         ImageIcon authorImageIcon = new ImageIcon("src/main/resources/images/author.jpg");
-        //BufferedImage image = ImageIO.read(new File("src/main/resources/images/author.jpg"));
-        //ImageIcon img = new ImageIcon("src/main/resources/images/icon-dark.png");
-        //JLabel jlImage = new JLabel(new ImageIcon(img.getImage().getScaledInstance(130, 110, Image.SCALE_SMOOTH)));
-        //jpMiddleLeft.add(jlImage);
-        //JXImagePanel authorImageIcon = new JXImagePanel(image);
-        //JXImageView authorImageView = new JXImageView();
-        //authorImageView.setImage(authorImageView.getImage());
 
         JLabel lblAuthorImage = new JLabel(new ImageIcon(authorImageIcon.getImage().getScaledInstance(200, 240, Image.SCALE_SMOOTH)));
-        //JLabel lblAuthorImage = new JLabel();
         JLabel lblGroup = new JLabel("Студент группы 10702420");
         JLabel lblName = new JLabel("Пополамов Денис Вячеславович");
         JLabel lblEmail = new JLabel("dpopolamovmail@gmail.com");
@@ -44,7 +36,6 @@ public class AboutAuthorDialog extends JDialog {
         lblGroup.setFont(textFont);
         lblName.setFont(textFont);
         lblEmail.setFont(textFont);
-
 
         btnBack.setFont(new Font("Helvetica", Font.BOLD, 20));
 

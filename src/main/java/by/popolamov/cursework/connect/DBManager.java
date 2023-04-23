@@ -6,8 +6,8 @@ package by.popolamov.cursework.connect;
 
 import by.popolamov.cursework.gui.windows.MainWindow;
 import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
+import by.popolamov.cursework.model.*;
 
-import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class DBManager {
      */
     public DefaultTableModel getAllPayrolls() {
         String[] columns = {"№", "Фамилия", "Имя", "Отчество",
-                "Нач. дата болезни", "Кон. дата болезни", "Сумма выплаты", ""};
+                "Нач.дата болезни", "Кон.дата болезни", "Сумма выплаты", ""};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
         try {
             Statement stmt = conn.createStatement();
@@ -80,28 +80,32 @@ public class DBManager {
             ResultSet rs = stmt.executeQuery();
 
             MainWindow mainWindow = new MainWindow();
-            PayrollDetailsDialog dialog = new PayrollDetailsDialog(mainWindow, null);
             if (rs.next()) {
-                // Вызываем метод setPayrollDetails с передачей данных из результата запроса
-                dialog.setPayrollDetails(new Object[]{
+                // Создаем объект PayrollDetails из данных результата запроса
+                PayrollDetails payrollDetails = new PayrollDetails(
                         rs.getLong("payroll_id"),
+                        rs.getInt("total_sick_dates"),
+                        rs.getDouble("total_salary"),
+                        rs.getInt("total_remaining_days"),
+                        rs.getDouble("total_average_salary"),
+                        rs.getDouble("total_sum_of_payroll"),
                         rs.getString("user_surname"),
                         rs.getString("user_name"),
                         rs.getString("user_patronimic"),
                         rs.getDate("start_illness_date"),
                         rs.getDate("end_illness_date"),
-                        rs.getString("total_sick_dates"),
-                        rs.getString("total_salary"),
-                        rs.getString("total_remaining_days"),
-                        rs.getDouble("total_average_salary"),
-                        rs.getDouble("total_sum_of_payroll"),
                         rs.getString("current_month"),
                         rs.getDouble("eighty_percent_salary"),
                         rs.getDouble("hundred_percent_salary"),
                         rs.getInt("illness_days"),
                         rs.getInt("total_month_days")
-                });
-
+                );
+                AverageSalary averageSalary = getAverageSalaryByPayrollId(payrollId);
+                PayrollMonths payrollMonths = getPayrollMonthsByPayrollId(payrollId);
+                Salary salary = getSalaryByPayrollId(payrollId);
+                SickMonthDays sickMonthDays = getSickMonthDaysByPayrollId(payrollId);
+                PayrollDetailsDialog dialog = new PayrollDetailsDialog(mainWindow, payrollDetails,
+                        averageSalary,payrollMonths,salary,sickMonthDays);
                 // Отображаем диалоговое окно
                 dialog.setVisible(true);
             }
@@ -110,14 +114,16 @@ public class DBManager {
         }
     }
 
+
     /**
      * Метод для получения средней заработной платы по payrollId
      *
      * @param payrollId id выплаты
      * @return список средней заработной платы за 6 месяцев
      */
-    public List<Double> getAverageSalaryByPayrollId(long payrollId) {
+    public AverageSalary getAverageSalaryByPayrollId(long payrollId) {
         List<Double> averageSalaryList = new ArrayList<>();
+        AverageSalary averageSalary = new AverageSalary();
         try {
             String query = "SELECT average_salary FROM average_salary WHERE payroll_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -125,13 +131,14 @@ public class DBManager {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                double averageSalary = rs.getDouble("average_salary");
-                averageSalaryList.add(averageSalary);
+                double dAverageSalary = rs.getDouble("average_salary");
+                averageSalaryList.add(dAverageSalary);
+                averageSalary.setAverageSalary(averageSalaryList);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return averageSalaryList;
+        return averageSalary;
     }
 
     /**
@@ -140,8 +147,9 @@ public class DBManager {
      * @param payrollId id выплаты
      * @return список 6 месяцев
      */
-    public List<String> getPayrollMonthsByPayrollId(long payrollId) {
+    public PayrollMonths getPayrollMonthsByPayrollId(long payrollId) {
         List<String> monthList = new ArrayList<>();
+        PayrollMonths payrollMonths = new PayrollMonths();
         try {
             String query = "SELECT month FROM payroll_months WHERE payroll_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -151,11 +159,12 @@ public class DBManager {
             while (rs.next()) {
                 String month = rs.getString("month");
                 monthList.add(month);
+                payrollMonths.setMonth(monthList);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return monthList;
+        return payrollMonths;
     }
 
     /**
@@ -164,8 +173,9 @@ public class DBManager {
      * @param payrollId id выплаты
      * @return список зарплат за прошлые 6 месяцев
      */
-    public List<Double> getSalaryByPayrollId(long payrollId) {
+    public Salary getSalaryByPayrollId(long payrollId) {
         List<Double> salaryList = new ArrayList<>();
+        Salary salary = new Salary();
         try {
             String query = "SELECT salary FROM salary WHERE payroll_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
@@ -173,13 +183,14 @@ public class DBManager {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                double salary = rs.getDouble("salary");
-                salaryList.add(salary);
+                double dSalary = rs.getDouble("salary");
+                salaryList.add(dSalary);
+                salary.setSalary(salaryList);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return salaryList;
+        return salary;
     }
 
     /**
@@ -188,79 +199,41 @@ public class DBManager {
      * @param payrollId id выплаты
      * @return список из количества больничных дней за 6 месяцев
      */
-    public List<Integer> getSickMonthDaysByPayrollId(long payrollId) {
+    public SickMonthDays getSickMonthDaysByPayrollId(long payrollId) {
+        SickMonthDays sickMonthDays = new SickMonthDays();
         List<Integer> sickMonthDaysList = new ArrayList<>();
+        List<Integer> remainingCalendarDaysList = new ArrayList<>();
+        List<Integer> monthDaysList = new ArrayList<>();
         try {
-            String query = "SELECT sick_month_days FROM sick_month_days WHERE payroll_id = ?";
+            String query = "SELECT sick_month_days, remaining_calendar_days,month_days" +
+                    " FROM sick_month_days WHERE payroll_id = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setLong(1, payrollId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Integer sickMonthDays = rs.getInt("sick_month_days");
-                sickMonthDaysList.add(sickMonthDays);
+                Integer sickMonthDaysInt = rs.getInt("sick_month_days");
+                Integer remainingCalendarDaysInt = rs.getInt("remaining_calendar_days");
+                Integer monthDaysInt = rs.getInt("month_days");
+                sickMonthDaysList.add(sickMonthDaysInt);
+                remainingCalendarDaysList.add(remainingCalendarDaysInt);
+                monthDaysList.add(monthDaysInt);
+                sickMonthDays.setSickMonthDays(sickMonthDaysList);
+                sickMonthDays.setRemainingCalendarDays(remainingCalendarDaysList);
+                sickMonthDays.setMonthDays(monthDaysList);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return sickMonthDaysList;
+        return sickMonthDays;
     }
-
-    /**
-     * Метод для получения списка дней 6 месяцев
-     *
-     * @param payrollId id выплаты
-     * @return количество дней за 6 месяцев
-     */
-    public List<Integer> getMonthDaysByPayrollId(long payrollId) {
-        List<Integer> sickMonthDaysList = new ArrayList<>();
-        try {
-            String query = "SELECT month_days FROM sick_month_days WHERE payroll_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setLong(1, payrollId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Integer sickMonthDays = rs.getInt("month_days");
-                sickMonthDaysList.add(sickMonthDays);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return sickMonthDaysList;
-    }
-
-    /**
-     * Метод для получения оставшихся дней, от разности дней в месяце и больничных дней
-     *
-     * @param payrollId id выплаты
-     * @return оставшиеся дни
-     */
-    public List<Integer> getRemainingDaysByPayrollId(long payrollId) {
-        List<Integer> remainingDaysList = new ArrayList<>();
-        try {
-            String query = "SELECT remaining_calendar_days FROM sick_month_days WHERE payroll_id = ?";
-            PreparedStatement stmt = conn.prepareStatement(query);
-            stmt.setLong(1, payrollId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Integer remainingDays = rs.getInt("remaining_calendar_days");
-                remainingDaysList.add(remainingDays);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return remainingDaysList;
-    }
-
 
     /**
      * Метод для сохранения списка средней заработной платы за 6 месяцев
      *
-     * @param AverageSalary средняя заработная плата
+     * @param averageSalary средняя заработная плата
      */
-    public void saveAverageSalary(List<Double> AverageSalary) {
+    public void saveAverageSalary(AverageSalary averageSalary) {
         int payrollId = 0;
         try {
             // Получаем payroll_id из таблицы payroll_details
@@ -276,7 +249,7 @@ public class DBManager {
             String insertQuery = "INSERT INTO average_salary (payroll_id, average_salary) VALUES (?, ?)";
             stmt = conn.prepareStatement(insertQuery);
 
-            for (Double salary : AverageSalary) {
+            for (Double salary : averageSalary.getAverageSalary()) {
                 stmt.setInt(1, payrollId);
                 stmt.setDouble(2, salary);
                 stmt.executeUpdate();
@@ -289,10 +262,11 @@ public class DBManager {
     /**
      * Метод списка месяцев заработной платы за 6 месяцев
      *
-     * @param pastMonths месяцы заработной платы
+     * @param payrollMonths месяцы заработной платы
      */
-    public void savePayrollMonths(List<String> pastMonths) {
+    public void savePayrollMonths(PayrollMonths payrollMonths) {
         int payrollId = 0;
+
         try {
             // Получаем payroll_id из таблицы payroll_details
             String payrollQuery = "SELECT payroll_id FROM payroll_details ORDER BY payroll_id DESC LIMIT 1";
@@ -307,7 +281,7 @@ public class DBManager {
             String insertQuery = "INSERT INTO payroll_months (payroll_id, month) VALUES (?, ?)";
             stmt = conn.prepareStatement(insertQuery);
 
-            for (String month : pastMonths) {
+            for (String month : payrollMonths.getMonth()) {
                 stmt.setInt(1, payrollId);
                 stmt.setString(2, month);
                 stmt.executeUpdate();
@@ -319,10 +293,8 @@ public class DBManager {
 
     /**
      * Метод для сохранения списка заработной платы за 6 месяцев
-     *
-     * @param txtSumOfActualSalary заработная плата
      */
-    public void savePayrollSalary(List<JTextField> txtSumOfActualSalary) {
+    public void savePayrollSalary(Salary salary) {
         int payrollId = 0;
         try {
             // Получаем payroll_id из таблицы payroll_details
@@ -338,9 +310,9 @@ public class DBManager {
             String insertQuery = "INSERT INTO salary (payroll_id, salary) VALUES (?, ?)";
             stmt = conn.prepareStatement(insertQuery);
 
-            for (JTextField salary : txtSumOfActualSalary) {
+            for (double salarys : salary.getSalary()) {
                 stmt.setInt(1, payrollId);
-                stmt.setDouble(2, Double.parseDouble(salary.getText()));
+                stmt.setDouble(2, salarys);
                 stmt.executeUpdate();
             }
         } catch (SQLException e) {
@@ -350,12 +322,8 @@ public class DBManager {
 
     /**
      * Метод для сохранения списка рабочих дней
-     *
-     * @param sickMonthDays         список больничных дней
-     * @param remainingCalendarDays список оставшихся календарных дней
-     * @param daysInMonths          список дней в месяцах
      */
-    public void savePayrollWorkDays(List<JTextField> sickMonthDays, List<JLabel> remainingCalendarDays, List<Integer> daysInMonths) {
+    public void savePayrollSickMonthDays(SickMonthDays sickMonthDays) {
         int payrollId = 0;
         try {
             // Получаем payroll_id из таблицы payroll_details
@@ -371,12 +339,10 @@ public class DBManager {
             String insertQuery = "INSERT INTO sick_month_days (payroll_id, sick_month_days, remaining_calendar_days,month_days) VALUES (?, ?, ?, ?)";
             stmt = conn.prepareStatement(insertQuery);
 
-            for (int i = 0; i < daysInMonths.size(); i++) {
-                Integer days = daysInMonths.get(i);
-                JLabel lblDays = remainingCalendarDays.get(i);
-                Integer remainingDays = Integer.parseInt(lblDays.getText());
-                JTextField lblSickDays = sickMonthDays.get(i);
-                Integer sickDays = Integer.parseInt(lblSickDays.getText());
+            for (int i = 0; i < sickMonthDays.getSickMonthDays().size(); i++) {
+                Integer days = sickMonthDays.getSickMonthDays().get(i);
+                Integer remainingDays = sickMonthDays.getRemainingCalendarDays().get(i);
+                Integer sickDays = sickMonthDays.getMonthDays().get(i);
 
                 stmt.setInt(1, payrollId);
                 stmt.setInt(2, sickDays);
@@ -391,28 +357,8 @@ public class DBManager {
 
     /**
      * Метод для записи выписки
-     *
-     * @param totalMonthDays Общее количество рабочих дней за 6 месяцев
-     * @param totalSickDays Общее количество дней болезни
-     * @param totalSalary Общая сумма зарплаты
-     * @param totalRemainingDays Общее количество рабочих дней
-     * @param totalAverageSalary Общая средняя заработная плата
-     * @param totalPayrollSum Общая сумма выплаты
-     * @param userSurname Фамилия
-     * @param userName Имя
-     * @param userPatronymic Отчество
-     * @param startIllnessDate Начальная дата болезни
-     * @param endIllnessDate Конечная дата болезни
-     * @param currentMonth Месяц болезни
-     * @param eightyPercentSalary Расчёт 80% выплаты
-     * @param hundredPercentSalary Расчёт 100% выплаты
-     * @param illnessDays Количество дней болезни
      */
-    public void addPayrollDetails(int totalMonthDays, int totalSickDays, double totalSalary,
-                                  int totalRemainingDays, double totalAverageSalary, double totalPayrollSum,
-                                  String userSurname, String userName, String userPatronymic,
-                                  Date startIllnessDate, Date endIllnessDate, String currentMonth,
-                                  double eightyPercentSalary, double hundredPercentSalary, int illnessDays) {
+    public void addPayrollDetails(PayrollDetails payrollDetails) {
         try {
             PreparedStatement ps = conn.prepareStatement("INSERT INTO payroll_details (total_month_days,total_sick_dates, total_salary," +
                     " total_remaining_days, total_average_salary, total_sum_of_payroll," +
@@ -420,21 +366,21 @@ public class DBManager {
                     "start_illness_date,end_illness_date, current_month,eighty_percent_salary," +
                     "hundred_percent_salary, illness_days) VALUES " +
                     "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)");
-            ps.setInt(1, totalMonthDays);
-            ps.setInt(2, totalSickDays);
-            ps.setDouble(3, totalSalary);
-            ps.setInt(4, totalRemainingDays);
-            ps.setDouble(5, totalAverageSalary);
-            ps.setDouble(6, totalPayrollSum);
-            ps.setString(7, userSurname);
-            ps.setString(8, userName);
-            ps.setString(9, userPatronymic);
-            ps.setDate(10, startIllnessDate);
-            ps.setDate(11, endIllnessDate);
-            ps.setString(12, currentMonth);
-            ps.setDouble(13, eightyPercentSalary);
-            ps.setDouble(14, hundredPercentSalary);
-            ps.setInt(15, illnessDays);
+            ps.setInt(1, payrollDetails.getTotalMonthDays());
+            ps.setInt(2, payrollDetails.getTotalSickDates());
+            ps.setDouble(3, payrollDetails.getTotalSalary());
+            ps.setInt(4, payrollDetails.getTotalRemainingDays());
+            ps.setDouble(5, payrollDetails.getTotalAverageSalary());
+            ps.setDouble(6, payrollDetails.getTotalPayrollSum());
+            ps.setString(7, payrollDetails.getUserSurName());
+            ps.setString(8, payrollDetails.getUserName());
+            ps.setString(9, payrollDetails.getUserPatronymic());
+            ps.setDate(10, (Date) payrollDetails.getStartIllnessDate());
+            ps.setDate(11, (Date) payrollDetails.getEndIllnessDate());
+            ps.setString(12, payrollDetails.getCurrentMonth());
+            ps.setDouble(13, payrollDetails.getEightyPercentSalary());
+            ps.setDouble(14, payrollDetails.getHundredPercentSalary());
+            ps.setInt(15, payrollDetails.getIllnessDays());
             ps.executeUpdate();
 
         } catch (SQLException e) {

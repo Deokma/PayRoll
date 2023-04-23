@@ -4,6 +4,7 @@ import by.popolamov.cursework.connect.DBManager;
 import by.popolamov.cursework.gui.dialogs.AboutAuthorDialog;
 import by.popolamov.cursework.gui.dialogs.AboutProgramDialog;
 import by.popolamov.cursework.gui.dialogs.HelpDialog;
+import by.popolamov.cursework.gui.dialogs.NewWorkerDialog;
 import by.popolamov.cursework.utils.ButtonColumn;
 
 import javax.swing.*;
@@ -22,9 +23,8 @@ import java.io.IOException;
  * @author Denis Popolamov
  */
 public class MainWindow extends JFrame {
-    JTable tbl = new JTable();
+    JTable tblPayroll = new JTable();
     DBManager db = new DBManager();
-    ActionListener refreshListener;
 
     public MainWindow() {
         setTitle("PayRoll Calculate");
@@ -32,32 +32,31 @@ public class MainWindow extends JFrame {
         setSize(1000, 620);
         setResizable(false);
         setLocationRelativeTo(null);
+
+        // Установка иконки приложения
         ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
         setIconImage(icon.getImage());
 
-        // Создаем менюбар
-        JMenuBar mnu = new JMenuBar();
+        // Создание менюбара и элементов меню
+        JMenuBar mnuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
-        JMenuItem mniFileOpen = new JMenuItem("Open");
         JMenuItem mniFileExit = new JMenuItem("Exit");
         mniFileExit.addActionListener(e -> System.exit(0));
 
-        fileMenu.add(mniFileOpen);
         fileMenu.add(mniFileExit);
+        mnuBar.add(fileMenu);
 
-        mnu.add(fileMenu);
-
-        JMenu helpMenu = new JMenu("Help");
+        JMenu mnuHelp = new JMenu("Help");
         JMenuItem mniHelpHelp = new JMenuItem("Help");
         JMenuItem mniHelpAbout = new JMenuItem("About");
         mniHelpHelp.addActionListener(e -> new HelpDialog(this));
         mniHelpAbout.addActionListener(e -> new AboutProgramDialog(this));
-        helpMenu.add(mniHelpHelp);
-        helpMenu.add(mniHelpAbout);
-        mnu.add(helpMenu);
-        setJMenuBar(mnu);
+        mnuHelp.add(mniHelpHelp);
+        mnuBar.add(mnuHelp);
 
-        // создаем панель синего цвета
+        setJMenuBar(mnuBar);
+
+        // Создание боковой панели синего цвета
         JPanel pnlLeftBlue = new JPanel();
         pnlLeftBlue.setBackground(new Color(27, 161, 226));
         pnlLeftBlue.setPreferredSize(new Dimension(250, getHeight()));
@@ -91,7 +90,6 @@ public class MainWindow extends JFrame {
         ImageIcon iconScaledAboutAuthorButton = new ImageIcon(aboutAuthorImage); // создание нового ImageIcon с измененным размером
         btnAboutAuthor.setIcon(iconScaledAboutAuthorButton);
 
-
         JButton btnAboutProgram = new JButton("О программе");
         ImageIcon iconAboutProgramButton = new ImageIcon("src/main/resources/images/about-program-icon.png");
         Image aboutProgramImage = iconAboutProgramButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
@@ -99,25 +97,20 @@ public class MainWindow extends JFrame {
         btnAboutProgram.setIcon(scaledAboutProgramButtonIcon);
         btnAboutProgram.addActionListener(e -> new AboutProgramDialog(this));
 
-        btnAboutAuthor.setFont(new Font("Helvetica", Font.BOLD, 20));
         btnAboutProgram.setFont(new Font("Helvetica", Font.BOLD, 20));
-        //  button2.setPreferredSize();
-        btnAboutAuthor.setBackground(new Color(27, 161, 226));
         btnAboutProgram.setBackground(new Color(27, 161, 226));
-        btnAboutAuthor.setForeground(new Color(255, 255, 255));
         btnAboutProgram.setForeground(new Color(255, 255, 255));
-
-        btnAboutAuthor.setBorderPainted(false);
         btnAboutProgram.setBorderPainted(false);
-
-        btnAboutAuthor.setHorizontalAlignment(SwingConstants.LEFT);
         btnAboutProgram.setHorizontalAlignment(SwingConstants.LEFT);
-
-        //button1.setPreferredSize(new Dimension(200, 10));
-        //button1.setSize(2000, 200);
-        btnAboutAuthor.setPreferredSize(new Dimension(260, 30));
         btnAboutProgram.setPreferredSize(new Dimension(260, 30));
-        //buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
+
+        btnAboutAuthor.setFont(new Font("Helvetica", Font.BOLD, 20));
+        btnAboutAuthor.setBackground(new Color(27, 161, 226));
+        btnAboutAuthor.setForeground(new Color(255, 255, 255));
+        btnAboutAuthor.setBorderPainted(false);
+        btnAboutAuthor.setHorizontalAlignment(SwingConstants.LEFT);
+        btnAboutAuthor.setPreferredSize(new Dimension(260, 30));
+
         pnlButtonsOnBlue.add(Box.createVerticalGlue());
         pnlButtonsOnBlue.add(btnAboutAuthor);
         pnlButtonsOnBlue.add(Box.createVerticalStrut(10)); // отступ между кнопками
@@ -128,16 +121,16 @@ public class MainWindow extends JFrame {
         pnlLeftBlue.add(pnlButtonsOnBlue, BorderLayout.SOUTH);
 
         DefaultTableModel dtModel = db.getAllPayrolls();
-        tbl.setModel(dtModel);
-        tbl.setRowHeight(30);
+        tblPayroll.setModel(dtModel);
+        tblPayroll.setRowHeight(30);
 
-        TableColumnModel columnModel = tbl.getColumnModel();
+        TableColumnModel columnModel = tblPayroll.getColumnModel();
         TableColumn editableColumn = columnModel.getColumn(7);
         editableColumn.setCellEditor(new DefaultCellEditor(new JTextField()));
         columnModel.getColumn(0).setPreferredWidth(10);
         columnModel.getColumn(7).setPreferredWidth(10); // устанавливаем ширину 10 пикселей
 
-// разрешаем только выбранный столбец для редактирования
+        // разрешаем только выбранный столбец для редактирования
         Action viewAction = new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 Object[] rowData = (Object[]) e.getSource();
@@ -145,22 +138,19 @@ public class MainWindow extends JFrame {
                 db.getPayrollDetails((int) rowData[0]);
             }
         };
-        ButtonColumn buttonColumn = new ButtonColumn(tbl, viewAction, 7);
+        ButtonColumn buttonColumn = new ButtonColumn(tblPayroll, viewAction, 7);
 
         //Запрет на изменение таблицы
-        //table.setEnabled(false);
-        tbl.getTableHeader().setReorderingAllowed(false);
-        tbl.getTableHeader().setResizingAllowed(false);
-        tbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-        // table.setModel(new DefaultTableModel();
+        tblPayroll.getTableHeader().setReorderingAllowed(false);
+        tblPayroll.getTableHeader().setResizingAllowed(false);
+        tblPayroll.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         JPanel pnlCenter = new JPanel(new BorderLayout());
 
         JButton btnAddWorker = new JButton("Добавить");
         btnAddWorker.setBackground(new Color(27, 161, 226));
         btnAddWorker.setForeground(new Color(255, 255, 255));
-        btnAddWorker.addActionListener(e -> new NewWorkerWindow(this));
+        btnAddWorker.addActionListener(e -> new NewWorkerDialog(this));
         JButton btnUpdate = new JButton("Обновить");
         btnUpdate.setBackground(new Color(27, 161, 226));
         btnUpdate.setForeground(new Color(255, 255, 255));
@@ -170,31 +160,18 @@ public class MainWindow extends JFrame {
         pnlTableButton.add(btnAddWorker);
         pnlTableButton.add(btnUpdate);
 
-        // Создание объекта слушателя
-
-
-        // Добавление слушателя на кнопку
-
-
         pnlTop.add(pnlTableButton, BorderLayout.WEST);
-        // pnlTop.add(toFileButtom, BorderLayout.EAST);
-
         pnlCenter.add(pnlTop, BorderLayout.NORTH);
 
         JPanel pnlTable = new JPanel();
-        pnlTable.add(tbl.getTableHeader(), BorderLayout.NORTH);
-        pnlTable.add(tbl, BorderLayout.CENTER);
+        pnlTable.add(tblPayroll.getTableHeader(), BorderLayout.NORTH);
+        pnlTable.add(tblPayroll, BorderLayout.CENTER);
 
-        //pnlCenter.add(pnlTable);
-        // добавляем таблицу на центральную панель
-        pnlCenter.add(new JScrollPane(tbl), BorderLayout.CENTER);
+        pnlCenter.add(new JScrollPane(tblPayroll), BorderLayout.CENTER);
 
-        // устанавливаем размеры таблицы
-        tbl.setFillsViewportHeight(true);
+        tblPayroll.setFillsViewportHeight(true);
         // Создаем отступы и устанавливаем их для центральной панели
         pnlCenter.setBorder(new EmptyBorder(20, 20, 20, 20));
-        //pnlTop.add(leftPanel, BorderLayout.WEST);
-        //pnlTop.add(toFileButtom, BorderLayout.EAST);
 
         // добавляем панели на окно
         getContentPane().setLayout(new BorderLayout());
@@ -214,11 +191,11 @@ public class MainWindow extends JFrame {
                 // Получение модели данных для таблицы
                 DefaultTableModel dtModel = db.getAllPayrolls();
                 // Установка модели данных в таблицу
-                tbl.setModel(dtModel);
+                tblPayroll.setModel(dtModel);
                 // Установка высоты строки
-                tbl.setRowHeight(30);
+                tblPayroll.setRowHeight(30);
                 // Получение модели столбцов таблицы
-                TableColumnModel columnModel = tbl.getColumnModel();
+                TableColumnModel columnModel = tblPayroll.getColumnModel();
                 // Настройка предпочтительной ширины столбцов
                 columnModel.getColumn(0).setPreferredWidth(10);
                 columnModel.getColumn(7).setPreferredWidth(10);
@@ -233,16 +210,13 @@ public class MainWindow extends JFrame {
                         db.getPayrollDetails((int) rowData[0]);
                     }
                 };
-                ButtonColumn buttonColumn = new ButtonColumn(tbl, viewAction, 7);
-                // Запрет на изменение таблицы
-                // table.setEnabled(false);
-                tbl.getTableHeader().setReorderingAllowed(false);
-                tbl.getTableHeader().setResizingAllowed(false);
-                tbl.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                ButtonColumn buttonColumn = new ButtonColumn(tblPayroll, viewAction, 7);
+                tblPayroll.getTableHeader().setReorderingAllowed(false);
+                tblPayroll.getTableHeader().setResizingAllowed(false);
+                tblPayroll.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             }
         });
     }
-
 
     public static void main(String[] args) {
         MainWindow window = new MainWindow();

@@ -27,7 +27,7 @@ public class DateUtils {
         List<String> pastMonths = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             YearMonth yearMonth = YearMonth.from(date.minusMonths(i + 1));
-            pastMonths.add(yearMonth.format(DateTimeFormatter.ofPattern("MMMM yyyy")));
+            pastMonths.add(yearMonth.format(DateTimeFormatter.ofPattern("LLLL yyyy")));
         }
         return pastMonths;
     }
@@ -89,7 +89,7 @@ public class DateUtils {
     /**
      * Получение количество дней между двумя датами
      *
-     * @param dtpFirst первоя дата
+     * @param dtpFirst первая дата
      * @param dtpEnd вторая дата
      * @return количество дней между датами
      */

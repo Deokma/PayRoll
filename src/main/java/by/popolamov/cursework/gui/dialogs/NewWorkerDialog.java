@@ -1,9 +1,9 @@
-package by.popolamov.cursework.gui.windows;
+package by.popolamov.cursework.gui.dialogs;
 
 import by.popolamov.cursework.connect.DBManager;
 import by.popolamov.cursework.exceptions.InvalidDateRangeException;
 import by.popolamov.cursework.exceptions.InvalidInputException;
-import by.popolamov.cursework.gui.windows.MainWindow;
+import by.popolamov.cursework.model.*;
 import by.popolamov.cursework.utils.DateUtils;
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -12,8 +12,7 @@ import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
 
 import static by.popolamov.cursework.exceptions.InvalidInputException.isSalaryValid;
@@ -25,27 +24,19 @@ import static by.popolamov.cursework.utils.DateUtils.getDaysBetweenDates;
  *
  * @author Denis Popolamov
  */
-public class NewWorkerWindow extends JDialog {
-    private List<String> pastMonths; // список 6 предыдущих месяцев
-    private List<Integer> daysInMonths; // список дней в 6 предыдущих месяцах
-    private int totalMonthDays; // общее количество дней в предыдущих месяцах
-    private int totalRemainingCalendarDays; // общее количество дней, с учётом прогулов
-    private int totalSickDays; // общее количество дней прогулов
-    private double totalSalary; // общая заработная плата
-    private double totalAverageSalary; // общая средняя заработная плата
-    private double totalSum; //общая сумма
+public class NewWorkerDialog extends JDialog {
     List<JLabel> lblListRemainingCalendarDays = new ArrayList<>(); // Остаток календарных дней
     List<JLabel> lblListAverageSalary = new ArrayList<>(); // Средняя заработная плата
-    List<JLabel> sickMonthDays = new ArrayList<>();
+    List<JTextField> txtListSickDays = new ArrayList<>(); // Больничные, отпускные дни
+    List<JTextField> txtListSumOfActualSalary = new ArrayList<>(); //Сумма фактического заработка
+    AverageSalary averageSalary = new AverageSalary();
+    PayrollDetails payrollDetails = new PayrollDetails();
+    PayrollMonths payrollMonths = new PayrollMonths();
+    Salary salary = new Salary();
+    SickMonthDays sickMonthDays = new SickMonthDays();
+    DBManager db = new DBManager();
 
-    int numberOfDaysOfIllness;
-    String currentMonthSql;
-    Double eightyPecentSalarySql;
-    Double hundredPecentSalarySql;
-    List<Double> sqlAvarageSalary;
-    private MainWindow mainWindow;
-
-    public NewWorkerWindow(JFrame parent) {
+    public NewWorkerDialog(JFrame parent) {
         super(parent, "Добавить работника", true);
         Dimension dimension = new Dimension(580, 280);
         setPreferredSize(dimension);
@@ -57,7 +48,7 @@ public class NewWorkerWindow extends JDialog {
         pnlTop.setBorder(BorderFactory.createEmptyBorder(20, 20, -10, 10));
         JLabel lblSurname = new JLabel("Фамилия:");
         lblSurname.setForeground(new Color(255, 255, 255));
-        JTextField txtSurname = new JTextField();
+        JTextField txtLastName = new JTextField();
         JLabel lblName = new JLabel("Имя:");
         lblName.setForeground(new Color(255, 255, 255));
         JTextField txtName = new JTextField();
@@ -65,7 +56,7 @@ public class NewWorkerWindow extends JDialog {
         lblPatronymic.setForeground(new Color(255, 255, 255));
         JTextField txtPatronymic = new JTextField();
 
-        // Создание компанентов выбора даты
+        // Создание компонентов выбора даты
         JXDatePicker dtpFirst = new JXDatePicker();
         JXDatePicker dtpSecond = new JXDatePicker();
 
@@ -83,7 +74,7 @@ public class NewWorkerWindow extends JDialog {
         pnlLeftTop.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 0));
         pnlLeftTop.setBackground(new Color(27, 161, 226));
         pnlLeftTop.add(lblSurname);
-        pnlLeftTop.add(txtSurname);
+        pnlLeftTop.add(txtLastName);
         pnlLeftTop.add(lblName);
         pnlLeftTop.add(txtName);
         pnlLeftTop.add(lblPatronymic);
@@ -122,41 +113,34 @@ public class NewWorkerWindow extends JDialog {
 
         JPanel pnlCenter = new JPanel(new BorderLayout());
 
-        // создаем центральную панели с описание
+        // создаем центральную панели с описанием
         JPanel pnlTittleOfCenter = new JPanel(new GridLayout(1, 6, 10, 10));
         pnlTittleOfCenter.setBorder(BorderFactory.createEmptyBorder(10, 10, 80, 10));
 
         pnlTittleOfCenter.add(new JLabel("<html>Месяцы, взятые <br> для исчисления <br> помощи</html>"));
         pnlTittleOfCenter.add(new JLabel("<html>Количество <br> календарных <br> дней</html>"));
-        pnlTittleOfCenter.add(new JLabel("<html>Командировочные <br> больничные,<br> отпускные (дней)</html>"));
+        pnlTittleOfCenter.add(new JLabel("<html>Больничные,<br> отпускные (дней)</html>"));
         pnlTittleOfCenter.add(new JLabel("<html>Сумма <br> фактического <br> заработка (руб.)</html>"));
         pnlTittleOfCenter.add(new JLabel("<html>Остаток <br> календарных <br> дней</html>"));
         pnlTittleOfCenter.add(new JLabel("<html>Средний дневной <br> фактический <br> заработок (руб.)</html>"));
         pnlCenter.add(pnlTittleOfCenter, BorderLayout.NORTH);
-        //pnlCenter.add(new JSeparator(SwingConstants.HORIZONTAL));
 
-        // Ценральная панель с таблицей для заполнения информации о отпускных
+        // Ценральная панель с таблицей для заполнения информации об отпускных
         JPanel pnlCenterTableOfCenter = new JPanel(new GridLayout(6, 6, 10, 10));
         pnlCenterTableOfCenter.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
-        // Компоненты для расчёта в центральной таблице
-        List<JTextField> txtSickDays = new ArrayList<>(); // Больничные, отпускные дни
-        List<JTextField> txtSumOfActualSalary = new ArrayList<>(); //Сумма фактического заработка
-        //JTextField[] txtSumOfActualSalary = new JTextField[6]; //Сумма фактического заработка
-
-
         // Панель с итогами расчётов
-        JPanel pnlButtomTableOfCental = new JPanel(new GridLayout(1, 6, 10, 10));
-        pnlButtomTableOfCental.setBorder(BorderFactory.createEmptyBorder(10, 30, 40, 20));
+        JPanel pnlButtomCenterTable = new JPanel(new GridLayout(1, 6, 10, 10));
+        pnlButtomCenterTable.setBorder(BorderFactory.createEmptyBorder(10, 30, 40, 20));
 
         JLabel[] lblButtomTotal = new JLabel[6];
         Font buttomTotalFont = new Font("Arial", Font.BOLD, 14); // Создание жирного шрифта размером 16
         for (int i = 0; i < lblButtomTotal.length; i++) {
             lblButtomTotal[i] = new JLabel("");
             lblButtomTotal[i].setFont(buttomTotalFont);
-            pnlButtomTableOfCental.add(lblButtomTotal[i]);
+            pnlButtomCenterTable.add(lblButtomTotal[i]);
         }
-        pnlCenter.add(pnlButtomTableOfCental, BorderLayout.SOUTH);
+        pnlCenter.add(pnlButtomCenterTable, BorderLayout.SOUTH);
 
         // Панель с выводом общей информации
         JPanel pnlTotal = new JPanel(new GridLayout(2, 3, 10, 10));
@@ -179,7 +163,7 @@ public class NewWorkerWindow extends JDialog {
         btnCalculation.setForeground(new Color(255, 255, 255));
 
         JButton btnConfirm = new JButton(scaledConfirmButtonIcon);
-        btnConfirm.setText("Check");
+        btnConfirm.setText("Подтвердить");
         btnConfirm.setBackground(new Color(27, 161, 226));
         btnConfirm.setForeground(new Color(255, 255, 255));
         JLabel lblTotalMoney = new JLabel("");
@@ -214,7 +198,7 @@ public class NewWorkerWindow extends JDialog {
                 if (dtpFirst.getDate().after(dtpSecond.getDate())) {
                     throw new InvalidDateRangeException("Начальная дата должна быть меньше конечной даты!");
                 }
-                if (txtSurname.getText().isEmpty() || txtName.getText().isEmpty() || txtPatronymic.getText().isEmpty()) {
+                if (txtLastName.getText().isEmpty() || txtName.getText().isEmpty() || txtPatronymic.getText().isEmpty()) {
                     throw new NullPointerException("Не все поля заполнены!");
                 }
                 pnlTop.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 200));
@@ -224,23 +208,21 @@ public class NewWorkerWindow extends JDialog {
                 setSize(750, 700);
                 setLocationRelativeTo(parent);
 
-                LocalDate localDate = dtpFirst.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate currentDate = dtpFirst.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-                pastMonths = DateUtils.getPastSixMonths(localDate);
-                daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
+                payrollMonths.setMonth(DateUtils.getPastSixMonths(currentDate));
+                sickMonthDays.setMonthDays(DateUtils.getDaysInPastSixMonths(currentDate));
 
                 for (int i = 0; i <= 5; i++) {
-                    pnlCenterTableOfCenter.add(new JLabel(pastMonths.get(i))); // месяц
-                    pnlCenterTableOfCenter.add(new JLabel("" + daysInMonths.get(i))); // количество дней
-                    JTextField txtSickDaysTemp = new JTextField();
-                    txtSickDaysTemp.setName("txtSickDays" + i);
-                    txtSickDays.add(txtSickDaysTemp);
-                    pnlCenterTableOfCenter.add(txtSickDaysTemp);
+                    pnlCenterTableOfCenter.add(new JLabel(payrollMonths.getMonth().get(i))); // месяц
+                    pnlCenterTableOfCenter.add(new JLabel("" + sickMonthDays.getMonthDays().get(i))); // количество дней
+                    JTextField txtSickDays = new JTextField();
+                    txtListSickDays.add(txtSickDays);
+                    pnlCenterTableOfCenter.add(txtSickDays);
 
-                    JTextField txtSumOfActualSalaryTemp = new JTextField();
-                    txtSumOfActualSalaryTemp.setName("txtSickDays" + i);
-                    txtSumOfActualSalary.add(txtSumOfActualSalaryTemp);
-                    pnlCenterTableOfCenter.add(txtSumOfActualSalaryTemp);
+                    JTextField txtSumOfActualSalary = new JTextField();
+                    txtListSumOfActualSalary.add(txtSumOfActualSalary);
+                    pnlCenterTableOfCenter.add(txtSumOfActualSalary);
 
                     JLabel lblRemainingDay = new JLabel("");
                     lblListRemainingCalendarDays.add(lblRemainingDay);
@@ -260,56 +242,51 @@ public class NewWorkerWindow extends JDialog {
         // Слушатель для расчётов
         btnCalculation.addActionListener(e -> {
             try {
-                LocalDate localDate = dtpFirst.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate currentDate = dtpFirst.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-                String currentMonth = DateUtils.getCurrentMonth(localDate);
-                currentMonthSql = currentMonth;
+                payrollDetails.setCurrentMonth(DateUtils.getCurrentMonth(currentDate));
 
-                List<Integer> remainingCalendarDays = calculateRemainingDays(daysInMonths, txtSickDays);
-                List<Double> remainingAverageSalary = calculateAverageSalary(txtSumOfActualSalary, remainingCalendarDays);
+                sickMonthDays.setRemainingCalendarDays(calculateRemainingDays(sickMonthDays.getMonthDays(), txtListSickDays));
+                averageSalary.setAverageSalary(calculateAverageSalary(txtListSumOfActualSalary, sickMonthDays.getRemainingCalendarDays()));
 
-                sqlAvarageSalary = remainingAverageSalary;
+                payrollDetails.setTotalMonthDays(DateUtils.getTotalDaysInPastSixMonths(currentDate));
+                payrollDetails.setTotalRemainingDays(DateUtils.calculateTotalRemainingDays(sickMonthDays.getRemainingCalendarDays()));
+                payrollDetails.setTotalSickDates(totalSickDays(txtListSickDays));
+                payrollDetails.setTotalSalary(calculateTotalSalary(txtListSumOfActualSalary));
+                payrollDetails.setTotalAverageSalary(calculateTotalAverageSalary(payrollDetails.getTotalSalary(), payrollDetails.getTotalRemainingDays()));
+                isSalaryValid(txtListSickDays, sickMonthDays.getMonthDays());
 
-                daysInMonths = DateUtils.getDaysInPastSixMonths(localDate);
-                totalMonthDays = DateUtils.getTotalDaysInPastSixMonths(localDate);
-                totalRemainingCalendarDays = DateUtils.calculateTotalRemainingDays(remainingCalendarDays);
-                totalSickDays = totalSickDays(txtSickDays);
-                totalSalary = calculateTotalSalary(txtSumOfActualSalary);
-                totalAverageSalary = calculateTotalAverageSalary(totalSalary, totalRemainingCalendarDays);
-                isSalaryValid(txtSickDays, daysInMonths);
-
-                pnlButtomTableOfCental.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
-                for (int i = 0; i < remainingCalendarDays.size(); i++) {
-                    lblListRemainingCalendarDays.get(i).setText("" + remainingCalendarDays.get(i));
-                    lblListAverageSalary.get(i).setText("" + remainingAverageSalary.get(i));
+                pnlButtomCenterTable.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
+                for (int i = 0; i < sickMonthDays.getRemainingCalendarDays().size(); i++) {
+                    lblListRemainingCalendarDays.get(i).setText("" + sickMonthDays.getRemainingCalendarDays().get(i));
+                    lblListAverageSalary.get(i).setText("" + averageSalary.getAverageSalary().get(i));
                 }
 
-                numberOfDaysOfIllness = getDaysBetweenDates(dtpFirst, dtpSecond);
-                double calculated80PercentOfAverageSalary = calculate80PercentOfAverageSalary(totalAverageSalary, numberOfDaysOfIllness);
-                double calculatedFullSalary = calculateFullSalary(totalAverageSalary, numberOfDaysOfIllness);
-                eightyPecentSalarySql = calculated80PercentOfAverageSalary;
-                hundredPecentSalarySql = calculatedFullSalary;
+                payrollDetails.setIllnessDays(getDaysBetweenDates(dtpFirst, dtpSecond));
+                payrollDetails.setEightyPercentSalary(calculate80PercentOfAverageSalary(payrollDetails.getTotalAverageSalary(), payrollDetails.getIllnessDays()));
+                payrollDetails.setHundredPercentSalary(calculateFullSalary(payrollDetails.getTotalAverageSalary(), payrollDetails.getIllnessDays()));
 
                 lblButtomTotal[0].setText("Итого:");
-                lblButtomTotal[1].setText("" + totalMonthDays);
-                lblButtomTotal[2].setText("" + totalSickDays);
-                lblButtomTotal[3].setText(totalSalary + " р.б.");
-                lblButtomTotal[4].setText("" + totalRemainingCalendarDays);
-                lblButtomTotal[5].setText(totalAverageSalary + " р.б.");
+                lblButtomTotal[1].setText("" + payrollDetails.getTotalMonthDays());
+                lblButtomTotal[2].setText("" + payrollDetails.getTotalSickDates());
+                lblButtomTotal[3].setText(payrollDetails.getTotalSalary() + " р.б.");
+                lblButtomTotal[4].setText("" + payrollDetails.getTotalRemainingDays());
+                lblButtomTotal[5].setText(payrollDetails.getTotalAverageSalary() + " р.б.");
 
                 lblTotalPanel[0].setText("<html>Месяц<br> нетрудоспособности</html>");
                 lblTotalPanel[1].setText("<html>За дни в размере<br> 80% заработка</html>");
                 lblTotalPanel[2].setText("<html>За дни в размере<br> 100% заработка</html>");
-                lblTotalPanel[3].setText(currentMonth);
-                lblTotalPanel[4].setText(calculated80PercentOfAverageSalary + " р.б.");
-                lblTotalPanel[5].setText(calculatedFullSalary + " р.б.");
+                lblTotalPanel[3].setText(payrollDetails.getCurrentMonth());
+                lblTotalPanel[4].setText(payrollDetails.getEightyPercentSalary() + " р.б.");
+                lblTotalPanel[5].setText(payrollDetails.getHundredPercentSalary() + " р.б.");
 
                 pnlTittleOfCenter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 pnlTotal.setVisible(true);
-                totalSum = ((calculated80PercentOfAverageSalary + calculatedFullSalary) * 100.0) / 100.0;
-                lblTotalMoney.setText("Всего: " + totalSum + " р.б.");
+                payrollDetails.setTotalPayrollSum(((payrollDetails.getEightyPercentSalary() + payrollDetails.getHundredPercentSalary()) * 100.0) / 100.0);
+                lblTotalMoney.setText("Всего: " + payrollDetails.getTotalPayrollSum() + " р.б.");
                 pnlBottom.add(lblTotalMoney);
                 btnSave.setVisible(true);
+
             } catch (InvalidInputException ex) {
                 JOptionPane.showMessageDialog(null, "Введённое вами число дней, превышает количество дней в месяце.");
             }
@@ -318,29 +295,27 @@ public class NewWorkerWindow extends JDialog {
         // Слушатель для сохранения расчётов
         btnSave.addActionListener(e -> {
             try {
-                String userSurname = txtSurname.getText();
-                String userName = txtName.getText();
-                String userPatrinimic = txtPatronymic.getText();
+                salary.setSalaryTextField(txtListSumOfActualSalary);
+                sickMonthDays.setSickMonthDaysTextField(txtListSickDays);
+                payrollDetails.setUserName(txtName.getText());
+                payrollDetails.setUserSurName(txtLastName.getText());
+                payrollDetails.setUserPatronymic(txtPatronymic.getText());
 
                 Date firstUtilDate = dtpFirst.getDate();
                 String firstDateString = new SimpleDateFormat("yyyy-MM-dd").format(firstUtilDate);
-                java.sql.Date fistSqlDate = java.sql.Date.valueOf(firstDateString);
+                java.sql.Date fistDate = java.sql.Date.valueOf(firstDateString);
+                payrollDetails.setStartIllnessDate(fistDate);
 
                 Date secondUtilDate = dtpSecond.getDate();
-                String secondDateString = new SimpleDateFormat("yyyy-MM-dd").format(secondUtilDate);
-                java.sql.Date secondSqlDate = java.sql.Date.valueOf(secondDateString);
-                DBManager db = new DBManager();
+                String secondDateToString = new SimpleDateFormat("yyyy-MM-dd").format(secondUtilDate);
+                java.sql.Date secondDate = java.sql.Date.valueOf(secondDateToString);
+                payrollDetails.setEndIllnessDate(secondDate);
 
-                //int payrollId = db.addEmployee(userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate, totalSum);
-
-                db.addPayrollDetails(totalMonthDays, totalSickDays, totalSalary,
-                        totalRemainingCalendarDays, totalAverageSalary, totalSum,
-                        userSurname, userName, userPatrinimic, fistSqlDate, secondSqlDate,
-                        currentMonthSql, eightyPecentSalarySql, hundredPecentSalarySql, numberOfDaysOfIllness);
-                db.saveAverageSalary(sqlAvarageSalary);
-                db.savePayrollMonths(pastMonths);
-                db.savePayrollSalary(txtSumOfActualSalary);
-                db.savePayrollWorkDays(txtSickDays, lblListRemainingCalendarDays, daysInMonths);
+                db.addPayrollDetails(payrollDetails);
+                db.saveAverageSalary(averageSalary);
+                db.savePayrollMonths(payrollMonths);
+                db.savePayrollSalary(salary);
+                db.savePayrollSickMonthDays(sickMonthDays);
                 parent.repaint();
                 dispose();
             } catch (Exception ex) {

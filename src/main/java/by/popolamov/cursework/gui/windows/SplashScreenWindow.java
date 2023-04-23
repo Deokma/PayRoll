@@ -1,18 +1,15 @@
 package by.popolamov.cursework.gui.windows;
 
-import by.popolamov.cursework.gui.windows.MainWindow;
+import by.popolamov.cursework.listeners.WindowCloseListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Timer;
 /**
  *
  *
  * @author Denis Popolamov
  */
 public class SplashScreenWindow extends JFrame {
-    private Timer timer;
-    private static final int CLOSE_DELAY = 60000; // 60 seconds
 
     public SplashScreenWindow() {
         // Установка параметров окна
@@ -70,7 +67,7 @@ public class SplashScreenWindow extends JFrame {
         jpCW.setPreferredSize(new Dimension(WIDTH, 30));
         jpCW.add(jlCW);
 
-        JLabel jlSub = new JLabel("по дисциплине \"Программирование на Java\"");
+        JLabel jlSub = new JLabel("по дисциплине \"Программирование на языке Java\"");
         jlSub.setHorizontalAlignment(SwingConstants.CENTER);
         jlSub.setFont(mainFont);
 
@@ -90,8 +87,6 @@ public class SplashScreenWindow extends JFrame {
         JPanel jpMiddleRight = new JPanel(new GridLayout(2, 1, 30, 0));
 
         // setting left panel
-        //String imagePath = "/images/icon-png.png";
-        //URL imageURL = getClass().getResource(imagePath);
         ImageIcon img = new ImageIcon("src/main/resources/images/icon-dark.png");
         JLabel jlImage = new JLabel(new ImageIcon(img.getImage().getScaledInstance(130, 110, Image.SCALE_SMOOTH)));
         jpMiddleLeft.add(jlImage);
@@ -111,22 +106,19 @@ public class SplashScreenWindow extends JFrame {
 
         // setting bottom panel
         JLabel jlCity = new JLabel("Минск 2023");
-        //jlCity.setFont(mainFont);
+
         jlCity.setFont(new Font("Arial", Font.BOLD, 20));
         jlCity.setHorizontalAlignment(SwingConstants.CENTER);
         jlCity.setVerticalAlignment(JLabel.BOTTOM);
         jlCity.setVerticalTextPosition(JLabel.BOTTOM);
 
         JPanel jpCity = new JPanel();
-        //jpCity.setBackground(Color.GREEN);
+
         jpCity.setPreferredSize(new Dimension(60, 60));
 
         jpCity.add(jlCity);
 
         JPanel jpButtons = new JPanel(new FlowLayout());
-        //JPanel jpButtons = new JPanel(new GridLayout(1, 2, 15, 0));
-        //jpButtons.setPreferredSize(new Dimension(WIDTH/2, 75));
-        //jpButtons.setBorder(new EmptyBorder(10, 10, 20, 10));
 
         JButton jbNext = new JButton("Далее");
         jbNext.addActionListener(e -> {
@@ -161,19 +153,7 @@ public class SplashScreenWindow extends JFrame {
         jpMain.setPreferredSize(new Dimension(700, 500));
         add(jpMain);
 
-
-//        // Создание таймера
-//        timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                // Таймер сработал, закрыть окно
-//                System.exit(0);
-//            }
-//        }, 60 * 1000); // 60 секунд в миллисекундах
-
-        // Установка фокуса на кнопку
-        //button.requestFocusInWindow();
+        WindowCloseListener closeListener = new WindowCloseListener(this);
     }
 
 //

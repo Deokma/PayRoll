@@ -1,6 +1,7 @@
 package by.popolamov.cursework.listeners;
 
 import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
+import by.popolamov.cursework.model.*;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.STMerge;
 
@@ -10,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Класс Listener для формирования больничной выписки в формате Word
@@ -19,46 +19,21 @@ import java.util.List;
  */
 public class WordSaveListener implements ActionListener {
     private PayrollDetailsDialog dialog;
-    private JLabel lblUserSurname;
-    private JLabel lblUserName;
-    private JLabel lblUserPatronimic;
-    private JLabel lblStartIllnessDate;
-    private JLabel lblEndIllnessDate;
-    private JLabel lblTotalSickDates;
-    private JLabel lblTotalPayrollSum;
-    List<Double> averageSalaryList;
-    List<String> monthList;
-    List<Double> salaryList;
-    List<Integer> remainingCalendarDaysList;
-    String currentMonth;
-    Double eightyPecentSalary;
-    Double hundredPercentSalary;
-    int numberOfIllnessDays;
+    AverageSalary averageSalary;
+    PayrollDetails payrollDetails;
+    PayrollMonths payrollMonths;
+    Salary salary;
+    SickMonthDays sickMonthDays;
 
-    public WordSaveListener(PayrollDetailsDialog dialog, JLabel lblUserSurname,
-                            JLabel lblUserName, JLabel lblUserPatronimic,
-                            JLabel lblStartIllnessDate, JLabel lblEndIllnessDate,
-                            JLabel lblTotalSickDates, JLabel lblTotalPayrollSum,
-                            List<Double> averageSalaryList, List<String> monthList,
-                            List<Double> salaryList, List<Integer> remainingCalendarDaysList,
-                            String currentMonth, Double eightyPecentSalary,
-                            Double hundredPercentSalary, int numberOfIllnessDays) {
+    public WordSaveListener(PayrollDetailsDialog dialog, AverageSalary averageSalary,
+                            PayrollDetails payrollDetails, PayrollMonths payrollMonths,
+                            Salary salary, SickMonthDays sickMonthDays) {
         this.dialog = dialog;
-        this.lblUserSurname = lblUserSurname;
-        this.lblUserName = lblUserName;
-        this.lblUserPatronimic = lblUserPatronimic;
-        this.lblStartIllnessDate = lblStartIllnessDate;
-        this.lblEndIllnessDate = lblEndIllnessDate;
-        this.lblTotalSickDates = lblTotalSickDates;
-        this.lblTotalPayrollSum = lblTotalPayrollSum;
-        this.averageSalaryList = averageSalaryList;
-        this.monthList = monthList;
-        this.salaryList = salaryList;
-        this.remainingCalendarDaysList = remainingCalendarDaysList;
-        this.currentMonth = currentMonth;
-        this.eightyPecentSalary = eightyPecentSalary;
-        this.hundredPercentSalary = hundredPercentSalary;
-        this.numberOfIllnessDays = numberOfIllnessDays;
+        this.averageSalary = averageSalary;
+        this.payrollDetails = payrollDetails;
+        this.payrollMonths = payrollMonths;
+        this.salary = salary;
+        this.sickMonthDays = sickMonthDays;
     }
 
     @Override
@@ -83,11 +58,11 @@ public class WordSaveListener implements ActionListener {
             XWPFRun fcsRun = fcsParagraph.createRun();
             fcsRun.setFontSize(14);
 
-            fcsRun.setText("Фамилия: " + lblUserSurname.getText());
+            fcsRun.setText("Фамилия: " + payrollDetails.getUserSurName());
             fcsRun.addBreak();
-            fcsRun.setText("Имя: " + lblUserName.getText());
+            fcsRun.setText("Имя: " + payrollDetails.getUserName());
             fcsRun.addBreak();
-            fcsRun.setText("Отчество: " + lblUserPatronimic.getText());
+            fcsRun.setText("Отчество: " + payrollDetails.getUserPatronymic());
             fcsRun.addBreak();
 
             XWPFParagraph paragraphWorkLiberation = document.createParagraph();
@@ -98,7 +73,6 @@ public class WordSaveListener implements ActionListener {
 
             runWorkLiberation.setText("ОСВОБОЖДЕНИЕ ОТ РАБОТЫ (СЛУЖБЫ, УЧЕБЫ):");
             runWorkLiberation.setFontSize(12);
-            //runWorkLiberation.addBreak();
 
             XWPFTable tblWorkLiberation = document.createTable(2, 4);
             tblWorkLiberation.setWidth("100%");
@@ -116,8 +90,8 @@ public class WordSaveListener implements ActionListener {
             tblWorkLiberation.getRow(0).getCell(3).setText("Должность, фамилия,\n" +
                     "подпись,\n" +
                     "личная печать руководителя");
-            tblWorkLiberation.getRow(1).getCell(0).setText(lblStartIllnessDate.getText());
-            tblWorkLiberation.getRow(1).getCell(1).setText(lblEndIllnessDate.getText());
+            tblWorkLiberation.getRow(1).getCell(0).setText(payrollDetails.getStartIllnessDate().toString());
+            tblWorkLiberation.getRow(1).getCell(1).setText(payrollDetails.getEndIllnessDate().toString());
             tblWorkLiberation.getRow(1).getCell(2).setText("Попов");
             tblWorkLiberation.getRow(1).getCell(3).setText("зав. отделением Федоров");
 
@@ -141,11 +115,11 @@ public class WordSaveListener implements ActionListener {
                     "(руб., коп.)\n");
             tblSalaryCertificate.getRow(0).getCell(3).setText("Среднедневной фактический заработок\n" +
                     "(руб., коп.)\n");
-            for (int i = 0; i < averageSalaryList.size(); i++) {
-                tblSalaryCertificate.getRow(i + 1).getCell(0).setText(monthList.get(i).toString());
-                tblSalaryCertificate.getRow(i + 1).getCell(1).setText(remainingCalendarDaysList.get(i).toString());
-                tblSalaryCertificate.getRow(i + 1).getCell(2).setText(salaryList.get(i).toString());
-                tblSalaryCertificate.getRow(i + 1).getCell(3).setText(averageSalaryList.get(i).toString());
+            for (int i = 0; i < averageSalary.getAverageSalary().size(); i++) {
+                tblSalaryCertificate.getRow(i + 1).getCell(0).setText(payrollMonths.getMonth().get(i).toString());
+                tblSalaryCertificate.getRow(i + 1).getCell(1).setText(sickMonthDays.getRemainingCalendarDays().get(i).toString());
+                tblSalaryCertificate.getRow(i + 1).getCell(2).setText(salary.getSalary().get(i).toString());
+                tblSalaryCertificate.getRow(i + 1).getCell(3).setText(averageSalary.getAverageSalary().get(i).toString());
             }
 
             XWPFParagraph paragraphPayroll = document.createParagraph();
@@ -190,13 +164,13 @@ public class WordSaveListener implements ActionListener {
             tblPayroll.getRow(1).getCell(4);
             tblPayroll.getRow(1).getCell(5);
             tblPayroll.getRow(1).getCell(6);
-            tblPayroll.getRow(2).getCell(0).setText(currentMonth + ", " + numberOfIllnessDays);
-            tblPayroll.getRow(2).getCell(1).setText(String.valueOf(eightyPecentSalary));
-            tblPayroll.getRow(2).getCell(2).setText(String.valueOf(hundredPercentSalary));
-            tblPayroll.getRow(2).getCell(3).setText(lblTotalPayrollSum.getText());
-            tblPayroll.getRow(2).getCell(4).setText(lblTotalPayrollSum.getText());
-            tblPayroll.getRow(2).getCell(5).setText(lblTotalPayrollSum.getText());
-            tblPayroll.getRow(2).getCell(6).setText(lblTotalPayrollSum.getText());
+            tblPayroll.getRow(2).getCell(0).setText(payrollDetails.getCurrentMonth() + ", " + payrollDetails.getIllnessDays());
+            tblPayroll.getRow(2).getCell(1).setText(String.valueOf(payrollDetails.getEightyPercentSalary()));
+            tblPayroll.getRow(2).getCell(2).setText(String.valueOf(payrollDetails.getHundredPercentSalary()));
+            tblPayroll.getRow(2).getCell(3).setText(String.valueOf(payrollDetails.getTotalPayrollSum()));
+            tblPayroll.getRow(2).getCell(4).setText(String.valueOf(payrollDetails.getTotalPayrollSum()));
+            tblPayroll.getRow(2).getCell(5).setText(String.valueOf(payrollDetails.getTotalPayrollSum()));
+            tblPayroll.getRow(2).getCell(6).setText(String.valueOf(payrollDetails.getTotalPayrollSum()));
 
             tblPayroll.getRow(0).getCell(0).getCTTc().addNewTcPr().addNewVMerge().setVal(STMerge.RESTART);
             tblPayroll.getRow(0).getCell(4).getCTTc().addNewTcPr().addNewVMerge().setVal(STMerge.RESTART);

@@ -1,21 +1,20 @@
-package by.popolamov.cursework.entity;
+package by.popolamov.cursework.model;
 
 import java.util.Date;
 
 /**
- * Сущность Payroll
- *
  * @author Denis Popolamov
  */
-public class Payroll {
+public class PayrollDetails {
     Long payrollId;
     int totalSickDates;
     double totalSalary;
     int totalRemainingDays;
-    double averageSalary;
-    double totalSumOfPayroll;
+    double totalAverageSalary;
+    double totalPayrollSum;
+    String userSurName;
     String userName;
-    String userSurname;
+    String userPatronymic;
     Date startIllnessDate;
     Date endIllnessDate;
     String currentMonth;
@@ -24,19 +23,49 @@ public class Payroll {
     int illnessDays;
     int totalMonthDays;
 
-    public Payroll(Long payrollId, int totalSickDates, double totalSalary,
-                   int totalRemainingDays, double averageSalary, double totalSumOfPayroll,
-                   String userName, String userSurname, Date startIllnessDate,
-                   Date endIllnessDate, String currentMonth, double eightyPercentSalary,
-                   double hundredPercentSalary, int illnessDays, int totalMonthDays) {
+
+    public PayrollDetails() {
+    }
+
+    public PayrollDetails(int totalSickDates, double totalSalary, int totalRemainingDays,
+                          double totalAverageSalary,
+                          double totalPayrollSum, String userSurName, String userName,
+                          String userPatronymic, Date startIllnessDate, Date endIllnessDate,
+                          String currentMonth, double eightyPercentSalary,
+                          double hundredPercentSalary, int illnessDays, int totalMonthDays) {
+        this.totalSickDates = totalSickDates;
+        this.totalSalary = totalSalary;
+        this.totalRemainingDays = totalRemainingDays;
+        this.totalAverageSalary = totalAverageSalary;
+        this.totalPayrollSum = totalPayrollSum;
+        this.userSurName = userSurName;
+        this.userName = userName;
+        this.userPatronymic = userPatronymic;
+        this.startIllnessDate = startIllnessDate;
+        this.endIllnessDate = endIllnessDate;
+        this.currentMonth = currentMonth;
+        this.eightyPercentSalary = eightyPercentSalary;
+        this.hundredPercentSalary = hundredPercentSalary;
+        this.illnessDays = illnessDays;
+        this.totalMonthDays = totalMonthDays;
+
+    }
+
+    public PayrollDetails(Long payrollId, int totalSickDates, double totalSalary,
+                          int totalRemainingDays, double totalAverageSalary,
+                          double totalPayrollSum, String userSurName, String userName,
+                          String userPatronymic, Date startIllnessDate, Date endIllnessDate,
+                          String currentMonth, double eightyPercentSalary,
+                          double hundredPercentSalary, int illnessDays, int totalMonthDays) {
         this.payrollId = payrollId;
         this.totalSickDates = totalSickDates;
         this.totalSalary = totalSalary;
         this.totalRemainingDays = totalRemainingDays;
-        this.averageSalary = averageSalary;
-        this.totalSumOfPayroll = totalSumOfPayroll;
+        this.totalAverageSalary = totalAverageSalary;
+        this.totalPayrollSum = totalPayrollSum;
+        this.userSurName = userSurName;
         this.userName = userName;
-        this.userSurname = userSurname;
+        this.userPatronymic = userPatronymic;
         this.startIllnessDate = startIllnessDate;
         this.endIllnessDate = endIllnessDate;
         this.currentMonth = currentMonth;
@@ -78,20 +107,28 @@ public class Payroll {
         this.totalRemainingDays = totalRemainingDays;
     }
 
-    public double getAverageSalary() {
-        return averageSalary;
+    public double getTotalAverageSalary() {
+        return totalAverageSalary;
     }
 
-    public void setAverageSalary(double averageSalary) {
-        this.averageSalary = averageSalary;
+    public void setTotalAverageSalary(double totalAverageSalary) {
+        this.totalAverageSalary = totalAverageSalary;
     }
 
-    public double getTotalSumOfPayroll() {
-        return totalSumOfPayroll;
+    public double getTotalPayrollSum() {
+        return totalPayrollSum;
     }
 
-    public void setTotalSumOfPayroll(double totalSumOfPayroll) {
-        this.totalSumOfPayroll = totalSumOfPayroll;
+    public void setTotalPayrollSum(double totalPayrollSum) {
+        this.totalPayrollSum = totalPayrollSum;
+    }
+
+    public String getUserSurName() {
+        return userSurName;
+    }
+
+    public void setUserSurName(String userSurName) {
+        this.userSurName = userSurName;
     }
 
     public String getUserName() {
@@ -102,12 +139,12 @@ public class Payroll {
         this.userName = userName;
     }
 
-    public String getUserSurname() {
-        return userSurname;
+    public String getUserPatronymic() {
+        return userPatronymic;
     }
 
-    public void setUserSurname(String userSurname) {
-        this.userSurname = userSurname;
+    public void setUserPatronymic(String userPatronymic) {
+        this.userPatronymic = userPatronymic;
     }
 
     public Date getStartIllnessDate() {
@@ -166,24 +203,4 @@ public class Payroll {
         this.totalMonthDays = totalMonthDays;
     }
 
-    @Override
-    public String toString() {
-        return "Payroll{" +
-                "payrollId=" + payrollId +
-                ", totalSickDates=" + totalSickDates +
-                ", totalSalary=" + totalSalary +
-                ", totalRemainingDays=" + totalRemainingDays +
-                ", averageSalary=" + averageSalary +
-                ", totalSumOfPayroll=" + totalSumOfPayroll +
-                ", userName='" + userName + '\'' +
-                ", userSurname='" + userSurname + '\'' +
-                ", startIllnessDate=" + startIllnessDate +
-                ", endIllnessDate=" + endIllnessDate +
-                ", currentMonth='" + currentMonth + '\'' +
-                ", eightyPercentSalary=" + eightyPercentSalary +
-                ", hundredPercentSalary=" + hundredPercentSalary +
-                ", illnessDays=" + illnessDays +
-                ", totalMonthDays=" + totalMonthDays +
-                '}';
-    }
 }
