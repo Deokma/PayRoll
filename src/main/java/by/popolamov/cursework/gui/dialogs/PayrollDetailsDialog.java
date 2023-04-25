@@ -46,15 +46,17 @@ public class PayrollDetailsDialog extends JDialog {
     private void initComponents() {
         payrollId = payrollDetails.getPayrollId();
         // Создаем панель для размещения JLabel'ов
-        JPanel pnl = new JPanel(new BorderLayout());
-        pnl.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JPanel pnlMain = new JPanel(new BorderLayout());
+        pnlMain.setBorder(new EmptyBorder(10, 10, 10, 10));
         JPanel pnlTop = new JPanel(new BorderLayout());
         JLabel tittleLabel = new JLabel("Выписка об нетрудоспособности");
         tittleLabel.setFont(new Font("Arial", Font.BOLD, 16));
         tittleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         pnlTop.add(tittleLabel, BorderLayout.CENTER);
-        pnl.add(pnlTop, BorderLayout.NORTH);
+        pnlMain.add(pnlTop, BorderLayout.NORTH);
+        Font mainFont = new Font("Helvetica", Font.PLAIN, 14);
         JPanel centerPanel = new JPanel(new GridLayout(10, 2, 5, 5));
+        centerPanel.setFont(mainFont);
         centerPanel.add(new JLabel("Фамилия: " + payrollDetails.getUserSurName()));
         centerPanel.add(new JLabel("Имя: " + payrollDetails.getUserName()));
         centerPanel.add(new JLabel("Отчество: " + payrollDetails.getUserPatronymic()));
@@ -65,10 +67,10 @@ public class PayrollDetailsDialog extends JDialog {
         centerPanel.add(new JLabel("Всего рабочих дней за 6 месяцев: " + payrollDetails.getTotalRemainingDays()));
         centerPanel.add(new JLabel("Общая средняя заработная плата: " + payrollDetails.getTotalAverageSalary()));
         centerPanel.add(new JLabel("Общая сумма выплаты: " + payrollDetails.getTotalPayrollSum()));
-        pnl.add(centerPanel, BorderLayout.CENTER);
+        pnlMain.add(centerPanel, BorderLayout.CENTER);
 
         // Размещаем панель на форме
-        getContentPane().add(pnl, BorderLayout.CENTER);
+        getContentPane().add(pnlMain, BorderLayout.CENTER);
 
         JPanel pnlDeletePayroll = new JPanel(new BorderLayout());
         ImageIcon deleteIcon = new ImageIcon("src/main/resources/images/delete-icon.png");

@@ -282,7 +282,11 @@ public class NewWorkerDialog extends JDialog {
 
                 pnlTittleOfCenter.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
                 pnlTotal.setVisible(true);
-                payrollDetails.setTotalPayrollSum(((payrollDetails.getEightyPercentSalary() + payrollDetails.getHundredPercentSalary()) * 100.0) / 100.0);
+
+                double totalPayrollSum = payrollDetails.getEightyPercentSalary() + payrollDetails.getHundredPercentSalary();
+                String formattedTotalPayrollSum = String.format(Locale.US,"%.2f", totalPayrollSum);
+                payrollDetails.setTotalPayrollSum(Double.parseDouble(formattedTotalPayrollSum));
+
                 lblTotalMoney.setText("Всего: " + payrollDetails.getTotalPayrollSum() + " р.б.");
                 pnlBottom.add(lblTotalMoney);
                 btnSave.setVisible(true);

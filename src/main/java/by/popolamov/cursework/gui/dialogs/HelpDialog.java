@@ -11,7 +11,7 @@ import java.awt.*;
 public class HelpDialog extends JDialog {
     public HelpDialog(JFrame parent) {
         super(parent, "Помощь", true);
-        setPreferredSize(new Dimension(600, 300));
+        setPreferredSize(new Dimension(600, 600));
 
         setResizable(false);
         setLocationRelativeTo(null);
@@ -34,7 +34,9 @@ public class HelpDialog extends JDialog {
                 "\n" +
                 "Также программа позволяет сохранить результаты расчёта в файлы Word, Excel или PDF, что удобно для архивирования данных, печати или отправки по электронной почте. Все файлы сохраняются в выбранной пользователем директории и могут быть легко найдены и открыты в дальнейшем. \n" +
                 "\n" +
-                "Вы можете поменять базу данных" +
+                "Также в программе есть возможность поменять базу данных, в которой хранятся данные о работниках и начислениях. Для этого откройте файл \"database.properties\" который находится в директории \"src\\main\\resources\" и измените настройки под свои нужды. " +
+                "Обратите внимание, что изменение базы данных может привести к потере всех ранее сохраненных данных. Перезапустите программу после внесения изменений в файл \"database.properties\".\n" +
+                "\n" +
                 "Надеемся, что данное окно Help поможет вам разобраться с программой \"Расчёт начисления платы за дни временной нетрудоспособности\".");
         txaHelpInfo.setEditable(false);
         txaHelpInfo.setLineWrap(true);
