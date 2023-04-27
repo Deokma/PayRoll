@@ -106,7 +106,7 @@ public class Calculations {
     /**
      * Расчёт средней заработной платы за 6 месяцев
      *
-     * @param totalSalary зарплата за 6 месяцев
+     * @param totalSalary                зарплата за 6 месяцев
      * @param totalRemainingCalendarDays количество рабочих календарных дней
      * @return Общая средняя заработная плата
      */
@@ -137,7 +137,7 @@ public class Calculations {
      *
      * @param averageSalary       средняя заработная плата
      * @param numberOfWorkingDays количество рабочих дней за 6 месяцев
-     * @return зарплата за дни в размекре 100% заработка
+     * @return зарплата за дни в размере 100% заработка
      */
     public static double calculateFullSalary(double averageSalary, int numberOfWorkingDays) {
         if (numberOfWorkingDays <= 12) {

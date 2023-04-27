@@ -90,7 +90,7 @@ public class DateUtils {
      * Получение количество дней между двумя датами
      *
      * @param dtpFirst первая дата
-     * @param dtpEnd вторая дата
+     * @param dtpEnd   вторая дата
      * @return количество дней между датами
      */
     public static int getDaysBetweenDates(JXDatePicker dtpFirst, JXDatePicker dtpEnd) {

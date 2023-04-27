@@ -68,18 +68,17 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
         return btnRender;
     }
 
-    // Метод, возвращающий компонент, который будет использоваться для редактирования ячейки
-// Сохраняет значение ячейки в editorValue и возвращает кнопку для редактирования ячейки
+    /* Метод, возвращающий компонент, который будет использоваться для редактирования ячейки
+       Сохраняет значение ячейки в editorValue и возвращает кнопку для редактирования ячейки*/
     @Override
     public Component getTableCellEditorComponent(JTable tbl, Object value, boolean isSelected, int row, int column) {
         editorValue = value;
-        //editButton.setText("");
         btnEdit.setIcon(scaledButtonIcon);
         return btnEdit;
     }
 
-    // Обработчик события для нажатия на кнопку
-// Определяет строку, в которой находится кнопка, и передает данные этой строки в action
+    /* Обработчик события для нажатия на кнопку
+     Определяет строку, в которой находится кнопка, и передает данные этой строки в action*/
     @Override
     public void actionPerformed(ActionEvent e) {
         int row = tbl.convertRowIndexToModel(tbl.getEditingRow());

@@ -11,9 +11,11 @@ public class AverageSalary {
 
     public AverageSalary() {
     }
-    public AverageSalary( List<Double> averageSalary) {
+
+    public AverageSalary(List<Double> averageSalary) {
         this.averageSalary = averageSalary;
     }
+
     public AverageSalary(Long payrollId, List<Double> averageSalary) {
         this.payrollId = payrollId;
         this.averageSalary = averageSalary;

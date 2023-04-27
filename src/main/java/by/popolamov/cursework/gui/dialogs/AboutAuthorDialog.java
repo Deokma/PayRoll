@@ -10,7 +10,6 @@ import java.io.IOException;
  * @author Denis Popolamov
  */
 public class AboutAuthorDialog extends JDialog {
-    // private JXImagePanel authorImageIcon;
     public AboutAuthorDialog(JFrame parent) throws IOException {
         super(parent, "Об авторе", true);
         // установка размеров и запрет изменения размеров окна

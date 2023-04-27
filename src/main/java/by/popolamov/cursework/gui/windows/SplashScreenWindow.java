@@ -4,9 +4,8 @@ import by.popolamov.cursework.listeners.WindowCloseListener;
 
 import javax.swing.*;
 import java.awt.*;
+
 /**
- *
- *
  * @author Denis Popolamov
  */
 public class SplashScreenWindow extends JFrame {
@@ -122,8 +121,9 @@ public class SplashScreenWindow extends JFrame {
 
         JButton jbNext = new JButton("Далее");
         jbNext.addActionListener(e -> {
-            dispose();
+
             MainWindow form = new MainWindow();
+            dispose();
             form.setVisible(true);
             // new BluePanelWindow();
         });

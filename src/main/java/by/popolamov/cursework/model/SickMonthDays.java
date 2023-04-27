@@ -51,6 +51,7 @@ public class SickMonthDays {
         }
         this.sickMonthDays = sickMonthDays;
     }
+
     public void setSickMonthDays(List<Integer> sickMonthDays) {
         this.sickMonthDays = sickMonthDays;
     }

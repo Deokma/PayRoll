@@ -47,6 +47,7 @@ public class ExcelSaveListener implements ActionListener {
             "Средний дневной\n (почасовой)\n фактический заработок\n (руб.)"};
     List<String> data = new ArrayList<>();
     String[] totalRow;
+
     @Override
     public void actionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();

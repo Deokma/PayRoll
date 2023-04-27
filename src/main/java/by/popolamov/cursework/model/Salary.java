@@ -14,9 +14,11 @@ public class Salary {
     public Salary() {
 
     }
-    public Salary( List<Double> salary) {
+
+    public Salary(List<Double> salary) {
         this.salary = salary;
     }
+
     public Salary(Long payrollId, List<Double> salary) {
         this.payrollId = payrollId;
         this.salary = salary;
@@ -33,6 +35,7 @@ public class Salary {
     public List<Double> getSalary() {
         return salary;
     }
+
     public void setSalaryTextField(List<JTextField> jtfSalary) {
         List<Double> salaries = new ArrayList<>();
         for (JTextField salary : jtfSalary) {
@@ -40,6 +43,7 @@ public class Salary {
         }
         this.salary = salaries;
     }
+
     public void setSalary(List<Double> salary) {
         this.salary = salary;
     }

@@ -9,8 +9,5 @@
         <module name="cursework-payroll" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="CurseWork-PayRoll" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

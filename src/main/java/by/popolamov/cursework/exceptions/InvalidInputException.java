@@ -26,5 +26,4 @@ public class InvalidInputException extends Exception {
         }
         return true;
     }
-
 }

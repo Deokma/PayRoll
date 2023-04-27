@@ -3,6 +3,8 @@ package by.popolamov.cursework;
 import by.popolamov.cursework.gui.windows.SplashScreenWindow;
 
 /**
+ * Main класс для запуска программы
+ *
  * @author Denis Popolamov
  */
 public class Main {
