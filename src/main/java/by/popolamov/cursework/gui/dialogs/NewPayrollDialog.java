@@ -39,7 +39,7 @@ public class NewPayrollDialog extends JDialog {
     DBManager db = new DBManager();
 
     public NewPayrollDialog(JFrame parent) {
-        super(parent, "Добавить работника", true);
+        super(parent, "Добавить выплату", true);
         Dimension dimension = new Dimension(580, 280);
         setPreferredSize(dimension);
         setResizable(false);

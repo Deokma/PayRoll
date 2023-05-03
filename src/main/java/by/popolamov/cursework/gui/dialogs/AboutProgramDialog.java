@@ -19,7 +19,7 @@ public class AboutProgramDialog extends JDialog {
         setLocationRelativeTo(null);
 
         // Создание надписи "О программе" и добавление на панель
-        JLabel lblTitle = new JLabel("О программе");
+        JLabel lblTitle = new JLabel("Приложение \"Расчёт начисления заработной платы за дни временной нетрудоспособности\"");
         lblTitle.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 0));
         add(lblTitle, BorderLayout.NORTH);
         // Создание панели для картинки и текста
@@ -60,7 +60,7 @@ public class AboutProgramDialog extends JDialog {
 
         JPanel pnlButtom = new JPanel(new BorderLayout());
         // Создаем лейбл с версией программы и добавляем его в панель
-        JLabel lblVersion = new JLabel("Версия программы 1.1");
+        JLabel lblVersion = new JLabel("Версия программы 1.1.4");
         lblVersion.setHorizontalAlignment(SwingConstants.CENTER);
         lblVersion.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         pnlButtom.add(lblVersion, BorderLayout.WEST);
