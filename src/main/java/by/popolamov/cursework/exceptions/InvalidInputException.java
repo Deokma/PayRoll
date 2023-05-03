@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.util.List;
 
 /**
+ * Исключение проверки введённых данных
+ *
  * @author Denis Popolamov
  */
 public class InvalidInputException extends Exception {

@@ -155,10 +155,4 @@ public class SplashScreenWindow extends JFrame {
 
         WindowCloseListener closeListener = new WindowCloseListener(this);
     }
-
-//
-//    public static void main(String[] args) {
-//        SplashScreen form = new SplashScreen();
-//        form.setVisible(true);
-//    }
 }

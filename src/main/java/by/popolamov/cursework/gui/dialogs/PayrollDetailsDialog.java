@@ -54,8 +54,8 @@ public class PayrollDetailsDialog extends JDialog {
         tittleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         pnlTop.add(tittleLabel, BorderLayout.CENTER);
         pnlMain.add(pnlTop, BorderLayout.NORTH);
-        Font mainFont = new Font("Helvetica", Font.PLAIN, 14);
         JPanel centerPanel = new JPanel(new GridLayout(10, 2, 5, 5));
+        Font mainFont = new Font("Helvetica", Font.PLAIN, 14);
         centerPanel.setFont(mainFont);
         centerPanel.add(new JLabel("Фамилия: " + payrollDetails.getUserSurName()));
         centerPanel.add(new JLabel("Имя: " + payrollDetails.getUserName()));

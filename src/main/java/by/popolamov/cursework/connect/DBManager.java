@@ -4,8 +4,8 @@ package by.popolamov.cursework.connect;
  * @author Denis Popolamov
  */
 
-import by.popolamov.cursework.gui.windows.MainWindow;
 import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
+import by.popolamov.cursework.gui.windows.MainWindow;
 import by.popolamov.cursework.model.*;
 
 import javax.swing.table.DefaultTableModel;
@@ -113,7 +113,7 @@ public class DBManager {
                 Salary salary = getSalaryByPayrollId(payrollId);
                 SickMonthDays sickMonthDays = getSickMonthDaysByPayrollId(payrollId);
                 PayrollDetailsDialog dialog = new PayrollDetailsDialog(mainWindow, payrollDetails,
-                        averageSalary,payrollMonths,salary,sickMonthDays);
+                        averageSalary, payrollMonths, salary, sickMonthDays);
                 // Отображаем диалоговое окно
                 dialog.setVisible(true);
             }

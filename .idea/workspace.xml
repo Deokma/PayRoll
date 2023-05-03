@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="Update to version 1.1.3">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidInputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidInputException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutProgramDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutProgramDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/HelpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/HelpDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/NewWorkerDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/NewPayrollDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/PayrollDetailsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/PayrollDetailsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/SplashScreenWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/SplashScreenWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WindowCloseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WindowCloseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WordSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WordSaveListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +49,9 @@
         <option name="url" value="https://github.com/Deokma/PayRoll.git" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://C:/Program Files/Java/jdk-17/lib/src.zip!/java.base/java/lang/NumberFormatException.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -73,10 +90,10 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.4&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.archetype.catalogs&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -245,7 +262,13 @@
       <workItem from="1682445298112" duration="1259000" />
       <workItem from="1682504737361" duration="1284000" />
       <workItem from="1682526571114" duration="6099000" />
-      <workItem from="1682588224424" duration="133000" />
+      <workItem from="1682588224424" duration="1761000" />
+      <workItem from="1682751493829" duration="3080000" />
+      <workItem from="1682855981768" duration="4053000" />
+      <workItem from="1683047770695" duration="7346000" />
+      <workItem from="1683056325001" duration="1706000" />
+      <workItem from="1683058065387" duration="1517000" />
+      <workItem from="1683106844772" duration="1067000" />
     </task>
     <task id="LOCAL-00001" summary="Add project">
       <created>1678034129230</created>
@@ -338,7 +361,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682588262762</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Update to version 1.1.3">
+      <created>1682588376070</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1682588376070</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,5 +408,9 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

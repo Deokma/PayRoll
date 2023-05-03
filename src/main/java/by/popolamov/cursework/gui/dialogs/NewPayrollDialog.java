@@ -26,7 +26,7 @@ import static by.popolamov.cursework.utils.DateUtils.getDaysBetweenDates;
  *
  * @author Denis Popolamov
  */
-public class NewWorkerDialog extends JDialog {
+public class NewPayrollDialog extends JDialog {
     List<JLabel> lblListRemainingCalendarDays = new ArrayList<>(); // Остаток календарных дней
     List<JLabel> lblListAverageSalary = new ArrayList<>(); // Средняя заработная плата
     List<JTextField> txtListSickDays = new ArrayList<>(); // Больничные, отпускные дни
@@ -38,7 +38,7 @@ public class NewWorkerDialog extends JDialog {
     SickMonthDays sickMonthDays = new SickMonthDays();
     DBManager db = new DBManager();
 
-    public NewWorkerDialog(JFrame parent) {
+    public NewPayrollDialog(JFrame parent) {
         super(parent, "Добавить работника", true);
         Dimension dimension = new Dimension(580, 280);
         setPreferredSize(dimension);
@@ -127,22 +127,22 @@ public class NewWorkerDialog extends JDialog {
         pnlTittleOfCenter.add(new JLabel("<html>Средний дневной <br> фактический <br> заработок (руб.)</html>"));
         pnlCenter.add(pnlTittleOfCenter, BorderLayout.NORTH);
 
-        // Ценральная панель с таблицей для заполнения информации об отпускных
+        // Центральная панель с таблицей для заполнения информации об отпускных
         JPanel pnlCenterTableOfCenter = new JPanel(new GridLayout(6, 6, 10, 10));
         pnlCenterTableOfCenter.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
         // Панель с итогами расчётов
-        JPanel pnlButtomCenterTable = new JPanel(new GridLayout(1, 6, 10, 10));
-        pnlButtomCenterTable.setBorder(BorderFactory.createEmptyBorder(10, 30, 40, 20));
+        JPanel pnlBottomCenterTable = new JPanel(new GridLayout(1, 6, 10, 10));
+        pnlBottomCenterTable.setBorder(BorderFactory.createEmptyBorder(10, 30, 40, 20));
 
-        JLabel[] lblButtomTotal = new JLabel[6];
+        JLabel[] lblBottomTotal = new JLabel[6];
         Font buttomTotalFont = new Font("Arial", Font.BOLD, 14); // Создание жирного шрифта размером 16
-        for (int i = 0; i < lblButtomTotal.length; i++) {
-            lblButtomTotal[i] = new JLabel("");
-            lblButtomTotal[i].setFont(buttomTotalFont);
-            pnlButtomCenterTable.add(lblButtomTotal[i]);
+        for (int i = 0; i < lblBottomTotal.length; i++) {
+            lblBottomTotal[i] = new JLabel("");
+            lblBottomTotal[i].setFont(buttomTotalFont);
+            pnlBottomCenterTable.add(lblBottomTotal[i]);
         }
-        pnlCenter.add(pnlButtomCenterTable, BorderLayout.SOUTH);
+        pnlCenter.add(pnlBottomCenterTable, BorderLayout.SOUTH);
 
         // Панель с выводом общей информации
         JPanel pnlTotal = new JPanel(new GridLayout(2, 3, 10, 10));
@@ -217,7 +217,7 @@ public class NewWorkerDialog extends JDialog {
 
                 for (int i = 0; i <= 5; i++) {
                     pnlCenterTableOfCenter.add(new JLabel(payrollMonths.getMonth().get(i))); // месяц
-                    pnlCenterTableOfCenter.add(new JLabel("" + sickMonthDays.getMonthDays().get(i))); // количество дней
+                    pnlCenterTableOfCenter.add(new JLabel(String.valueOf(sickMonthDays.getMonthDays().get(i)))); // количество дней
                     JTextField txtSickDays = new JTextField();
                     txtListSickDays.add(txtSickDays);
                     pnlCenterTableOfCenter.add(txtSickDays);
@@ -234,7 +234,7 @@ public class NewWorkerDialog extends JDialog {
                     pnlCenterTableOfCenter.add(lblAverageSalaryTemp);
                 }
                 pnlCenter.add(pnlCenterTableOfCenter, BorderLayout.CENTER);
-            } catch (NullPointerException ex) {
+            } catch (NumberFormatException | NullPointerException ex) {
                 JOptionPane.showMessageDialog(parent, ex.getMessage());
             } catch (InvalidDateRangeException ex) {
                 JOptionPane.showMessageDialog(parent, ex.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
@@ -258,22 +258,22 @@ public class NewWorkerDialog extends JDialog {
                 payrollDetails.setTotalAverageSalary(calculateTotalAverageSalary(payrollDetails.getTotalSalary(), payrollDetails.getTotalRemainingDays()));
                 isSalaryValid(txtListSickDays, sickMonthDays.getMonthDays());
 
-                pnlButtomCenterTable.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
+                pnlBottomCenterTable.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
                 for (int i = 0; i < sickMonthDays.getRemainingCalendarDays().size(); i++) {
-                    lblListRemainingCalendarDays.get(i).setText("" + sickMonthDays.getRemainingCalendarDays().get(i));
-                    lblListAverageSalary.get(i).setText("" + averageSalary.getAverageSalary().get(i));
+                    lblListRemainingCalendarDays.get(i).setText(String.valueOf(sickMonthDays.getRemainingCalendarDays().get(i)));
+                    lblListAverageSalary.get(i).setText(String.valueOf(averageSalary.getAverageSalary().get(i)));
                 }
 
                 payrollDetails.setIllnessDays(getDaysBetweenDates(dtpFirst, dtpSecond));
                 payrollDetails.setEightyPercentSalary(calculate80PercentOfAverageSalary(payrollDetails.getTotalAverageSalary(), payrollDetails.getIllnessDays()));
                 payrollDetails.setHundredPercentSalary(calculateFullSalary(payrollDetails.getTotalAverageSalary(), payrollDetails.getIllnessDays()));
 
-                lblButtomTotal[0].setText("Итого:");
-                lblButtomTotal[1].setText("" + payrollDetails.getTotalMonthDays());
-                lblButtomTotal[2].setText("" + payrollDetails.getTotalSickDates());
-                lblButtomTotal[3].setText(payrollDetails.getTotalSalary() + " р.б.");
-                lblButtomTotal[4].setText("" + payrollDetails.getTotalRemainingDays());
-                lblButtomTotal[5].setText(payrollDetails.getTotalAverageSalary() + " р.б.");
+                lblBottomTotal[0].setText("Итого:");
+                lblBottomTotal[1].setText(String.valueOf(payrollDetails.getTotalMonthDays()));
+                lblBottomTotal[2].setText(String.valueOf(payrollDetails.getTotalSickDates()));
+                lblBottomTotal[3].setText(payrollDetails.getTotalSalary() + " р.б.");
+                lblBottomTotal[4].setText(String.valueOf(payrollDetails.getTotalRemainingDays()));
+                lblBottomTotal[5].setText(payrollDetails.getTotalAverageSalary() + " р.б.");
 
                 lblTotalPanel[0].setText("<html>Месяц<br> нетрудоспособности</html>");
                 lblTotalPanel[1].setText("<html>За дни в размере<br> 80% заработка</html>");
@@ -286,15 +286,17 @@ public class NewWorkerDialog extends JDialog {
                 pnlTotal.setVisible(true);
 
                 double totalPayrollSum = payrollDetails.getEightyPercentSalary() + payrollDetails.getHundredPercentSalary();
-                String formattedTotalPayrollSum = String.format(Locale.US,"%.2f", totalPayrollSum);
+                String formattedTotalPayrollSum = String.format(Locale.US, "%.2f", totalPayrollSum);
                 payrollDetails.setTotalPayrollSum(Double.parseDouble(formattedTotalPayrollSum));
 
                 lblTotalMoney.setText("Всего: " + payrollDetails.getTotalPayrollSum() + " р.б.");
                 pnlBottom.add(lblTotalMoney);
                 btnSave.setVisible(true);
 
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(parent, "Введённые вами данные, не являются числом.");
             } catch (InvalidInputException ex) {
-                JOptionPane.showMessageDialog(null, "Введённое вами число дней, превышает количество дней в месяце.");
+                JOptionPane.showMessageDialog(parent, "Введённое вами число дней, превышает количество дней в месяце.");
             }
         });
 

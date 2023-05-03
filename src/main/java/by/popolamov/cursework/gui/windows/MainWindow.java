@@ -4,7 +4,7 @@ import by.popolamov.cursework.connect.DBManager;
 import by.popolamov.cursework.gui.dialogs.AboutAuthorDialog;
 import by.popolamov.cursework.gui.dialogs.AboutProgramDialog;
 import by.popolamov.cursework.gui.dialogs.HelpDialog;
-import by.popolamov.cursework.gui.dialogs.NewWorkerDialog;
+import by.popolamov.cursework.gui.dialogs.NewPayrollDialog;
 import by.popolamov.cursework.utils.ButtonColumn;
 
 import javax.swing.*;
@@ -37,7 +37,7 @@ public class MainWindow extends JFrame {
         ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
         setIconImage(icon.getImage());
 
-        // Создание менюбара и элементов меню
+        // Создание menuBar и элементов меню
         JMenuBar mnuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         JMenuItem mniFileExit = new JMenuItem("Exit");
@@ -150,7 +150,7 @@ public class MainWindow extends JFrame {
         JButton btnAddWorker = new JButton("Добавить");
         btnAddWorker.setBackground(new Color(27, 161, 226));
         btnAddWorker.setForeground(new Color(255, 255, 255));
-        btnAddWorker.addActionListener(e -> new NewWorkerDialog(this));
+        btnAddWorker.addActionListener(e -> new NewPayrollDialog(this));
         JButton btnUpdate = new JButton("Обновить");
         btnUpdate.setBackground(new Color(27, 161, 226));
         btnUpdate.setForeground(new Color(255, 255, 255));

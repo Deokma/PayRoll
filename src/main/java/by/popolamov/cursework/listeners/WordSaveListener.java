@@ -18,7 +18,7 @@ import java.io.IOException;
  * @author Denis Popolamov
  */
 public class WordSaveListener implements ActionListener {
-    private PayrollDetailsDialog dialog;
+    private final PayrollDetailsDialog dialog;
     AverageSalary averageSalary;
     PayrollDetails payrollDetails;
     PayrollMonths payrollMonths;
@@ -50,6 +50,7 @@ public class WordSaveListener implements ActionListener {
 
             XWPFRun headRun = headParagraph.createRun();
             headRun.setFontSize(20);
+            headRun.setFontFamily("Times New Roman");
             headRun.setBold(true);
             headRun.setText("ЛИСТОК НЕТРУДОСПОСОБНОСТИ");
             headRun.addBreak();
@@ -57,6 +58,7 @@ public class WordSaveListener implements ActionListener {
             XWPFParagraph fcsParagraph = document.createParagraph();
             XWPFRun fcsRun = fcsParagraph.createRun();
             fcsRun.setFontSize(14);
+            fcsRun.setFontFamily("Times New Roman");
 
             fcsRun.setText("Фамилия: " + payrollDetails.getUserSurName());
             fcsRun.addBreak();
@@ -69,6 +71,7 @@ public class WordSaveListener implements ActionListener {
             paragraphWorkLiberation.setAlignment(ParagraphAlignment.CENTER);
 
             XWPFRun runWorkLiberation = paragraphWorkLiberation.createRun();
+            runWorkLiberation.setFontFamily("Times New Roman");
             runWorkLiberation.setBold(true);
 
             runWorkLiberation.setText("ОСВОБОЖДЕНИЕ ОТ РАБОТЫ (СЛУЖБЫ, УЧЕБЫ):");
@@ -76,20 +79,25 @@ public class WordSaveListener implements ActionListener {
 
             XWPFTable tblWorkLiberation = document.createTable(2, 4);
             tblWorkLiberation.setWidth("100%");
-            tblWorkLiberation.getRow(0).getCell(0).setText("C какого числа\n" +
-                    "(число, месяц,\n" +
-                    "год)");
-            tblWorkLiberation.getRow(0).getCell(1).setText("По какое число\n" +
-                    "включительно\n" +
-                    "(число, месяц,\n" +
-                    "год)\n");
-            tblWorkLiberation.getRow(0).getCell(2).setText("Фамилия, подпись, личная\n" +
-                    "печать лечащего врача\n" +
-                    "(помощника врача,\n" +
-                    "фельдшера)");
-            tblWorkLiberation.getRow(0).getCell(3).setText("Должность, фамилия,\n" +
-                    "подпись,\n" +
-                    "личная печать руководителя");
+            tblWorkLiberation.getRow(0).getCell(0).setText("""
+                    C какого числа
+                    (число, месяц,
+                    год)""");
+            tblWorkLiberation.getRow(0).getCell(1).setText("""
+                    По какое число
+                    включительно
+                    (число, месяц,
+                    год)
+                    """);
+            tblWorkLiberation.getRow(0).getCell(2).setText("""
+                    Фамилия, подпись, личная
+                    печать лечащего врача
+                    (помощника врача,
+                    фельдшера)""");
+            tblWorkLiberation.getRow(0).getCell(3).setText("""
+                    Должность, фамилия,
+                    подпись,
+                    личная печать руководителя""");
             tblWorkLiberation.getRow(1).getCell(0).setText(payrollDetails.getStartIllnessDate().toString());
             tblWorkLiberation.getRow(1).getCell(1).setText(payrollDetails.getEndIllnessDate().toString());
             tblWorkLiberation.getRow(1).getCell(2).setText("Попов");
@@ -99,6 +107,7 @@ public class WordSaveListener implements ActionListener {
             paragraphSalaryCertificate.setAlignment(ParagraphAlignment.CENTER);
 
             XWPFRun runSalaryCertificate = paragraphSalaryCertificate.createRun();
+            runSalaryCertificate.setFontFamily("Times New Roman");
             runSalaryCertificate.setBold(true);
 
             runSalaryCertificate.setText("СПРАВКА О ЗАРАБОТНОЙ ПЛАТЕ");
@@ -110,13 +119,17 @@ public class WordSaveListener implements ActionListener {
                     "начисления пособия");
             tblSalaryCertificate.getRow(0).getCell(1).setText("Количество\n" +
                     "рабочих дней");
-            tblSalaryCertificate.getRow(0).getCell(2).setText("Сумма фактического\n" +
-                    "заработка\n" +
-                    "(руб., коп.)\n");
-            tblSalaryCertificate.getRow(0).getCell(3).setText("Среднедневной фактический заработок\n" +
-                    "(руб., коп.)\n");
+            tblSalaryCertificate.getRow(0).getCell(2).setText("""
+                    Сумма фактического
+                    заработка
+                    (руб., коп.)
+                    """);
+            tblSalaryCertificate.getRow(0).getCell(3).setText("""
+                    Среднедневной фактический заработок
+                    (руб., коп.)
+                    """);
             for (int i = 0; i < averageSalary.getAverageSalary().size(); i++) {
-                tblSalaryCertificate.getRow(i + 1).getCell(0).setText(payrollMonths.getMonth().get(i).toString());
+                tblSalaryCertificate.getRow(i + 1).getCell(0).setText(payrollMonths.getMonth().get(i));
                 tblSalaryCertificate.getRow(i + 1).getCell(1).setText(sickMonthDays.getRemainingCalendarDays().get(i).toString());
                 tblSalaryCertificate.getRow(i + 1).getCell(2).setText(salary.getSalary().get(i).toString());
                 tblSalaryCertificate.getRow(i + 1).getCell(3).setText(averageSalary.getAverageSalary().get(i).toString());
@@ -126,6 +139,7 @@ public class WordSaveListener implements ActionListener {
             paragraphPayroll.setAlignment(ParagraphAlignment.CENTER);
 
             XWPFRun runPayroll = paragraphPayroll.createRun();
+            runPayroll.setFontFamily("Times New Roman");
             runPayroll.setBold(true);
 
             runPayroll.setText("СПРАВКА О ЗАРАБОТНОЙ ПЛАТЕ");
@@ -134,32 +148,39 @@ public class WordSaveListener implements ActionListener {
             XWPFTable tblPayroll = document.createTable(3, 7);
             tblPayroll.setWidth("100%");
 
-            tblPayroll.getRow(0).getCell(0).setText("Месяцы, количество\n" +
-                    "дней\n" +
-                    "нетрудоспособности");
+            tblPayroll.getRow(0).getCell(0).setText("""
+                    Месяцы, количество
+                    дней
+                    нетрудоспособности""");
             tblPayroll.getRow(0).getCell(1).setText("Сумма начисленного пособия");
             tblPayroll.getRow(0).getCell(2);
             tblPayroll.getRow(0).getCell(3);
-            tblPayroll.getRow(0).getCell(4).setText("Рассчитанная\n" +
-                    "максимальная\n" +
-                    "сумма пособия\n" +
-                    "(руб., коп.)\n");
-            tblPayroll.getRow(0).getCell(5).setText("Рассчитанная\n" +
-                    "минимальная\n" +
-                    "сумма пособия\n" +
-                    "(руб., коп.)");
-            tblPayroll.getRow(0).getCell(6).setText("Сумма\n" +
-                    "пособия к\n" +
-                    "выплате\n" +
-                    "(руб., коп.)");
+            tblPayroll.getRow(0).getCell(4).setText("""
+                    Рассчитанная
+                    максимальная
+                    сумма пособия
+                    (руб., коп.)
+                    """);
+            tblPayroll.getRow(0).getCell(5).setText("""
+                    Рассчитанная
+                    минимальная
+                    сумма пособия
+                    (руб., коп.)""");
+            tblPayroll.getRow(0).getCell(6).setText("""
+                    Сумма
+                    пособия к
+                    выплате
+                    (руб., коп.)""");
             tblPayroll.getRow(1).getCell(0);
-            tblPayroll.getRow(1).getCell(1).setText("в размере 80 %\n" +
-                    "среднедневного\n" +
-                    "заработка");
-            tblPayroll.getRow(1).getCell(2).setText("в размере\n" +
-                    "100 %\n" +
-                    "среднедневного\n" +
-                    "заработка");
+            tblPayroll.getRow(1).getCell(1).setText("""
+                    в размере 80 %
+                    среднедневного
+                    заработка""");
+            tblPayroll.getRow(1).getCell(2).setText("""
+                    в размере
+                    100 %
+                    среднедневного
+                    заработка""");
             tblPayroll.getRow(1).getCell(3).setText("всего");
             tblPayroll.getRow(1).getCell(4);
             tblPayroll.getRow(1).getCell(5);

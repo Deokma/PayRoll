@@ -11,8 +11,8 @@ import java.awt.event.ActionListener;
 
 public class WindowCloseListener implements ActionListener {
 
-    private JFrame frame;
-    private Timer timer;
+    private final JFrame frame;
+    private final Timer timer;
 
     public WindowCloseListener(JFrame frame) {
         this.frame = frame;

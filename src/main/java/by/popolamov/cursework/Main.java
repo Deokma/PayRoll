@@ -13,4 +13,5 @@ public class Main {
         SplashScreenWindow form = new SplashScreenWindow();
         form.setVisible(true);
     }
+
 }

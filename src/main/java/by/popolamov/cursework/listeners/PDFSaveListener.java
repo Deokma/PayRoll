@@ -25,7 +25,7 @@ import java.io.IOException;
  * @author Denis Popolamov
  */
 public class PDFSaveListener implements ActionListener {
-    private PayrollDetailsDialog dialog;
+    private final PayrollDetailsDialog dialog;
     AverageSalary averageSalary;
     PayrollDetails payrollDetails;
     PayrollMonths payrollMonths;
@@ -96,14 +96,18 @@ public class PDFSaveListener implements ActionListener {
                         "(число, месяц, год)")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblWorkLiberation.addCell(cWorkLiberation);
-                cWorkLiberation = new Cell().add(new Paragraph("По какое число \n" +
-                        "включительно \n" +
-                        "(число, месяц, год)\n")
+                cWorkLiberation = new Cell().add(new Paragraph("""
+                        По какое число\s
+                        включительно\s
+                        (число, месяц, год)
+                        """)
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblWorkLiberation.addCell(cWorkLiberation);
-                cWorkLiberation = new Cell().add(new Paragraph("Фамилия, подпись, личная \n" +
-                        "печать лечащего врача \n" +
-                        "(помощника врача, фельдшера)\n")
+                cWorkLiberation = new Cell().add(new Paragraph("""
+                        Фамилия, подпись, личная\s
+                        печать лечащего врача\s
+                        (помощника врача, фельдшера)
+                        """)
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblWorkLiberation.addCell(cWorkLiberation);
                 cWorkLiberation = new Cell().add(new Paragraph("Должность, фамилия, подпись, \n" +
@@ -137,21 +141,26 @@ public class PDFSaveListener implements ActionListener {
                         "начисления пособия")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblSalaryCertificate.addCell(cSalaryCertificate);
-                cSalaryCertificate = new Cell().add(new Paragraph("Количество \n" +
-                        "рабочих дней \n")
+                cSalaryCertificate = new Cell().add(new Paragraph("""
+                        Количество\s
+                        рабочих дней\s
+                        """)
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblSalaryCertificate.addCell(cSalaryCertificate);
-                cSalaryCertificate = new Cell().add(new Paragraph("Сумма фактического \n" +
-                        "заработка\n" +
-                        "(руб., коп.)")
+                cSalaryCertificate = new Cell().add(new Paragraph("""
+                        Сумма фактического\s
+                        заработка
+                        (руб., коп.)""")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblSalaryCertificate.addCell(cSalaryCertificate);
-                cSalaryCertificate = new Cell().add(new Paragraph("Среднедневной фактический заработок \n" +
-                        "(руб., коп.)\n")
+                cSalaryCertificate = new Cell().add(new Paragraph("""
+                        Среднедневной фактический заработок\s
+                        (руб., коп.)
+                        """)
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                 tblSalaryCertificate.addCell(cSalaryCertificate);
                 for (int i = 0; i < averageSalary.getAverageSalary().size(); i++) {
-                    cSalaryCertificate = new Cell().add(new Paragraph(payrollMonths.getMonth().get(i).toString())
+                    cSalaryCertificate = new Cell().add(new Paragraph(payrollMonths.getMonth().get(i))
                             .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
                     cSalaryCertificate = new Cell().add(new Paragraph(sickMonthDays.getRemainingCalendarDays().get(i).toString())
@@ -174,41 +183,49 @@ public class PDFSaveListener implements ActionListener {
                 Table tblPayroll = new Table(new float[]{1, 2, 2, 2, 1, 1, 1}).setMarginBottom(10);
                 tblPayroll.setWidth(UnitValue.createPercentValue(100));
 
-                Cell cPayroll = new Cell(2, 1).add(new Paragraph("Месяцы, количество \n" +
-                        "дней \n" +
-                        "нетрудоспособности")
+                Cell cPayroll = new Cell(2, 1).add(new Paragraph("""
+                        Месяцы, количество\s
+                        дней\s
+                        нетрудоспособности""")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
                 cPayroll = new Cell(1, 3).add(new Paragraph("Сумма начисленного пособия")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell(2, 1).add(new Paragraph("Рассчитанная \n" +
-                        "максимальная \n" +
-                        "сумма пособия \n" +
-                        "(руб., коп.)\n")
+                cPayroll = new Cell(2, 1).add(new Paragraph("""
+                        Рассчитанная\s
+                        максимальная\s
+                        сумма пособия\s
+                        (руб., коп.)
+                        """)
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell(2, 1).add(new Paragraph("Рассчитанная \n" +
-                        "минимальная \n" +
-                        "сумма пособия\n" +
-                        "(руб., коп.)")
+                cPayroll = new Cell(2, 1).add(new Paragraph("""
+                        Рассчитанная\s
+                        минимальная\s
+                        сумма пособия
+                        (руб., коп.)""")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell(2, 1).add(new Paragraph("Сумма \n" +
-                        "пособия к \n" +
-                        "выплате\n" +
-                        "(руб., коп.)\n")
+                cPayroll = new Cell(2, 1).add(new Paragraph("""
+                        Сумма\s
+                        пособия к\s
+                        выплате
+                        (руб., коп.)
+                        """)
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell(1, 1).add(new Paragraph("в размере 80 % \n" +
-                        "среднедневного \n" +
-                        "заработка")
+                cPayroll = new Cell(1, 1).add(new Paragraph("""
+                        в размере 80 %\s
+                        среднедневного\s
+                        заработка""")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell(1, 1).add(new Paragraph("в размере \n" +
-                        "100 % \n" +
-                        "среднедневного \n" +
-                        "заработка")
+                cPayroll = new Cell(1, 1).add(new Paragraph("""
+                        в размере\s
+                        100 %\s
+                        среднедневного\s
+                        заработка""")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
                 cPayroll = new Cell().add(new Paragraph("всего")
