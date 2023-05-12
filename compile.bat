@@ -1,0 +1,3 @@
+javac -d ./out/ -encoding UTF-8 -cp ./src/main/java;./lib/*;./lib/itextpdf-5.5.13.3.jar:./lib/kernal-7.2.5.jar:./lib/layout-7.2.5.jar:./lib/logback-core-1.2.6.jar:./lib/pdfa-7.2.5.jar./src/main/resources/ ./src/main/java/by/popolamov/cursework/*.java ./src/main/java/by/popolamov/cursework/gui/windows/*.java ./src/main/java/by/popolamov/cursework/gui/dialogs/*.java ./src/main/java/by/popolamov/cursework/listeners/*.java ./src/main/java/by/popolamov/cursework/model/*.java ./src/main/java/by/popolamov/cursework/utils/*.java ./src/main/java/by/popolamov/cursework/exceptions/*.java ./src/main/java/by/popolamov/cursework/connect/*.java
+
+jar cvfm cursework.jar ./META-INF/MANIFEST.MF -C ./out . -C ./src/main/ resources
