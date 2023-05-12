@@ -9,47 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="Update to version 1.1.4">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/cursework_payroll_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575/storage_v2/_src_/database/payroll.JZ0e0Q/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575/storage_v2/_src_/database/payroll.JZ0e0Q/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="update gitignore">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidInputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidInputException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutAuthorDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutAuthorDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutProgramDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutProgramDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/HelpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/HelpDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/NewPayrollDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/NewPayrollDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/PayrollDetailsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/PayrollDetailsDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/SplashScreenWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/SplashScreenWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/ExcelSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/ExcelSaveListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WindowCloseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WindowCloseListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WordSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WordSaveListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/AverageSalary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/AverageSalary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollMonths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollMonths.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Salary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Salary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/SickMonthDays.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/SickMonthDays.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/ButtonColumn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/ButtonColumn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/Calculations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/Calculations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fonts/Arial.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fonts/TimesNewRoman.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/about-author-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/about-program-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/author.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/confirm-button-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/delete-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/details-icon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icon-dark.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icon-white.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icon.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -310,7 +272,7 @@
       <workItem from="1683791065259" duration="139000" />
       <workItem from="1683791233651" duration="1324000" />
       <workItem from="1683792583819" duration="1146000" />
-      <workItem from="1683794317938" duration="19324000" />
+      <workItem from="1683794317938" duration="19755000" />
     </task>
     <task id="LOCAL-00001" summary="Add project">
       <created>1678034129230</created>
@@ -431,7 +393,28 @@
       <option name="project" value="LOCAL" />
       <updated>1683109994770</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="add jar compiler">
+      <created>1683875957521</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1683875957521</updated>
+    </task>
+    <task id="LOCAL-00019" summary="add jar compiler">
+      <created>1683876075703</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1683876075703</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add jar compiler">
+      <created>1683876138248</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1683876138248</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -460,7 +443,8 @@
     <MESSAGE value="Update to version 1.1.2" />
     <MESSAGE value="Update to version 1.1.3" />
     <MESSAGE value="Update to version 1.1.4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update to version 1.1.4" />
+    <MESSAGE value="add jar compiler" />
+    <option name="LAST_COMMIT_MESSAGE" value="add jar compiler" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
