@@ -79,10 +79,6 @@ public class PayrollDetails {
         return payrollId;
     }
 
-    public void setPayrollId(Long payrollId) {
-        this.payrollId = payrollId;
-    }
-
     public int getTotalSickDates() {
         return totalSickDates;
     }

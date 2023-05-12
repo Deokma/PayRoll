@@ -13,7 +13,8 @@ public class InvalidInputException extends Exception {
         super(message);
     }
 
-    public static boolean isSalaryValid(List<JTextField> salaryFields, List<Integer> remainingDays) throws InvalidInputException {
+    public static boolean isSalaryValid(List<JTextField> salaryFields, List<Integer> remainingDays)
+            throws InvalidInputException {
         for (int i = 0; i < salaryFields.size(); i++) {
             JTextField salaryField = salaryFields.get(i);
             String textFieldValue = salaryField.getText();
@@ -23,7 +24,8 @@ public class InvalidInputException extends Exception {
             }
             double salary = Double.parseDouble(textFieldValue);
             if (salary > remainingDays.get(i)) {
-                throw new InvalidInputException("The salary in field " + (i + 1) + " is greater than the remaining days in the month");
+                throw new InvalidInputException("The salary in field " + (i + 1) + " " +
+                        "is greater than the remaining days in the month");
             }
         }
         return true;

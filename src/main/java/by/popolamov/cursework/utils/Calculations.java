@@ -17,7 +17,8 @@ public class Calculations {
      * @param sickDaysInMonth Количество больничных дней в месяце
      * @return Количество рабочих дней за месяц
      */
-    public static List<Integer> calculateRemainingDays(List<Integer> daysInMonths, List<JTextField> sickDaysInMonth) {
+    public static List<Integer> calculateRemainingDays(List<Integer> daysInMonths,
+                                                       List<JTextField> sickDaysInMonth) {
         List<Integer> remainingDays = new ArrayList<>();
 
         for (int i = 0; i < daysInMonths.size(); i++) {
@@ -46,7 +47,8 @@ public class Calculations {
      * @param remainingCalendarDays количество рабочих календарных дней
      * @return заработная плата за месяц
      */
-    public static List<Double> calculateAverageSalary(List<JTextField> sumOfActualSalary, List<Integer> remainingCalendarDays) {
+    public static List<Double> calculateAverageSalary(List<JTextField> sumOfActualSalary,
+                                                      List<Integer> remainingCalendarDays) {
         List<Double> averages = new ArrayList<>();
 
         for (int i = 0; i < sumOfActualSalary.size(); i++) {

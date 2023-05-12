@@ -12,23 +12,6 @@ public class AverageSalary {
     public AverageSalary() {
     }
 
-    public AverageSalary(List<Double> averageSalary) {
-        this.averageSalary = averageSalary;
-    }
-
-    public AverageSalary(Long payrollId, List<Double> averageSalary) {
-        this.payrollId = payrollId;
-        this.averageSalary = averageSalary;
-    }
-
-    public Long getPayrollId() {
-        return payrollId;
-    }
-
-    public void setPayrollId(Long payrollId) {
-        this.payrollId = payrollId;
-    }
-
     public List<Double> getAverageSalary() {
         return averageSalary;
     }

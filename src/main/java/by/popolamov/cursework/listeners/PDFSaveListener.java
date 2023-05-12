@@ -2,6 +2,7 @@ package by.popolamov.cursework.listeners;
 
 import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
 import by.popolamov.cursework.model.*;
+
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -56,7 +57,11 @@ public class PDFSaveListener implements ActionListener {
                 PdfWriter writer = new PdfWriter(new FileOutputStream(fileToSave + ".pdf"));
                 PdfDocument pdfDoc = new PdfDocument(writer);
                 Document document = new Document(pdfDoc);
-                PdfFont timesNewRomanFontPdf = PdfFontFactory.createFont("src/main/resources/fonts/TimesNewRoman.ttf");
+                PdfFont timesNewRomanFontPdf =
+                        PdfFontFactory
+                                // .createFont("src/main/resources/fonts/TimesNewRoman.ttf");
+                                .createFont(String.valueOf(ClassLoader
+                                        .getSystemResource("resources/fonts/TimesNewRoman.ttf")));
                 // Создаем заголовок документа
                 Paragraph para = new Paragraph("ЛИСТОК НЕТРУДОСПОСОБНОСТИ")
                         .setFont(timesNewRomanFontPdf)
@@ -71,9 +76,15 @@ public class PDFSaveListener implements ActionListener {
                         .add(line).setMarginBottom(10);
                 document.add(header);
 
-                Cell cSurname = new Cell().add(new Paragraph("Фамилия: " + payrollDetails.getUserSurName()).setFont(timesNewRomanFontPdf));
-                Cell cName = new Cell().add(new Paragraph("Имя: " + payrollDetails.getUserName()).setFont(timesNewRomanFontPdf));
-                Cell cPatronimic = new Cell().add(new Paragraph("Отчество: " + payrollDetails.getUserPatronymic()).setFont(timesNewRomanFontPdf));
+                Cell cSurname = new Cell().add(
+                        new Paragraph("Фамилия: " +
+                                payrollDetails.getUserSurName()).setFont(timesNewRomanFontPdf));
+                Cell cName = new Cell().add(
+                        new Paragraph("Имя: " +
+                                payrollDetails.getUserName()).setFont(timesNewRomanFontPdf));
+                Cell cPatronimic = new Cell().add(
+                        new Paragraph("Отчество: " +
+                                payrollDetails.getUserPatronymic()).setFont(timesNewRomanFontPdf));
 
                 Div dFio = new Div()
                         .add(cSurname)
@@ -163,14 +174,17 @@ public class PDFSaveListener implements ActionListener {
                     cSalaryCertificate = new Cell().add(new Paragraph(payrollMonths.getMonth().get(i))
                             .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
-                    cSalaryCertificate = new Cell().add(new Paragraph(sickMonthDays.getRemainingCalendarDays().get(i).toString())
-                            .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
+                    cSalaryCertificate = new Cell().add(
+                            new Paragraph(sickMonthDays.getRemainingCalendarDays().get(i).toString())
+                                    .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
-                    cSalaryCertificate = new Cell().add(new Paragraph(salary.getSalary().get(i).toString())
-                            .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
+                    cSalaryCertificate = new Cell().add(
+                            new Paragraph(salary.getSalary().get(i).toString())
+                                    .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
-                    cSalaryCertificate = new Cell().add(new Paragraph(averageSalary.getAverageSalary().get(i).toString())
-                            .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
+                    cSalaryCertificate = new Cell().add(
+                            new Paragraph(averageSalary.getAverageSalary().get(i).toString())
+                                    .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER));
                     tblSalaryCertificate.addCell(cSalaryCertificate);
                 }
                 document.add(tblSalaryCertificate);
@@ -231,8 +245,9 @@ public class PDFSaveListener implements ActionListener {
                 cPayroll = new Cell().add(new Paragraph("всего")
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
-                cPayroll = new Cell().add(new Paragraph(payrollDetails.getCurrentMonth() + ", " + payrollDetails.getIllnessDays())
-                        .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
+                cPayroll = new Cell().add(
+                        new Paragraph(payrollDetails.getCurrentMonth() + ", " + payrollDetails.getIllnessDays())
+                                .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));
                 tblPayroll.addCell(cPayroll);
                 cPayroll = new Cell().add(new Paragraph(String.valueOf(payrollDetails.getEightyPercentSalary()))
                         .setFont(timesNewRomanFontPdf).setTextAlignment(TextAlignment.CENTER).setFontSize(10));

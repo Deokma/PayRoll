@@ -15,23 +15,6 @@ public class Salary {
 
     }
 
-    public Salary(List<Double> salary) {
-        this.salary = salary;
-    }
-
-    public Salary(Long payrollId, List<Double> salary) {
-        this.payrollId = payrollId;
-        this.salary = salary;
-    }
-
-    public Long getPayrollId() {
-        return payrollId;
-    }
-
-    public void setPayrollId(Long payrollId) {
-        this.payrollId = payrollId;
-    }
-
     public List<Double> getSalary() {
         return salary;
     }

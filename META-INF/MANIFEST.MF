@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Main-Class: by.popolamov.cursework.Main
+Class-Path: lib/barcodes-7.2.5.jar lib/bcpkix-jdk15on-1.70.jar lib/bcprov-jdk15on-1.70.jar 
+ lib/bcutil-jdk15on-1.70.jar lib/checker-qual-3.5.0.jar lib/commons-7.2.5.jar 
+ lib/commons-codec-1.15.jar lib/commons-collections4-4.4.jar lib/commons-compress-1.21.jar 
+ lib/commons-io-2.11.0.jar lib/commons-math3-3.6.1.jar lib/curvesapi-1.07.jar lib/filters-2.0.235.jar 
+ lib/font-asian-7.2.5.jar lib/forms-7.2.5.jar lib/hyph-7.2.5.jar lib/io-7.2.5.jar lib/kernel-7.2.5.jar 
+ lib/layout-7.2.5.jar lib/log4j-api-2.18.0.jar lib/logback-classic-1.2.6.jar lib/logback-core-1.2.6.jar 
+ lib/pdfa-7.2.5.jar lib/poi-5.2.3.jar lib/poi-ooxml-5.2.3.jar lib/poi-ooxml-lite-5.2.3.jar 
+ lib/postgresql-42.5.4.jar lib/sign-7.2.5.jar lib/slf4j-api-2.0.7.jar lib/SparseBitSet-1.2.jar 
+ lib/styled-xml-parser-7.2.5.jar lib/svg-7.2.5.jar lib/swing-worker-1.1.jar lib/swingx-1.6.1.jar 
+ lib/xmlbeans-5.1.1.jar lib/itextpdf-5.5.13.3.jar 
+
+Created-By: 17.0.6 (Oracle Corporation)

@@ -17,7 +17,8 @@ public class SplashScreenWindow extends JFrame {
         setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
+        //ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
+        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
         setIconImage(icon.getImage());
 
         // setting panels
@@ -86,8 +87,10 @@ public class SplashScreenWindow extends JFrame {
         JPanel jpMiddleRight = new JPanel(new GridLayout(2, 1, 30, 0));
 
         // setting left panel
-        ImageIcon img = new ImageIcon("src/main/resources/images/icon-dark.png");
-        JLabel jlImage = new JLabel(new ImageIcon(img.getImage().getScaledInstance(130, 110, Image.SCALE_SMOOTH)));
+        //ImageIcon img = new ImageIcon("src/main/resources/images/icon-dark.png");
+        ImageIcon img = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-dark.png"));
+        JLabel jlImage = new JLabel(
+                new ImageIcon(img.getImage().getScaledInstance(130, 110, Image.SCALE_SMOOTH)));
         jpMiddleLeft.add(jlImage);
 
         // setting right panel

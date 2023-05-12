@@ -22,8 +22,13 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
     private JButton btnEdit; // Кнопка для редактирования ячейки
     private Object editorValue; // Значение ячейки, которое редактируется
 
-    ImageIcon buttonIcon = new ImageIcon("src/main/resources/images/details-icon.png"); // Получение изображения для кнопки
-    Image image = buttonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // Масштабирование изображения
+    ImageIcon buttonIcon =
+            //new ImageIcon("src/main/resources/images/details-icon.png"); // Получение изображения для кнопки
+            new ImageIcon(ClassLoader.getSystemResource("resources/images/details-icon.png"));
+    // Получение изображения для кнопки
+    Image image =
+            buttonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+    // Масштабирование изображения
     ImageIcon scaledButtonIcon = new ImageIcon(image); // Создание нового ImageIcon с измененным размером
 
 
@@ -50,7 +55,9 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
 
     // Метод отображения ячейки таблицы
     @Override
-    public Component getTableCellRendererComponent(JTable tbl, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable tbl, Object value,
+                                                   boolean isSelected, boolean hasFocus,
+                                                   int row, int column) {
         // Определение цвета кнопки в зависимости от того, выбрана ли ячейка и имеет ли фокус
         if (hasFocus) {
             btnRender.setForeground(tbl.getForeground());
@@ -71,7 +78,8 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
     /* Метод, возвращающий компонент, который будет использоваться для редактирования ячейки
        Сохраняет значение ячейки в editorValue и возвращает кнопку для редактирования ячейки*/
     @Override
-    public Component getTableCellEditorComponent(JTable tbl, Object value, boolean isSelected, int row, int column) {
+    public Component getTableCellEditorComponent(JTable tbl, Object value,
+                                                 boolean isSelected, int row, int column) {
         editorValue = value;
         btnEdit.setIcon(scaledButtonIcon);
         return btnEdit;

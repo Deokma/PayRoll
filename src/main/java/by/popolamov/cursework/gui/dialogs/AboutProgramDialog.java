@@ -19,7 +19,8 @@ public class AboutProgramDialog extends JDialog {
         setLocationRelativeTo(null);
 
         // Создание надписи "О программе" и добавление на панель
-        JLabel lblTitle = new JLabel("Приложение \"Расчёт начисления заработной платы за дни временной нетрудоспособности\"");
+        JLabel lblTitle = new JLabel("Приложение " +
+                "\"Расчёт начисления заработной платы за дни временной нетрудоспособности\"");
         lblTitle.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 0));
         add(lblTitle, BorderLayout.NORTH);
         // Создание панели для картинки и текста
@@ -27,33 +28,30 @@ public class AboutProgramDialog extends JDialog {
         pnlMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Создание картинки и добавление на панель
-        ImageIcon imgIcon = new ImageIcon("src/main/resources/images/icon-dark.png");
+        //ImageIcon imgIcon = new ImageIcon("src/main/resources/images/icon-dark.png");
+        ImageIcon imgIcon = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-dark.png"));
         Image image = imgIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         JLabel lblImage = new JLabel(new ImageIcon(image));
         pnlMain.add(lblImage, BorderLayout.WEST);
+
+        Font mainFont = new Font("Helvetica", Font.PLAIN, 14);
 
         JPanel pnlRight = new JPanel(new BorderLayout());
         pnlRight.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         // Создание текстового поля и добавление на панель
         JTextArea txaInfo = new JTextArea(
-                "Программа \"Расчет начисления платы за дни временной нетрудоспособности\" - " +
-                        "это эффективное решение для расчета начисления за выплаты пособий в случае " +
-                        "временной нетрудоспособности работников.\n" +
+                "Программа позволяет:" +
                         "\n" +
-                        "Эта программа оснащена всеми необходимым для расчета пособий в соответствии с законодательством Республики Беларусь. " +
-                        "Она позволяет легко вводить данные о начислениях и сохранять результаты расчета в базе данных. " +
-                        "Благодаря этому вы можете легко отслеживать и анализировать историю начислений.\n" +
-                        "\n" +
-                        "Программа генерирует отчеты о начислениях, которые можно сохранять в " +
-                        "различных форматах, таких как Word, Excel или PDF," +
-                        " и легко экспортировать для дальнейшей работы.\n" +
-                        "\n" +
-                        "С помощью этой программы вы сможете точно рассчитать начисления платы за дни временной нетрудоспособности," +
-                        " что ваша компания выплачивает своим сотрудникам все соответствующие пособия, сокращая риски ошибок и конфликтов.\n"
+                        "1. Создание расчёта заработной платы за период нетрудоспособности.\n" +
+                        "2. Сохранение расчёта заработной платы за период нетрудоспособности в базу данных.\n" +
+                        "3. Просмотреть детали расчёта.\n" +
+                        "4. Сохранить расчёт в Word, Excel, PDF."
         );
         txaInfo.setEditable(false);
         txaInfo.setLineWrap(true);
+        txaInfo.setFont(mainFont);
         txaInfo.setWrapStyleWord(true);
+
         JScrollPane scrInfo = new JScrollPane(txaInfo);
         scrInfo.setPreferredSize(new Dimension(0, 200));
         pnlRight.add(scrInfo, BorderLayout.CENTER);

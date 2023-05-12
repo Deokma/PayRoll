@@ -129,10 +129,14 @@ public class WordSaveListener implements ActionListener {
                     (руб., коп.)
                     """);
             for (int i = 0; i < averageSalary.getAverageSalary().size(); i++) {
-                tblSalaryCertificate.getRow(i + 1).getCell(0).setText(payrollMonths.getMonth().get(i));
-                tblSalaryCertificate.getRow(i + 1).getCell(1).setText(sickMonthDays.getRemainingCalendarDays().get(i).toString());
-                tblSalaryCertificate.getRow(i + 1).getCell(2).setText(salary.getSalary().get(i).toString());
-                tblSalaryCertificate.getRow(i + 1).getCell(3).setText(averageSalary.getAverageSalary().get(i).toString());
+                tblSalaryCertificate.getRow(i + 1).getCell(0)
+                        .setText(payrollMonths.getMonth().get(i));
+                tblSalaryCertificate.getRow(i + 1).getCell(1)
+                        .setText(sickMonthDays.getRemainingCalendarDays().get(i).toString());
+                tblSalaryCertificate.getRow(i + 1).getCell(2)
+                        .setText(salary.getSalary().get(i).toString());
+                tblSalaryCertificate.getRow(i + 1).getCell(3)
+                        .setText(averageSalary.getAverageSalary().get(i).toString());
             }
 
             XWPFParagraph paragraphPayroll = document.createParagraph();
@@ -185,7 +189,8 @@ public class WordSaveListener implements ActionListener {
             tblPayroll.getRow(1).getCell(4);
             tblPayroll.getRow(1).getCell(5);
             tblPayroll.getRow(1).getCell(6);
-            tblPayroll.getRow(2).getCell(0).setText(payrollDetails.getCurrentMonth() + ", " + payrollDetails.getIllnessDays());
+            tblPayroll.getRow(2).getCell(0)
+                    .setText(payrollDetails.getCurrentMonth() + ", " + payrollDetails.getIllnessDays());
             tblPayroll.getRow(2).getCell(1).setText(String.valueOf(payrollDetails.getEightyPercentSalary()));
             tblPayroll.getRow(2).getCell(2).setText(String.valueOf(payrollDetails.getHundredPercentSalary()));
             tblPayroll.getRow(2).getCell(3).setText(String.valueOf(payrollDetails.getTotalPayrollSum()));

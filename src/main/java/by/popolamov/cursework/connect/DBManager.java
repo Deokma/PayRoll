@@ -1,9 +1,5 @@
 package by.popolamov.cursework.connect;
 
-/**
- * @author Denis Popolamov
- */
-
 import by.popolamov.cursework.gui.dialogs.PayrollDetailsDialog;
 import by.popolamov.cursework.gui.windows.MainWindow;
 import by.popolamov.cursework.model.*;
@@ -18,6 +14,8 @@ import java.util.List;
 import java.util.Properties;
 
 /**
+ * Класс для взаимодействия с базой данных
+ *
  * @author Denis Popolamov
  */
 public class DBManager {
@@ -31,7 +29,8 @@ public class DBManager {
         try {
             Class.forName("org.postgresql.Driver");
             Properties props = new Properties();
-            InputStream input = new FileInputStream("src/main/resources/database.properties");
+            //InputStream input = new FileInputStream("src/main/resources/database.properties");
+            InputStream input = ClassLoader.getSystemResourceAsStream("resources/database.properties");
             props.load(input);
             String url = props.getProperty("url");
             String user = props.getProperty("user");
@@ -86,7 +85,6 @@ public class DBManager {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, payrollId);
             ResultSet rs = stmt.executeQuery();
-
             MainWindow mainWindow = new MainWindow();
             if (rs.next()) {
                 // Создаем объект PayrollDetails из данных результата запроса
@@ -344,7 +342,8 @@ public class DBManager {
             }
 
             // Сохраняем список средних зарплат в таблицу average_salary
-            String insertQuery = "INSERT INTO sick_month_days (payroll_id, sick_month_days, remaining_calendar_days,month_days) VALUES (?, ?, ?, ?)";
+            String insertQuery = "INSERT INTO sick_month_days " +
+                    "(payroll_id, sick_month_days, remaining_calendar_days,month_days) VALUES (?, ?, ?, ?)";
             stmt = conn.prepareStatement(insertQuery);
 
             for (int i = 0; i < sickMonthDays.getSickMonthDays().size(); i++) {
@@ -368,7 +367,8 @@ public class DBManager {
      */
     public void addPayrollDetails(PayrollDetails payrollDetails) {
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO payroll_details (total_month_days,total_sick_dates, total_salary," +
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO payroll_details " +
+                    "(total_month_days,total_sick_dates, total_salary," +
                     " total_remaining_days, total_average_salary, total_sum_of_payroll," +
                     "user_surname,user_name,user_patronimic," +
                     "start_illness_date,end_illness_date, current_month,eighty_percent_salary," +
@@ -403,27 +403,32 @@ public class DBManager {
      */
     public void deletePayrollData(long payrollId) throws SQLException {
         // Удаление строк из таблицы salary
-        PreparedStatement salaryStmt = conn.prepareStatement("DELETE FROM salary WHERE payroll_id = ?");
+        PreparedStatement salaryStmt =
+                conn.prepareStatement("DELETE FROM salary WHERE payroll_id = ?");
         salaryStmt.setLong(1, payrollId);
         salaryStmt.executeUpdate();
 
         // Удаление строк из таблицы average_salary
-        PreparedStatement averageSalaryStmt = conn.prepareStatement("DELETE FROM average_salary WHERE payroll_id = ?");
+        PreparedStatement averageSalaryStmt =
+                conn.prepareStatement("DELETE FROM average_salary WHERE payroll_id = ?");
         averageSalaryStmt.setLong(1, payrollId);
         averageSalaryStmt.executeUpdate();
 
         // Удаление строк из таблицы payroll_months
-        PreparedStatement payrollMonthsStmt = conn.prepareStatement("DELETE FROM payroll_months WHERE payroll_id = ?");
+        PreparedStatement payrollMonthsStmt =
+                conn.prepareStatement("DELETE FROM payroll_months WHERE payroll_id = ?");
         payrollMonthsStmt.setLong(1, payrollId);
         payrollMonthsStmt.executeUpdate();
 
         // Удаление строк из таблицы sick_month_days
-        PreparedStatement sickMonthDaysStmt = conn.prepareStatement("DELETE FROM sick_month_days WHERE payroll_id = ?");
+        PreparedStatement sickMonthDaysStmt =
+                conn.prepareStatement("DELETE FROM sick_month_days WHERE payroll_id = ?");
         sickMonthDaysStmt.setLong(1, payrollId);
         sickMonthDaysStmt.executeUpdate();
 
         // Удаление строк из таблицы payroll_details
-        PreparedStatement payrollDetailsStmt = conn.prepareStatement("DELETE FROM payroll_details WHERE payroll_id = ?");
+        PreparedStatement payrollDetailsStmt =
+                conn.prepareStatement("DELETE FROM payroll_details WHERE payroll_id = ?");
         payrollDetailsStmt.setLong(1, payrollId);
         payrollDetailsStmt.executeUpdate();
     }

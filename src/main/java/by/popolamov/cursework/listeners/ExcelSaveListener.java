@@ -79,8 +79,10 @@ public class ExcelSaveListener implements ActionListener {
             }
 
             totalRow = new String[]{"ИТОГО:", String.valueOf(payrollDetails.getTotalMonthDays()),
-                    String.valueOf(payrollDetails.getTotalSickDates()), String.valueOf(payrollDetails.getTotalRemainingDays()),
-                    String.valueOf(payrollDetails.getTotalSalary()), String.valueOf(payrollDetails.getTotalAverageSalary())};
+                    String.valueOf(payrollDetails.getTotalSickDates()),
+                    String.valueOf(payrollDetails.getTotalRemainingDays()),
+                    String.valueOf(payrollDetails.getTotalSalary()),
+                    String.valueOf(payrollDetails.getTotalAverageSalary())};
 
             // Создаем экземпляр класса XSSFSheet
             XSSFSheet sheet = workbook.createSheet("Расчет больничного");
@@ -108,7 +110,9 @@ public class ExcelSaveListener implements ActionListener {
 
             // Создаем ячейку для второй строки
             XSSFCell cell2 = row2.createCell(0);
-            cell2.setCellValue(payrollDetails.getUserSurName() + " " + payrollDetails.getUserName() + " " + payrollDetails.getUserPatronymic());
+            cell2.setCellValue(payrollDetails.getUserSurName() + " " +
+                    payrollDetails.getUserName() + " " +
+                    payrollDetails.getUserPatronymic());
             cell2.setCellStyle(getHeaderStyle(workbook));
 
             // Создаем третью строку
@@ -134,7 +138,8 @@ public class ExcelSaveListener implements ActionListener {
 
             // Создаем ячейку для третьей строки
             XSSFCell cell4 = row4.createCell(0);
-            cell4.setCellValue("Период болезни с " + payrollDetails.getStartIllnessDate() + " по " + payrollDetails.getEndIllnessDate()
+            cell4.setCellValue("Период болезни с " + payrollDetails.getStartIllnessDate()
+                    + " по " + payrollDetails.getEndIllnessDate()
                     + " = " + payrollDetails.getIllnessDays() + " дней");
             cell4.setCellStyle(getSubHeaderStyle(workbook));
 
@@ -235,8 +240,12 @@ public class ExcelSaveListener implements ActionListener {
 
             // Заполнение итогов таблицы "начисления пособия"
             XSSFRow row17 = sheet.createRow(17);
-            String[] dates = {payrollDetails.getCurrentMonth(), String.valueOf(payrollDetails.getEightyPercentSalary()), String.valueOf(payrollDetails.getHundredPercentSalary()),
-                    String.valueOf(payrollDetails.getTotalSalary()), String.valueOf(payrollDetails.getTotalSalary()), String.valueOf(payrollDetails.getTotalSalary())};
+            String[] dates = {payrollDetails.getCurrentMonth(),
+                    String.valueOf(payrollDetails.getEightyPercentSalary()),
+                    String.valueOf(payrollDetails.getHundredPercentSalary()),
+                    String.valueOf(payrollDetails.getTotalSalary()),
+                    String.valueOf(payrollDetails.getTotalSalary()),
+                    String.valueOf(payrollDetails.getTotalSalary())};
             for (int i = 0; i <= 5; i++) {
                 row17.createCell(i).setCellValue(dates[i]);
             }

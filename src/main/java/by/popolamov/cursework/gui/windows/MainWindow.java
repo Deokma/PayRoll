@@ -34,7 +34,10 @@ public class MainWindow extends JFrame {
         setLocationRelativeTo(null);
 
         // Установка иконки приложения
-        ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
+        ImageIcon icon =
+                // new ImageIcon("src/main/resources/images/icon.png");
+                new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
+
         setIconImage(icon.getImage());
 
         // Создание menuBar и элементов меню
@@ -72,10 +75,13 @@ public class MainWindow extends JFrame {
         pnlLeftBlue.add(lblTitle, BorderLayout.NORTH);
 
         // добавляем картинку в середину синего блока
-        ImageIcon imageIcon = new ImageIcon("src/main/resources/images/icon-white.png");
+        ImageIcon imageIcon =
+                // new ImageIcon("src/main/resources/images/icon-white.png");
+                new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-white.png"));
         JLabel lblImage = new JLabel(imageIcon);
         Image image = imageIcon.getImage(); // получаем объект Image из ImageIcon
-        Image scaledImage = image.getScaledInstance(170, 170, Image.SCALE_SMOOTH); // масштабируем изображение до нужного размера
+        Image scaledImage = image.getScaledInstance(170, 170, Image.SCALE_SMOOTH);
+        // масштабируем изображение до нужного размера
         imageIcon.setImage(scaledImage); // устанавливаем масштабированное изображение в качестве иконки для JLabel
         lblImage.setPreferredSize(new Dimension(200, 440));
         lblImage.setVerticalAlignment(JLabel.TOP);
@@ -85,15 +91,27 @@ public class MainWindow extends JFrame {
         JPanel pnlButtonsOnBlue = new JPanel();
         pnlButtonsOnBlue.setBackground(new Color(27, 161, 226));
         JButton btnAboutAuthor = new JButton("Об авторе");
-        ImageIcon iconAboutAuthorButton = new ImageIcon("src/main/resources/images/about-author-icon.png");
-        Image aboutAuthorImage = iconAboutAuthorButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
-        ImageIcon iconScaledAboutAuthorButton = new ImageIcon(aboutAuthorImage); // создание нового ImageIcon с измененным размером
+
+        ImageIcon iconAboutAuthorButton =
+                // new ImageIcon("src/main/resources/images/about-author-icon.png");
+                new ImageIcon(ClassLoader.getSystemResource("resources/images/about-author-icon.png"));
+        Image aboutAuthorImage =
+                iconAboutAuthorButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        // масштабирование картинки до 50x50
+        ImageIcon iconScaledAboutAuthorButton =
+                new ImageIcon(aboutAuthorImage); // создание нового ImageIcon с измененным размером
         btnAboutAuthor.setIcon(iconScaledAboutAuthorButton);
 
         JButton btnAboutProgram = new JButton("О программе");
-        ImageIcon iconAboutProgramButton = new ImageIcon("src/main/resources/images/about-program-icon.png");
-        Image aboutProgramImage = iconAboutProgramButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // масштабирование картинки до 50x50
-        ImageIcon scaledAboutProgramButtonIcon = new ImageIcon(aboutProgramImage); // создание нового ImageIcon с измененным размером
+
+        ImageIcon iconAboutProgramButton =
+                // new ImageIcon("src/main/resources/images/about-program-icon.png");
+                new ImageIcon(ClassLoader.getSystemResource("resources/images/about-program-icon.png"));
+        Image aboutProgramImage =
+                iconAboutProgramButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        // масштабирование картинки до 50x50
+        ImageIcon scaledAboutProgramButtonIcon =
+                new ImageIcon(aboutProgramImage); // создание нового ImageIcon с измененным размером
         btnAboutProgram.setIcon(scaledAboutProgramButtonIcon);
         btnAboutProgram.addActionListener(e -> new AboutProgramDialog(this));
 

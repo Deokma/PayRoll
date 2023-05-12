@@ -17,29 +17,6 @@ public class SickMonthDays {
 
     }
 
-    public SickMonthDays(List<Integer> sickMonthDays,
-                         List<Integer> remainingCalendarDays, List<Integer> monthDays) {
-        this.sickMonthDays = sickMonthDays;
-        this.remainingCalendarDays = remainingCalendarDays;
-        this.monthDays = monthDays;
-    }
-
-    public SickMonthDays(Long payrollId, List<Integer> sickMonthDays,
-                         List<Integer> remainingCalendarDays, List<Integer> monthDays) {
-        this.payrollId = payrollId;
-        this.sickMonthDays = sickMonthDays;
-        this.remainingCalendarDays = remainingCalendarDays;
-        this.monthDays = monthDays;
-    }
-
-    public Long getPayrollId() {
-        return payrollId;
-    }
-
-    public void setPayrollId(Long payrollId) {
-        this.payrollId = payrollId;
-    }
-
     public List<Integer> getSickMonthDays() {
         return sickMonthDays;
     }
@@ -61,10 +38,6 @@ public class SickMonthDays {
     }
 
     public void setRemainingCalendarDays(List<Integer> remainingCalendarDays) {
-//        List<Integer> listRemainingDays = new ArrayList<>();
-//        for (JLabel remainingDays : remainingCalendarDays){
-//            listRemainingDays.add(Integer.parseInt(remainingDays.getText()));
-//        }
         this.remainingCalendarDays = remainingCalendarDays;
     }
 

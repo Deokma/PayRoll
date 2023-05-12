@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
  * @author Denis Popolamov
  */
 
-
 public class WindowCloseListener implements ActionListener {
 
     private final JFrame frame;

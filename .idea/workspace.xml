@@ -1,13 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="cursework-payroll:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d9f2a0d-528b-484a-8243-ea7c7627a1f2" name="Changes" comment="Update to version 1.1.4">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/cursework_payroll_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575/storage_v2/_src_/database/payroll.JZ0e0Q/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/be5831a1-9430-4fbd-9696-a63635a7a575/storage_v2/_src_/database/payroll.JZ0e0Q/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/connect/DBManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidDateRangeException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidInputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/exceptions/InvalidInputException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutAuthorDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutAuthorDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutProgramDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/AboutProgramDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/HelpDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/HelpDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/NewPayrollDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/NewPayrollDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/PayrollDetailsDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/PayrollDetailsDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/SplashScreenWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/windows/SplashScreenWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/ExcelSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/ExcelSaveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/PDFSaveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WindowCloseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WindowCloseListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WordSaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/listeners/WordSaveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/AverageSalary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/AverageSalary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollMonths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/PayrollMonths.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Salary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/Salary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/SickMonthDays.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/model/SickMonthDays.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/ButtonColumn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/ButtonColumn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/Calculations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/by/popolamov/cursework/utils/Calculations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fonts/Arial.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fonts/TimesNewRoman.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/about-author-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/about-program-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/author.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/confirm-button-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/delete-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/details-icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icon-dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icon-white.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/icon.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,44 +103,45 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH&quot;: &quot;116&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/3curse2semester/Java/CurseWork-PayRoll/lib/swingx-all-1.6.4.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.4&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH": "116",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/3curse2semester/Java/CurseWork-PayRoll/lib",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.4",
+    "settings.editor.selected.configurable": "build.tools",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\lib" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\main\resources" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\main\resources\images" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll" />
-      <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\lib" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\target" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src\main\java\by\popolamov\cursework" />
       <recent name="D:\3curse2semester\Java\CurseWork-PayRoll\src" />
     </key>
@@ -256,7 +299,18 @@
       <workItem from="1683047770695" duration="7346000" />
       <workItem from="1683056325001" duration="1706000" />
       <workItem from="1683058065387" duration="1517000" />
-      <workItem from="1683106844772" duration="2579000" />
+      <workItem from="1683106844772" duration="3197000" />
+      <workItem from="1683136929176" duration="1383000" />
+      <workItem from="1683548028622" duration="3888000" />
+      <workItem from="1683556817002" duration="3202000" />
+      <workItem from="1683563322861" duration="4655000" />
+      <workItem from="1683625824659" duration="7994000" />
+      <workItem from="1683738021582" duration="776000" />
+      <workItem from="1683790926722" duration="110000" />
+      <workItem from="1683791065259" duration="139000" />
+      <workItem from="1683791233651" duration="1324000" />
+      <workItem from="1683792583819" duration="1146000" />
+      <workItem from="1683794317938" duration="19324000" />
     </task>
     <task id="LOCAL-00001" summary="Add project">
       <created>1678034129230</created>
@@ -370,7 +424,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683109979234</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Update to version 1.1.4">
+      <created>1683109994770</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1683109994770</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,17 +461,6 @@
     <MESSAGE value="Update to version 1.1.3" />
     <MESSAGE value="Update to version 1.1.4" />
     <option name="LAST_COMMIT_MESSAGE" value="Update to version 1.1.4" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/by/popolamov/cursework/gui/dialogs/PayrollDetailsDialog.java</url>
-          <line>155</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -126,7 +126,6 @@
                 <version>3.2.0</version>
                 <configuration>
                     <archive>
-
                         <manifestEntries>
                             <Main-Class>by.popolamov.cursework.Main</Main-Class>
                         </manifestEntries>

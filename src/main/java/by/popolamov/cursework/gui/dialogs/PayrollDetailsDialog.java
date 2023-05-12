@@ -1,6 +1,5 @@
 package by.popolamov.cursework.gui.dialogs;
 
-
 import by.popolamov.cursework.connect.DBManager;
 import by.popolamov.cursework.listeners.ExcelSaveListener;
 import by.popolamov.cursework.listeners.PDFSaveListener;
@@ -31,7 +30,7 @@ public class PayrollDetailsDialog extends JDialog {
     public PayrollDetailsDialog(Frame parent, PayrollDetails payrollDetails,
                                 AverageSalary averageSalary, PayrollMonths payrollMonths,
                                 Salary salary, SickMonthDays sickMonthDays) {
-        super(parent, "Деталь выплаты", true);
+        super(parent, "Детали выплаты", true);
         this.payrollDetails = payrollDetails;
         this.averageSalary = averageSalary;
         this.payrollMonths = payrollMonths;
@@ -73,13 +72,17 @@ public class PayrollDetailsDialog extends JDialog {
         getContentPane().add(pnlMain, BorderLayout.CENTER);
 
         JPanel pnlDeletePayroll = new JPanel(new BorderLayout());
-        ImageIcon deleteIcon = new ImageIcon("src/main/resources/images/delete-icon.png");
+        //ImageIcon deleteIcon = new ImageIcon("src/main/resources/images/delete-icon.png");
+        ImageIcon deleteIcon = new ImageIcon(ClassLoader.getSystemResource("resources/images/delete-icon.png"));
         JButton btnDelete = new JButton(deleteIcon);
 
         //btnDelete.setBorderPainted(false); // скрыть границы кнопки
         btnDelete.setContentAreaFilled(false); // убрать заливку кнопки
         btnDelete.setFocusPainted(false); // убрать выделение кнопки при фокусе
-        btnDelete.setPreferredSize(new Dimension(btnDelete.getIcon().getIconWidth() + 5, btnDelete.getIcon().getIconHeight() + 5)); // установить размеры кнопки равными размерам изображения
+        btnDelete.setPreferredSize(
+                new Dimension(btnDelete.getIcon().getIconWidth() + 5,
+                        btnDelete.getIcon().getIconHeight() + 5));
+        // установить размеры кнопки равным размерам изображения
 
         pnlDeletePayroll.add(btnDelete, BorderLayout.SOUTH);
         getContentPane().add(pnlDeletePayroll, BorderLayout.EAST);
@@ -150,7 +153,9 @@ public class PayrollDetailsDialog extends JDialog {
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int confirm = JOptionPane.showConfirmDialog(null, "Вы действительно хотите удалить элемент?", "Подтверждение удаления", JOptionPane.YES_NO_OPTION);
+                int confirm = JOptionPane.showConfirmDialog(null,
+                        "Вы действительно хотите удалить элемент?", "Подтверждение удаления",
+                        JOptionPane.YES_NO_OPTION);
                 if (confirm == JOptionPane.YES_OPTION) {
                     try {
                         db.deletePayrollData(payrollId);
