@@ -1,7 +1,8 @@
 ### IntelliJ IDEA ###
 .idea/
-out
 target/
 cursework.jar
 !**/src/main/**/out/
 !**/src/test/**/out/
+./out
+/.idea/
