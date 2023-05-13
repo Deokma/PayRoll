@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: by.popolamov.cursework.Main
+Main-Class: by.popolamov.coursework.Main
 Class-Path: lib/barcodes-7.2.5.jar lib/bcpkix-jdk15on-1.70.jar lib/bcprov-jdk15on-1.70.jar 
  lib/bcutil-jdk15on-1.70.jar lib/checker-qual-3.5.0.jar lib/commons-7.2.5.jar 
  lib/commons-codec-1.15.jar lib/commons-collections4-4.4.jar lib/commons-compress-1.21.jar 

@@ -1,8 +1,9 @@
 ### IntelliJ IDEA ###
 .idea/
 target/
-cursework.jar
+PayRoll.jar
 !**/src/main/**/out/
 !**/src/test/**/out/
 ./out
 /.idea/
+/javadoc/
