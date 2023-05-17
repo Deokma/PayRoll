@@ -17,144 +17,151 @@ public class SplashScreenWindow extends JFrame {
         setSize(800, 500);
         setResizable(false);
         setLocationRelativeTo(null);
-        //ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
-        ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
+        ImageIcon icon = new ImageIcon("src/main/resources/images/icon.png");
+        //ImageIcon icon = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
         setIconImage(icon.getImage());
 
         // setting panels
-        JPanel jpMain = new JPanel(new GridLayout(4, 1));
-        JPanel jpTop = new JPanel(new BorderLayout());
-        JPanel jpTitle = new JPanel(new BorderLayout());
-        JPanel jpMiddle = new JPanel(new GridLayout(1, 2, 15, 0));
-        JPanel jpBottom = new JPanel(new BorderLayout());
+        JPanel pnlMain = new JPanel(new GridLayout(4, 1));
+        JPanel pnlTop = new JPanel(new BorderLayout());
+        JPanel pnlTitle = new JPanel(new BorderLayout());
+        JPanel pnlMiddle = new JPanel(new GridLayout(1, 2, 15, 0));
+        JPanel pnlBottom = new JPanel(new BorderLayout());
 
         // setting top panel
         Font mainFont = new Font("Arial", Font.BOLD, 14);
 
-        JLabel jlBNTU = new JLabel("Белорусский национальный технический университет");
-        jlBNTU.setHorizontalAlignment(SwingConstants.CENTER);
-        jlBNTU.setFont(mainFont);
-        JPanel jpBNTU = new JPanel();
-        jpBNTU.setPreferredSize(new Dimension(WIDTH, 40));
-        jlBNTU.setFont(new Font("Arial", Font.BOLD, 18)); // увеличение размера текста
-        jpBNTU.add(jlBNTU);
+        JLabel lblBNTU = new JLabel("Белорусский национальный технический университет");
+        lblBNTU.setHorizontalAlignment(SwingConstants.CENTER);
+        lblBNTU.setFont(mainFont);
+        JPanel pnlBNTU = new JPanel();
+        pnlBNTU.setPreferredSize(new Dimension(WIDTH, 40));
+        lblBNTU.setFont(new Font("Arial", Font.BOLD, 18)); // увеличение размера текста
+        pnlBNTU.add(lblBNTU);
 
-        JLabel jlFac = new JLabel("Факультет информационных технологий и робототехники");
-        jlFac.setHorizontalAlignment(SwingConstants.CENTER);
-        jlFac.setFont(mainFont);
-        JPanel jpFac = new JPanel();
-        jpFac.setPreferredSize(new Dimension(WIDTH, 20));
-        jlFac.setFont(new Font("Arial", Font.BOLD, 18)); // увеличение размера текста
-        jpFac.add(jlFac);
+        JLabel lblFac = new JLabel("Факультет информационных технологий и робототехники");
+        lblFac.setHorizontalAlignment(SwingConstants.CENTER);
+        lblFac.setFont(mainFont);
+        JPanel pnlFac = new JPanel();
+        pnlFac.setPreferredSize(new Dimension(WIDTH, 20));
+        lblFac.setFont(new Font("Arial", Font.BOLD, 18)); // увеличение размера текста
+        pnlFac.add(lblFac);
 
-        JLabel jlDep = new JLabel("Кафедра программаного обеспечения информационных систем и технологий");
-        jlDep.setHorizontalAlignment(SwingConstants.CENTER);
-        jlDep.setFont(mainFont);
-        JPanel jpDep = new JPanel();
-        jpDep.setPreferredSize(new Dimension(WIDTH, 50));
-        jlDep.setFont(new Font("Arial", Font.BOLD, 18)); // увеличение размера текста
-        jpDep.add(jlDep);
+        JLabel lblDep = new JLabel("Кафедра программаного обеспечения информационных систем и технологий");
+        lblDep.setHorizontalAlignment(SwingConstants.CENTER);
+        lblDep.setFont(mainFont);
+        JPanel pnlDep = new JPanel();
+        pnlDep.setPreferredSize(new Dimension(WIDTH, 50));
+        lblDep.setFont(new Font("Arial", Font.BOLD, 18)); // увеличение размера текста
+        pnlDep.add(lblDep);
 
-        jpTop.add(jpBNTU, BorderLayout.NORTH);
-        jpTop.add(jpFac, BorderLayout.CENTER);
-        jpTop.add(jpDep, BorderLayout.SOUTH);
+        pnlTop.add(pnlBNTU, BorderLayout.NORTH);
+        pnlTop.add(pnlFac, BorderLayout.CENTER);
+        pnlTop.add(pnlDep, BorderLayout.SOUTH);
 
         // setting title panel
-        JLabel jlCW = new JLabel("Курсовая работа");
-        jlCW.setHorizontalAlignment(SwingConstants.CENTER);
-        jlCW.setFont(new Font("Arial", Font.BOLD, 18));
-        JPanel jpCW = new JPanel();
-        jpCW.setPreferredSize(new Dimension(WIDTH, 30));
-        jpCW.add(jlCW);
+        JLabel lblCourseWork = new JLabel("Курсовая работа");
+        lblCourseWork.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCourseWork.setFont(new Font("Arial", Font.BOLD, 18));
+        JPanel pnlCourseWork = new JPanel();
+        pnlCourseWork.setPreferredSize(new Dimension(WIDTH, 30));
+        pnlCourseWork.add(lblCourseWork);
 
-        JLabel jlSub = new JLabel("по дисциплине \"Программирование на языке Java\"");
-        jlSub.setHorizontalAlignment(SwingConstants.CENTER);
-        jlSub.setFont(mainFont);
+        JLabel lblSub = new JLabel("по дисциплине \"Программирование на языке Java\"");
+        lblSub.setHorizontalAlignment(SwingConstants.CENTER);
+        lblSub.setFont(mainFont);
 
-        JLabel jlTheme = new JLabel("Расчёт начисления заработной платы за дни временной нетрудоспособности");
-        jlTheme.setHorizontalAlignment(SwingConstants.CENTER);
-        jlTheme.setFont(new Font("Arial", Font.BOLD, 20));
-        JPanel jpTheme = new JPanel();
-        jpTheme.setPreferredSize(new Dimension(WIDTH, 70));
-        jpTheme.add(jlTheme);
+        JLabel lblTheme = new JLabel("Расчёт начисления заработной платы за дни временной нетрудоспособности");
+        lblTheme.setHorizontalAlignment(SwingConstants.CENTER);
+        lblTheme.setFont(new Font("Arial", Font.BOLD, 20));
+        JPanel pnlTheme = new JPanel();
+        pnlTheme.setPreferredSize(new Dimension(WIDTH, 70));
+        pnlTheme.add(lblTheme);
 
-        jpTitle.add(jpCW, BorderLayout.NORTH);
-        jpTitle.add(jlSub, BorderLayout.CENTER);
-        jpTitle.add(jpTheme, BorderLayout.SOUTH);
+        pnlTitle.add(pnlCourseWork, BorderLayout.NORTH);
+        pnlTitle.add(lblSub, BorderLayout.CENTER);
+        pnlTitle.add(pnlTheme, BorderLayout.SOUTH);
 
         // setting middle panel
-        JPanel jpMiddleLeft = new JPanel();
-        JPanel jpMiddleRight = new JPanel(new GridLayout(2, 1, 30, 0));
+        JPanel pnlMiddleLeft = new JPanel();
+        JPanel pnlMiddleRight = new JPanel(new GridLayout(2, 1, 30, 0));
 
         // setting left panel
-        //ImageIcon img = new ImageIcon("src/main/resources/images/icon-dark.png");
-        ImageIcon img = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-dark.png"));
-        JLabel jlImage = new JLabel(
-                new ImageIcon(img.getImage().getScaledInstance(130, 110, Image.SCALE_SMOOTH)));
-        jpMiddleLeft.add(jlImage);
+        ImageIcon imgMain = new ImageIcon("src/main/resources/images/icon-dark.png");
+        //ImageIcon imgMain = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-dark.png"));
+        JLabel lblMainImage = new JLabel(
+                new ImageIcon(imgMain.getImage().getScaledInstance(130, 110, Image.SCALE_SMOOTH)));
+        pnlMiddleLeft.add(lblMainImage);
 
         // setting right panel
-        JLabel jlStudent = new JLabel("<html>Выполнил: студент группы 10702420" +
+        JLabel lblStudent = new JLabel("<html>Выполнил: студент группы 10702420" +
                 "<br/>Пополамов Денис Вячеславович<html>");
-        jlStudent.setFont(mainFont);
-        JLabel jlTeacher = new JLabel("<html>Преподаватель: к.ф.-м.н., доц." +
+        lblStudent.setFont(mainFont);
+        JLabel lblTeacher = new JLabel("<html>Преподаватель: к.ф.-м.н., доц." +
                 "<br/>Сидорик Валерий Владимирович<html>");
-        jlTeacher.setFont(mainFont);
-        jpMiddleRight.add(jlStudent);
-        jpMiddleRight.add(jlTeacher);
+        lblTeacher.setFont(mainFont);
+        pnlMiddleRight.add(lblStudent);
+        pnlMiddleRight.add(lblTeacher);
 
-        jpMiddle.add(jpMiddleLeft);
-        jpMiddle.add(jpMiddleRight);
+        pnlMiddle.add(pnlMiddleLeft);
+        pnlMiddle.add(pnlMiddleRight);
 
         // setting bottom panel
-        JLabel jlCity = new JLabel("Минск 2023");
+        JLabel lblCity = new JLabel("Минск 2023");
 
-        jlCity.setFont(new Font("Arial", Font.BOLD, 20));
-        jlCity.setHorizontalAlignment(SwingConstants.CENTER);
-        jlCity.setVerticalAlignment(JLabel.BOTTOM);
-        jlCity.setVerticalTextPosition(JLabel.BOTTOM);
+        lblCity.setFont(new Font("Arial", Font.BOLD, 20));
+        lblCity.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCity.setVerticalAlignment(JLabel.BOTTOM);
+        lblCity.setVerticalTextPosition(JLabel.BOTTOM);
 
-        JPanel jpCity = new JPanel();
+        JPanel pnlCity = new JPanel();
 
-        jpCity.setPreferredSize(new Dimension(60, 60));
+        pnlCity.setPreferredSize(new Dimension(60, 60));
 
-        jpCity.add(jlCity);
+        pnlCity.add(lblCity);
 
-        JPanel jpButtons = new JPanel(new FlowLayout());
+        JPanel pnlButtons = new JPanel(new FlowLayout());
 
-        JButton jbNext = new JButton("Далее");
-        jbNext.addActionListener(e -> {
+        JButton btnNext = new JButton("Далее");
 
-            MainWindow form = new MainWindow();
-            dispose();
-            form.setVisible(true);
-            // new BluePanelWindow();
+        btnNext.addActionListener(e -> {
+try {
+                MainWindow form = new MainWindow();
+                dispose();
+                form.setVisible(true);
+                // new BluePanelWindow();
+} catch (ClassNotFoundException ex) {
+    JOptionPane.showMessageDialog(null,"Ошибка выполнения программы: "+ ex.getMessage(),
+            "Error", JOptionPane.ERROR_MESSAGE);
+}
         });
-        JButton jbExit = new JButton("Выход");
-        jbExit.addActionListener(e -> System.exit(0));
 
-        jbNext.setFont(new Font("Arial", Font.BOLD, 20)); // увеличение размера текста кнопки "Дальше"
-        jbExit.setFont(new Font("Arial", Font.BOLD, 20)); // увеличение размера текста кнопки "Выйти"
 
-        jbNext.setBackground(new Color(27, 161, 226));
-        jbExit.setBackground(new Color(27, 161, 226));
+        JButton btnExit = new JButton("Выход");
+        btnExit.addActionListener(e -> System.exit(0));
 
-        jbNext.setForeground(new Color(255, 255, 255));
-        jbExit.setForeground(new Color(255, 255, 255));
+        btnNext.setFont(new Font("Arial", Font.BOLD, 20)); // увеличение размера текста кнопки "Дальше"
+        btnExit.setFont(new Font("Arial", Font.BOLD, 20)); // увеличение размера текста кнопки "Выйти"
 
-        jpButtons.add(jbNext);
-        jpButtons.add(jbExit);
+        btnNext.setBackground(new Color(27, 161, 226));
+        btnExit.setBackground(new Color(27, 161, 226));
 
-        jpBottom.add(jpCity, BorderLayout.NORTH);
-        jpBottom.add(jpButtons, BorderLayout.SOUTH);
+        btnNext.setForeground(new Color(255, 255, 255));
+        btnExit.setForeground(new Color(255, 255, 255));
+
+        pnlButtons.add(btnNext);
+        pnlButtons.add(btnExit);
+
+        pnlBottom.add(pnlCity, BorderLayout.NORTH);
+        pnlBottom.add(pnlButtons, BorderLayout.SOUTH);
 
         // setting main panel
-        jpMain.add(jpTop);
-        jpMain.add(jpTitle);
-        jpMain.add(jpMiddle);
-        jpMain.add(jpBottom);
-        jpMain.setPreferredSize(new Dimension(700, 500));
-        add(jpMain);
+        pnlMain.add(pnlTop);
+        pnlMain.add(pnlTitle);
+        pnlMain.add(pnlMiddle);
+        pnlMain.add(pnlBottom);
+        pnlMain.setPreferredSize(new Dimension(700, 500));
+        add(pnlMain);
 
         WindowCloseListener closeListener = new WindowCloseListener(this);
     }

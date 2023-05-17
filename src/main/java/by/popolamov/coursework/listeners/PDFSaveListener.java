@@ -35,7 +35,7 @@ public class PDFSaveListener implements ActionListener {
 
     public PDFSaveListener(PayrollDetailsDialog dialog, AverageSalary averageSalary,
                            PayrollDetails payrollDetails, PayrollMonths payrollMonths,
-                           Salary salary, SickMonthDays sickMonthDays) {
+                           Salary salary, SickMonthDays sickMonthDays) throws NoClassDefFoundError{
         this.dialog = dialog;
         this.averageSalary = averageSalary;
         this.payrollDetails = payrollDetails;
@@ -59,9 +59,9 @@ public class PDFSaveListener implements ActionListener {
                 Document document = new Document(pdfDoc);
                 PdfFont timesNewRomanFontPdf =
                         PdfFontFactory
-                                // .createFont("src/main/resources/fonts/TimesNewRoman.ttf");
-                                .createFont(String.valueOf(ClassLoader
-                                        .getSystemResource("resources/fonts/TimesNewRoman.ttf")));
+                                 .createFont("src/main/resources/fonts/TimesNewRoman.ttf");
+                                //.createFont(String.valueOf(ClassLoader
+                                  //      .getSystemResource("resources/fonts/TimesNewRoman.ttf")));
                 // Создаем заголовок документа
                 Paragraph para = new Paragraph("ЛИСТОК НЕТРУДОСПОСОБНОСТИ")
                         .setFont(timesNewRomanFontPdf)

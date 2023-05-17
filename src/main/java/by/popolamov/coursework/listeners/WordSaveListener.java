@@ -27,7 +27,7 @@ public class WordSaveListener implements ActionListener {
 
     public WordSaveListener(PayrollDetailsDialog dialog, AverageSalary averageSalary,
                             PayrollDetails payrollDetails, PayrollMonths payrollMonths,
-                            Salary salary, SickMonthDays sickMonthDays) {
+                            Salary salary, SickMonthDays sickMonthDays) throws NoClassDefFoundError{
         this.dialog = dialog;
         this.averageSalary = averageSalary;
         this.payrollDetails = payrollDetails;

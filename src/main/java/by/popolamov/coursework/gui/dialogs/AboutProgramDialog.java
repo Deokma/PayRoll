@@ -28,8 +28,8 @@ public class AboutProgramDialog extends JDialog {
         pnlMain.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         // Создание картинки и добавление на панель
-        //ImageIcon imgIcon = new ImageIcon("src/main/resources/images/icon-dark.png");
-        ImageIcon imgIcon = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-dark.png"));
+        ImageIcon imgIcon = new ImageIcon("src/main/resources/images/icon-dark.png");
+        //ImageIcon imgIcon = new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-dark.png"));
         Image image = imgIcon.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         JLabel lblImage = new JLabel(new ImageIcon(image));
         pnlMain.add(lblImage, BorderLayout.WEST);
@@ -56,22 +56,22 @@ public class AboutProgramDialog extends JDialog {
         scrInfo.setPreferredSize(new Dimension(0, 200));
         pnlRight.add(scrInfo, BorderLayout.CENTER);
 
-        JPanel pnlButtom = new JPanel(new BorderLayout());
+        JPanel pnlBottom = new JPanel(new BorderLayout());
         // Создаем лейбл с версией программы и добавляем его в панель
         JLabel lblVersion = new JLabel("Версия программы 1.1.4");
         lblVersion.setHorizontalAlignment(SwingConstants.CENTER);
         lblVersion.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        pnlButtom.add(lblVersion, BorderLayout.WEST);
+        pnlBottom.add(lblVersion, BorderLayout.WEST);
         JPanel pnlBackButton = new JPanel(new GridLayout(1, 1, 0, 10));
         // Создание кнопки "Назад" и добавление на панель
         JButton backButton = new JButton("Назад");
         backButton.setBackground(new Color(226, 27, 34));
         backButton.setForeground(new Color(255, 255, 255));
-        pnlButtom.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnlBottom.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         backButton.addActionListener(e -> dispose());
         pnlBackButton.add(backButton, BorderLayout.EAST);
-        pnlButtom.add(pnlBackButton, BorderLayout.EAST);
-        pnlRight.add(pnlButtom, BorderLayout.SOUTH);
+        pnlBottom.add(pnlBackButton, BorderLayout.EAST);
+        pnlRight.add(pnlBottom, BorderLayout.SOUTH);
         add(pnlRight, BorderLayout.SOUTH);
 
         pnlMain.add(pnlRight, BorderLayout.CENTER);

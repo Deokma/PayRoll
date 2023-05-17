@@ -4,7 +4,9 @@ import by.popolamov.coursework.gui.dialogs.PayrollDetailsDialog;
 import by.popolamov.coursework.gui.windows.MainWindow;
 import by.popolamov.coursework.model.*;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -28,15 +30,18 @@ public class DBManager {
         try {
             Class.forName("org.postgresql.Driver");
             Properties props = new Properties();
-            //InputStream input = new FileInputStream("src/main/resources/database.properties");
-            InputStream input = ClassLoader.getSystemResourceAsStream("resources/database.properties");
+            InputStream input = new FileInputStream("src/main/resources/database.properties");
+            //InputStream input = ClassLoader.getSystemResourceAsStream("resources/database.properties");
             props.load(input);
             String url = props.getProperty("url");
             String user = props.getProperty("user");
             String password = props.getProperty("password");
             conn = DriverManager.getConnection(url, user, password);
-        } catch (ClassNotFoundException | SQLException | IOException e) {
+        } catch (SQLException | IOException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Класс не обнаружен: " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -71,8 +76,6 @@ public class DBManager {
         return null;
     }
 
-    //    Метод для получения строки из таблицы payroll_details по payrollId
-
     /**
      * Метод для получения всех данных о выплате
      *
@@ -84,7 +87,11 @@ public class DBManager {
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, payrollId);
             ResultSet rs = stmt.executeQuery();
+
+
             MainWindow mainWindow = new MainWindow();
+
+
             if (rs.next()) {
                 // Создаем объект PayrollDetails из данных результата запроса
                 PayrollDetails payrollDetails = new PayrollDetails(
@@ -116,6 +123,9 @@ public class DBManager {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Ошибка выполнения программы: " + ex.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

@@ -74,18 +74,18 @@ public class HelpDialog extends JDialog {
         scr.setPreferredSize(new Dimension(0, 200));
         pnlRight.add(scr, BorderLayout.CENTER);
 
-        JPanel pnlButtom = new JPanel(new BorderLayout());
+        JPanel pnlBottom = new JPanel(new BorderLayout());
 
         JPanel pnlBackButton = new JPanel(new GridLayout(1, 1, 20, 10));
         // Создание кнопки "Назад" и добавление на панель
         JButton btnBack = new JButton("Назад");
         btnBack.setBackground(new Color(226, 27, 34));
         btnBack.setForeground(new Color(255, 255, 255));
-        pnlButtom.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
+        pnlBottom.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
         btnBack.addActionListener(e -> dispose());
         pnlBackButton.add(btnBack, BorderLayout.EAST);
-        pnlButtom.add(pnlBackButton, BorderLayout.EAST);
-        pnlRight.add(pnlButtom, BorderLayout.SOUTH);
+        pnlBottom.add(pnlBackButton, BorderLayout.EAST);
+        pnlRight.add(pnlBottom, BorderLayout.SOUTH);
         add(pnlRight, BorderLayout.SOUTH);
 
         pnlMain.add(pnlRight, BorderLayout.CENTER);

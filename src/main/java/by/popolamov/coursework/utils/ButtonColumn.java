@@ -23,8 +23,8 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
     private Object editorValue; // Значение ячейки, которое редактируется
 
     ImageIcon buttonIcon =
-            //new ImageIcon("src/main/resources/images/details-icon.png"); // Получение изображения для кнопки
-            new ImageIcon(ClassLoader.getSystemResource("resources/images/details-icon.png"));
+            new ImageIcon("src/main/resources/images/details-icon.png"); // Получение изображения для кнопки
+            //new ImageIcon(ClassLoader.getSystemResource("resources/images/details-icon.png"));
     // Получение изображения для кнопки
     Image image =
             buttonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);

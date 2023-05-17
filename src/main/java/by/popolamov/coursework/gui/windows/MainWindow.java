@@ -26,7 +26,7 @@ public class MainWindow extends JFrame {
     JTable tblPayroll = new JTable();
     DBManager db = new DBManager();
 
-    public MainWindow() {
+    public MainWindow() throws ClassNotFoundException {
         setTitle("PayRoll Calculate");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 620);
@@ -35,8 +35,8 @@ public class MainWindow extends JFrame {
 
         // Установка иконки приложения
         ImageIcon icon =
-                // new ImageIcon("src/main/resources/images/icon.png");
-                new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
+                 new ImageIcon("src/main/resources/images/icon.png");
+                //new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
 
         setIconImage(icon.getImage());
 
@@ -76,8 +76,8 @@ public class MainWindow extends JFrame {
 
         // добавляем картинку в середину синего блока
         ImageIcon imageIcon =
-                // new ImageIcon("src/main/resources/images/icon-white.png");
-                new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-white.png"));
+                 new ImageIcon("src/main/resources/images/icon-white.png");
+                //new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-white.png"));
         JLabel lblImage = new JLabel(imageIcon);
         Image image = imageIcon.getImage(); // получаем объект Image из ImageIcon
         Image scaledImage = image.getScaledInstance(170, 170, Image.SCALE_SMOOTH);
@@ -93,8 +93,8 @@ public class MainWindow extends JFrame {
         JButton btnAboutAuthor = new JButton("Об авторе");
 
         ImageIcon iconAboutAuthorButton =
-                // new ImageIcon("src/main/resources/images/about-author-icon.png");
-                new ImageIcon(ClassLoader.getSystemResource("resources/images/about-author-icon.png"));
+                 new ImageIcon("src/main/resources/images/about-author-icon.png");
+                //new ImageIcon(ClassLoader.getSystemResource("resources/images/about-author-icon.png"));
         Image aboutAuthorImage =
                 iconAboutAuthorButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         // масштабирование картинки до 50x50
@@ -105,8 +105,8 @@ public class MainWindow extends JFrame {
         JButton btnAboutProgram = new JButton("О программе");
 
         ImageIcon iconAboutProgramButton =
-                // new ImageIcon("src/main/resources/images/about-program-icon.png");
-                new ImageIcon(ClassLoader.getSystemResource("resources/images/about-program-icon.png"));
+                 new ImageIcon("src/main/resources/images/about-program-icon.png");
+                //new ImageIcon(ClassLoader.getSystemResource("resources/images/about-program-icon.png"));
         Image aboutProgramImage =
                 iconAboutProgramButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         // масштабирование картинки до 50x50
@@ -168,7 +168,17 @@ public class MainWindow extends JFrame {
         JButton btnAddWorker = new JButton("Добавить");
         btnAddWorker.setBackground(new Color(27, 161, 226));
         btnAddWorker.setForeground(new Color(255, 255, 255));
-        btnAddWorker.addActionListener(e -> new NewPayrollDialog(this));
+        btnAddWorker.addActionListener(e -> {
+            try {
+                new NewPayrollDialog(this);
+            } catch (NoClassDefFoundError ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                        "Не обнаружен компонент: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+
+            }
+        });
         JButton btnUpdate = new JButton("Обновить");
         btnUpdate.setBackground(new Color(27, 161, 226));
         btnUpdate.setForeground(new Color(255, 255, 255));
@@ -234,11 +244,7 @@ public class MainWindow extends JFrame {
                 tblPayroll.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
             }
         });
-    }
 
-    public static void main(String[] args) {
-        MainWindow window = new MainWindow();
-        window.setVisible(true);
     }
 }
 
