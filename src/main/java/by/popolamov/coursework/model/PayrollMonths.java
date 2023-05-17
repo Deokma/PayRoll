@@ -3,6 +3,8 @@ package by.popolamov.coursework.model;
 import java.util.List;
 
 /**
+ * Месяцы выплаты
+ *
  * @author Denis Popolamov
  */
 public class PayrollMonths {

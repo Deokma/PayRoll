@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Рабочие дни
+ *
  * @author Denis Popolamov
  */
 public class SickMonthDays {

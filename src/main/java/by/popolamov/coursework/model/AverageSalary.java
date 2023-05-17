@@ -3,6 +3,8 @@ package by.popolamov.coursework.model;
 import java.util.List;
 
 /**
+ * Средняя заработная плата
+ *
  * @author Denis Popolamov
  */
 public class AverageSalary {

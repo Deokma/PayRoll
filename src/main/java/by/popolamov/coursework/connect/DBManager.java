@@ -308,6 +308,8 @@ public class DBManager {
 
     /**
      * Метод для сохранения списка заработной платы за 6 месяцев
+     *
+     * @param salary зарплата
      */
     public void savePayrollSalary(Salary salary) {
         int payrollId = 0;
@@ -337,6 +339,8 @@ public class DBManager {
 
     /**
      * Метод для сохранения списка рабочих дней
+     *
+     * @param sickMonthDays рабочие дни
      */
     public void savePayrollSickMonthDays(SickMonthDays sickMonthDays) {
         int payrollId = 0;
@@ -372,7 +376,9 @@ public class DBManager {
     }
 
     /**
-     * Метод для записи выписки
+     * Метод для сохранения деталей о расчётах выплаты
+     *
+     * @param payrollDetails детали выплаты
      */
     public void addPayrollDetails(PayrollDetails payrollDetails) {
         try {
@@ -440,13 +446,5 @@ public class DBManager {
                 conn.prepareStatement("DELETE FROM payroll_details WHERE payroll_id = ?");
         payrollDetailsStmt.setLong(1, payrollId);
         payrollDetailsStmt.executeUpdate();
-    }
-
-    public void closeConnection() {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

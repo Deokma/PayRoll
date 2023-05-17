@@ -1,14 +1,13 @@
 package by.popolamov.coursework.gui.dialogs;
 
+import javax.swing.*;
+import java.awt.*;
+
 /**
  * Диалоговое окно "О программе"
  *
  * @author Denis Popolamov
  */
-
-import javax.swing.*;
-import java.awt.*;
-
 public class AboutProgramDialog extends JDialog {
 
     public AboutProgramDialog(JFrame parent) {

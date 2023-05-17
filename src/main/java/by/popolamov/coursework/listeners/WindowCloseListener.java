@@ -5,6 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ * Класс Listener таймера закрытия окна
+ *
  * @author Denis Popolamov
  */
 

@@ -6,6 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Окно SplashScreen
+ *
  * @author Denis Popolamov
  */
 public class SplashScreenWindow extends JFrame {

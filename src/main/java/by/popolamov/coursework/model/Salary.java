@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Заработная плата
+ *
  * @author Denis Popolamov
  */
 public class Salary {
