@@ -3,7 +3,7 @@ package by.popolamov.coursework.model;
 import java.util.Date;
 
 /**
- * Детали расчётов выплаты
+ * Сущность детали расчётов выплаты
  *
  * @author Denis Popolamov
  */

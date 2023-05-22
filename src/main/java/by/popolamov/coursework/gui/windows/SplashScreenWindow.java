@@ -49,7 +49,7 @@ public class SplashScreenWindow extends JFrame {
         lblFac.setFont(new Font("Arial", Font.BOLD, 18)); // увеличение размера текста
         pnlFac.add(lblFac);
 
-        JLabel lblDep = new JLabel("Кафедра программаного обеспечения информационных систем и технологий");
+        JLabel lblDep = new JLabel("Кафедра программного обеспечения информационных систем и технологий");
         lblDep.setHorizontalAlignment(SwingConstants.CENTER);
         lblDep.setFont(mainFont);
         JPanel pnlDep = new JPanel();
@@ -127,15 +127,16 @@ public class SplashScreenWindow extends JFrame {
         JButton btnNext = new JButton("Далее");
 
         btnNext.addActionListener(e -> {
-try {
+            try {
                 MainWindow form = new MainWindow();
                 dispose();
                 form.setVisible(true);
                 // new BluePanelWindow();
-} catch (ClassNotFoundException ex) {
-    JOptionPane.showMessageDialog(null,"Ошибка выполнения программы: "+ ex.getMessage(),
-            "Error", JOptionPane.ERROR_MESSAGE);
-}
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Ошибка выполнения программы: " + ex.getMessage(),
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
 
 

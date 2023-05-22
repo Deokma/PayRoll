@@ -35,8 +35,8 @@ public class MainWindow extends JFrame {
 
         // Установка иконки приложения
         ImageIcon icon =
-                 new ImageIcon("src/main/resources/images/icon.png");
-                //new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
+                new ImageIcon("src/main/resources/images/icon.png");
+        //new ImageIcon(ClassLoader.getSystemResource("resources/images/icon.png"));
 
         setIconImage(icon.getImage());
 
@@ -76,8 +76,8 @@ public class MainWindow extends JFrame {
 
         // добавляем картинку в середину синего блока
         ImageIcon imageIcon =
-                 new ImageIcon("src/main/resources/images/icon-white.png");
-                //new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-white.png"));
+                new ImageIcon("src/main/resources/images/icon-white.png");
+        //new ImageIcon(ClassLoader.getSystemResource("resources/images/icon-white.png"));
         JLabel lblImage = new JLabel(imageIcon);
         Image image = imageIcon.getImage(); // получаем объект Image из ImageIcon
         Image scaledImage = image.getScaledInstance(170, 170, Image.SCALE_SMOOTH);
@@ -93,8 +93,8 @@ public class MainWindow extends JFrame {
         JButton btnAboutAuthor = new JButton("Об авторе");
 
         ImageIcon iconAboutAuthorButton =
-                 new ImageIcon("src/main/resources/images/about-author-icon.png");
-                //new ImageIcon(ClassLoader.getSystemResource("resources/images/about-author-icon.png"));
+                new ImageIcon("src/main/resources/images/about-author-icon.png");
+        //new ImageIcon(ClassLoader.getSystemResource("resources/images/about-author-icon.png"));
         Image aboutAuthorImage =
                 iconAboutAuthorButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         // масштабирование картинки до 50x50
@@ -105,8 +105,8 @@ public class MainWindow extends JFrame {
         JButton btnAboutProgram = new JButton("О программе");
 
         ImageIcon iconAboutProgramButton =
-                 new ImageIcon("src/main/resources/images/about-program-icon.png");
-                //new ImageIcon(ClassLoader.getSystemResource("resources/images/about-program-icon.png"));
+                new ImageIcon("src/main/resources/images/about-program-icon.png");
+        //new ImageIcon(ClassLoader.getSystemResource("resources/images/about-program-icon.png"));
         Image aboutProgramImage =
                 iconAboutProgramButton.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         // масштабирование картинки до 50x50

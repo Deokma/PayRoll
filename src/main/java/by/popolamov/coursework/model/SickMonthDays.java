@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Рабочие дни
+ * Сущность рабочие дни
  *
  * @author Denis Popolamov
  */

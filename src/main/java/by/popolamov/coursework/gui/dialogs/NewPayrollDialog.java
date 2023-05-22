@@ -272,7 +272,8 @@ public class NewPayrollDialog extends JDialog {
                                     payrollDetails.getTotalRemainingDays()));
                     isSalaryValid(txtListSickDays, sickMonthDays.getMonthDays());
 
-                    pnlBottomCenterTable.setBorder(BorderFactory.createEmptyBorder(10, 30, 60, 20));
+                    pnlBottomCenterTable.setBorder(
+                            BorderFactory.createEmptyBorder(10, 30, 60, 20));
                     for (int i = 0; i < sickMonthDays.getRemainingCalendarDays().size(); i++) {
                         lblListRemainingCalendarDays.get(i).setText(
                                 String.valueOf(sickMonthDays.getRemainingCalendarDays().get(i)));
@@ -313,12 +314,31 @@ public class NewPayrollDialog extends JDialog {
                     pnlBottom.add(lblTotalMoney);
                     btnSave.setVisible(true);
 
+                    // Проверка наличия минусового значения
+                    for (int i = 0; i < txtListSickDays.size(); i++) {
+                        JTextField sickDaysTextField = txtListSickDays.get(i);
+                        JTextField sumOfActualSalaryTextField = txtListSumOfActualSalary.get(i);
+
+                        String sickDaysText = sickDaysTextField.getText();
+                        String sumOfActualSalaryText = sumOfActualSalaryTextField.getText();
+
+                        if (sickDaysText.contains("-") || sumOfActualSalaryText.contains("-")) {
+                            throw new IllegalArgumentException();
+                        }
+                    }
+
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(parent,
-                            "Введённые вами данные, не являются числом.");
+                            "Введённые вами данные не являются числом.");
                 } catch (InvalidInputException ex) {
                     JOptionPane.showMessageDialog(parent,
-                            "Введённое вами число дней, превышает количество дней в месяце.");
+                            "Введённое вами число дней превышает количество дней в месяце.");
+                } catch (IllegalArgumentException ex) {
+                    JOptionPane.showMessageDialog(parent,
+                            "Вы ввели отрицательное значение.");
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(parent,
+                            "Произошла ошибка при выполнении расчётов.");
                 }
             });
 

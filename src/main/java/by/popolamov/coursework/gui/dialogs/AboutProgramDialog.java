@@ -39,8 +39,7 @@ public class AboutProgramDialog extends JDialog {
         pnlRight.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
         // Создание текстового поля и добавление на панель
         JTextArea txaInfo = new JTextArea(
-                "Программа позволяет:" +
-                        "\n" +
+                "Программа позволяет:\n" +
                         "1. Создание расчёта заработной платы за период нетрудоспособности.\n" +
                         "2. Сохранение расчёта заработной платы за период нетрудоспособности в базу данных.\n" +
                         "3. Просмотреть детали расчёта.\n" +
@@ -57,7 +56,7 @@ public class AboutProgramDialog extends JDialog {
 
         JPanel pnlBottom = new JPanel(new BorderLayout());
         // Создаем лейбл с версией программы и добавляем его в панель
-        JLabel lblVersion = new JLabel("Версия программы 1.1.4");
+        JLabel lblVersion = new JLabel("Версия программы 1.2.2");
         lblVersion.setHorizontalAlignment(SwingConstants.CENTER);
         lblVersion.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         pnlBottom.add(lblVersion, BorderLayout.WEST);

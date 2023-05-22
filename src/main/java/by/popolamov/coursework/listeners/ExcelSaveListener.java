@@ -30,7 +30,7 @@ public class ExcelSaveListener implements ActionListener {
 
     public ExcelSaveListener(PayrollDetailsDialog dialog, AverageSalary averageSalary,
                              PayrollDetails payrollDetails, PayrollMonths payrollMonths,
-                             Salary salary, SickMonthDays sickMonthDays) throws NoClassDefFoundError{
+                             Salary salary, SickMonthDays sickMonthDays) throws NoClassDefFoundError {
         this.dialog = dialog;
         this.averageSalary = averageSalary;
         this.payrollDetails = payrollDetails;

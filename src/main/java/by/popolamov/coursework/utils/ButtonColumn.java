@@ -24,7 +24,7 @@ public class ButtonColumn extends AbstractCellEditor implements TableCellRendere
 
     ImageIcon buttonIcon =
             new ImageIcon("src/main/resources/images/details-icon.png"); // Получение изображения для кнопки
-            //new ImageIcon(ClassLoader.getSystemResource("resources/images/details-icon.png"));
+    //new ImageIcon(ClassLoader.getSystemResource("resources/images/details-icon.png"));
     // Получение изображения для кнопки
     Image image =
             buttonIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);

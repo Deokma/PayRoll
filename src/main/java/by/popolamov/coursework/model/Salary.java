@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Заработная плата
+ * Сущность заработная плата
  *
  * @author Denis Popolamov
  */

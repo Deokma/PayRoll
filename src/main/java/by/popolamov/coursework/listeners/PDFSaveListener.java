@@ -2,7 +2,6 @@ package by.popolamov.coursework.listeners;
 
 import by.popolamov.coursework.gui.dialogs.PayrollDetailsDialog;
 import by.popolamov.coursework.model.*;
-
 import com.itextpdf.kernel.font.PdfFont;
 import com.itextpdf.kernel.font.PdfFontFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -35,7 +34,7 @@ public class PDFSaveListener implements ActionListener {
 
     public PDFSaveListener(PayrollDetailsDialog dialog, AverageSalary averageSalary,
                            PayrollDetails payrollDetails, PayrollMonths payrollMonths,
-                           Salary salary, SickMonthDays sickMonthDays) throws NoClassDefFoundError{
+                           Salary salary, SickMonthDays sickMonthDays) throws NoClassDefFoundError {
         this.dialog = dialog;
         this.averageSalary = averageSalary;
         this.payrollDetails = payrollDetails;
@@ -59,9 +58,9 @@ public class PDFSaveListener implements ActionListener {
                 Document document = new Document(pdfDoc);
                 PdfFont timesNewRomanFontPdf =
                         PdfFontFactory
-                                 .createFont("src/main/resources/fonts/TimesNewRoman.ttf");
-                                //.createFont(String.valueOf(ClassLoader
-                                  //      .getSystemResource("resources/fonts/TimesNewRoman.ttf")));
+                                .createFont("src/main/resources/fonts/TimesNewRoman.ttf");
+                //.createFont(String.valueOf(ClassLoader
+                //      .getSystemResource("resources/fonts/TimesNewRoman.ttf")));
                 // Создаем заголовок документа
                 Paragraph para = new Paragraph("ЛИСТОК НЕТРУДОСПОСОБНОСТИ")
                         .setFont(timesNewRomanFontPdf)

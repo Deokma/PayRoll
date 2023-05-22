@@ -3,7 +3,7 @@ package by.popolamov.coursework.model;
 import java.util.List;
 
 /**
- * Средняя заработная плата
+ * Сущность средняя заработная плата
  *
  * @author Denis Popolamov
  */

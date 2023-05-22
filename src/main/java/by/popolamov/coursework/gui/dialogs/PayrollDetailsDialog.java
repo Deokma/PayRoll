@@ -57,16 +57,26 @@ public class PayrollDetailsDialog extends JDialog {
             JPanel centerPanel = new JPanel(new GridLayout(10, 2, 5, 5));
             Font mainFont = new Font("Helvetica", Font.PLAIN, 14);
             centerPanel.setFont(mainFont);
-            centerPanel.add(new JLabel("Фамилия: " + payrollDetails.getUserSurName()));
-            centerPanel.add(new JLabel("Имя: " + payrollDetails.getUserName()));
-            centerPanel.add(new JLabel("Отчество: " + payrollDetails.getUserPatronymic()));
-            centerPanel.add(new JLabel("Нач. дата болезни: " + payrollDetails.getStartIllnessDate()));
-            centerPanel.add(new JLabel("Кон. дата болезни: " + payrollDetails.getEndIllnessDate()));
-            centerPanel.add(new JLabel("Кол. дней нетруд. за прошлые 6 мес.: " + payrollDetails.getTotalSickDates()));
-            centerPanel.add(new JLabel("Общая зарплата за 6 месяцев: " + payrollDetails.getTotalSalary()));
-            centerPanel.add(new JLabel("Всего рабочих дней за 6 месяцев: " + payrollDetails.getTotalRemainingDays()));
-            centerPanel.add(new JLabel("Общая средняя заработная плата: " + payrollDetails.getTotalAverageSalary()));
-            centerPanel.add(new JLabel("Общая сумма выплаты: " + payrollDetails.getTotalPayrollSum()));
+            centerPanel.add(new JLabel("Фамилия: "
+                    + payrollDetails.getUserSurName()));
+            centerPanel.add(new JLabel("Имя: "
+                    + payrollDetails.getUserName()));
+            centerPanel.add(new JLabel("Отчество: "
+                    + payrollDetails.getUserPatronymic()));
+            centerPanel.add(new JLabel("Нач. дата болезни: "
+                    + payrollDetails.getStartIllnessDate()));
+            centerPanel.add(new JLabel("Кон. дата болезни: "
+                    + payrollDetails.getEndIllnessDate()));
+            centerPanel.add(new JLabel("Кол. дней нетруд. за прошлые 6 мес.: "
+                    + payrollDetails.getTotalSickDates()));
+            centerPanel.add(new JLabel("Общая зарплата за 6 месяцев: "
+                    + payrollDetails.getTotalSalary()));
+            centerPanel.add(new JLabel("Всего рабочих дней за 6 месяцев: "
+                    + payrollDetails.getTotalRemainingDays()));
+            centerPanel.add(new JLabel("Общая средняя заработная плата: "
+                    + payrollDetails.getTotalAverageSalary()));
+            centerPanel.add(new JLabel("Общая сумма выплаты: "
+                    + payrollDetails.getTotalPayrollSum()));
             pnlMain.add(centerPanel, BorderLayout.CENTER);
 
             // Размещаем панель на форме

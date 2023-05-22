@@ -3,7 +3,7 @@ package by.popolamov.coursework.model;
 import java.util.List;
 
 /**
- * Месяцы выплаты
+ * Сущность месяцы выплаты
  *
  * @author Denis Popolamov
  */
